@@ -1,0 +1,10 @@
+ #ifndef AGENT_H
+#define AGENT_H
+
+namespace Agent{
+class Agent{
+private:
+Node* endofRunLocation;
+};
+}
+#endif
