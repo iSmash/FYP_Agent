@@ -1,44 +1,48 @@
+#include <iostream>
 #include "Agent.h"
-using namespace Agent;
+using namespace Agentspace;
+using namespace Relayspace;
 
 void Agent::tryPath()
 {
-	std::cout<<"no try path yet"<<endl;
+    KnownWorld.clearGridViewed();
+	std::cout<<"no try path yet"<<std::endl;
 }
-			
 
 
-Relay Agent::getRelay(int _ID)
+
+Relay* Agent::getRelay(int _ID)
 {
 	for(int i=0; i< heldRelays.size(); i++)
 	{
-		if(heldRelays[i].getID()== _ID)
+		if(heldRelays[i]->getID()== _ID)
 			return heldRelays[i];
 	}
 }
 
-void Agent::PlaceRelay(int _ID, Coordinate whereToPlace)
+void Agent::PlaceRelay(int ID, Coordinate whereToPlace)
 {
-	Relay tobePlaced = null;
+	Relay* tobePlaced = NULL;
 	for(int i=0; i< heldRelays.size(); i++)
 	{
-		if(heldRelays[i].getID()== _ID)
+		if(heldRelays[i]->getID()== ID)
 		{
 			tobePlaced=heldRelays[i];
-			heldRelays.erase(i);
+			heldRelays.erase(heldRelays.begin()+i);
 			break;
 		}
 	}
-	if (tobePlaced==null)
-		throw(RelayError("Cannont place, Id not found");
-	
-	tobePlaced.updatePos(whereToPlace);
-	KnownWorld.placeRelay(tobePlaced)
+	if (tobePlaced==NULL)
+		throw(RelayError());
+
+	tobePlaced->updatePos(whereToPlace);
+	KnownWorld.placeRelay(tobePlaced);
 }
 
-void Agent::PickupRelay(int _ID)
+void Agent::PickupRelay(int ID)
 {
-	heldRelays.push_back(KnownWorld.getRelay(_ID));
-	KnownWorld.removeRelay(_ID);
+	heldRelays.push_back(KnownWorld.getRelay(ID));
+	KnownWorld.removeRelay(ID);
 }
+
 

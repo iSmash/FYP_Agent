@@ -1,8 +1,5 @@
 #include "Relay.h"
 
-using namespace Relay;
+using namespace Relayspace;
 
-RelayRelay::(){
-	ID=ID_Count;
-	ID_Count++; 
-}
+int Relay::ID_Count=0;

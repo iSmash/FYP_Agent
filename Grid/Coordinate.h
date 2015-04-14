@@ -10,6 +10,7 @@
 #define COORDINATE_H
 
 #include <string>
+ #include <stdexcept>
 namespace environment
 {
     class Coordinate
@@ -26,7 +27,7 @@ namespace environment
         inline const unsigned getColumn() const {return column;}
 
         //Set funtions
-        inline void setRow(const unsigned coordrow) 
+        inline void setRow(const unsigned coordrow)
 {
 if(coordrow<0)
  throw(std::out_of_range("below 0") );

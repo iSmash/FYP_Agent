@@ -45,13 +45,18 @@
 			<Add library="ole32" />
 			<Add directory="$(CODEBLOCKS)\sdk\winbgim\lib" />
 		</Linker>
+		<Unit filename="Agent\Agent.cpp" />
 		<Unit filename="Agent\Agent.h" />
+		<Unit filename="Agent\ImplementAgent.cpp" />
 		<Unit filename="Agent\ImplementAgent.h" />
+		<Unit filename="Agent\PathPlan.cpp" />
 		<Unit filename="Agent\PathPlan.h" />
+		<Unit filename="Agent\SimulationAgent.cpp" />
 		<Unit filename="Agent\SimulationAgent.h" />
 		<Unit filename="FileRead.cpp" />
 		<Unit filename="FileRead.h" />
 		<Unit filename="GUI\Colour.h" />
+		<Unit filename="GUI\GridGUI.cpp" />
 		<Unit filename="GUI\GridGUI.h" />
 		<Unit filename="GUI\Painter.h" />
 		<Unit filename="GUI\Pixel.cpp" />
@@ -66,6 +71,7 @@
 		<Unit filename="Grid\Grid.cpp" />
 		<Unit filename="Grid\Grid.h" />
 		<Unit filename="Main.cpp" />
+		<Unit filename="Relay\ImplementRelay.h" />
 		<Unit filename="Relay\Relay.cpp" />
 		<Unit filename="Relay\Relay.h" />
 		<Unit filename="Relay\SimulationRelay.cpp" />

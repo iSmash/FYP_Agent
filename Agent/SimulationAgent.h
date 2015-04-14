@@ -1,13 +1,18 @@
  #ifndef SIMULATIONREADIN_H
 #define SIMULATIONREADIN_H
+#include "Agent.h"
 
-namespace Agent{
+namespace Agentspace{
 
-	class SimulationAgent: protected Agent
-	{	
-		
+	class SimulationAgent: public Agent
+	{
+
 		public:
+		    bool done();
 			void setRelayCount(int numberofRelays);
+			void addRange(int range);
+		private:
+            void move(Direction toMove);
 	};
 }
 

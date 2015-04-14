@@ -6,30 +6,32 @@
  *   @date 23/3/13                                                   *
  *                                                                **/
 
-#include "readin.h"
+#include "FileRead.h"
 #include <iostream>
 #include <fstream>
 #include <time.h>
+#include <stdlib.h>
+#include "Relay/ImplementRelay.h"
+#include "Relay/SimulationRelay.h"
 
 #define MAX_FAILS 5000
 using namespace std;
-using namespace Search;
-namespace input
-{
-    Coordinate readfile(Grid& grid, string filename)
+
+
+    Coordinate readfile(Grid& grid, char *filename)
     {
-        unsigned M, N, x, y, w, h;
+        unsigned x, y, w, h;
 Coordinate goal;
-        filename= filename+".txt";
-		ifstream problemFile((char*)filename.c_str());
+        ifstream problemFile(filename);
+
 		//find M and N for grid size
 		if(problemFile.good())
 		{
 		problemFile.ignore();
-		problemFile>> N;
+		problemFile>> x;
 		problemFile.ignore();
-		problemFile>>M;
-		grid.resize(N,M);
+		problemFile>>y;
+		grid.updateSize(Coordinate(y,x));
 		}
 		//find robot starting pos
 		if(problemFile.good())
@@ -39,13 +41,17 @@ Coordinate goal;
 			problemFile.ignore();
 			problemFile>>y;
 			Coordinate robotCoord = Coordinate(y,x);
-			grid[robotCoord].setCont(Cell::Robot);
+			grid[robotCoord].addContent(ContentType::Robot);
 
-			grid[robotCoord].setNoded(true);
-			
-			Relay Basestation;
-			basestation.updatePos(	Coordinate(y,x));		
-			grid.placeRelay(Relay Basestation);
+			grid[robotCoord].setViewed(true);
+
+            #ifdef Simulation
+                Relay* basesStation = new SimulationRelay();
+			#else
+                Relay* basesStation = new ImplementRelay();
+			#endif
+			basesStation->updatePos(Coordinate(y,x));
+			grid.placeRelay(basesStation);
 
 		}
 		//find goal pos
@@ -55,7 +61,7 @@ Coordinate goal;
 			problemFile>> x;
 			problemFile.ignore();
 			problemFile>>y;
-			grid[Coordinate(y,x)].setCont(Cell::Goal);
+			grid[Coordinate(y,x)].addContent(ContentType::Goal);
 			goal= Coordinate(y,x);
 		}
 
@@ -84,7 +90,7 @@ Coordinate goal;
 	}
 
 
-   void readfile(Grid& grid, Agent& agent, string filename)
+   void readfile(Grid& grid, SimulationAgent* agent, char * filename)
     {
 	/*
 		looks like>
@@ -93,30 +99,35 @@ Coordinate goal;
  	*/
         unsigned robotRelayNumber, oldtemp, temp=0;
 
-        filename= filename+".txt";
-		ifstream problemFile((char*)filename.c_str());
+
+		ifstream problemFile(filename);
 		//find relaynumber
 		if(problemFile.good())
 		{
 		problemFile>> robotRelayNumber;
-		agent.setRelayCount(robotRelayNumber);
+		agent->setRelayCount(robotRelayNumber);
 		}
-		
-	
+
+
         	problemFile.ignore(2);
-		
-		//relay ranges, simulation only. 
+
+		//relay ranges, simulation only.
+		 #ifdef Simulation
 		while(problemFile.good())
-		{	
+		{
 			oldtemp=temp;
 			problemFile>>temp;
 			if(temp>oldtemp)
 			{
-				agent.addRange(temp);
-				grid.addRange(temp);
-			}	
+				agent->addRange(temp);
+				 for(int i=0; i<grid.getRelays().size(); i++
+                {
+                    grid.getRelays()[i]->addRange(temp);
+                }
+			}
 			problemFile.ignore(1);
 		}
+		#endif
         if(problemFile.bad())
             cout<<"error reading file";
 
@@ -125,7 +136,7 @@ Coordinate goal;
 	}
 
 
-	//generate grid to explore
+	//generate grid to explore //old code
 void makefile()
 {
 	unsigned M, N, x1, y1, x2, y2, x3, y3, w=0, h=0, walls;
@@ -213,6 +224,6 @@ void makefile()
 }
 
 
-}
+
 
 

@@ -1,27 +1,30 @@
  #ifndef IMPLAMENTAGENT_H
 #define IMPLAMENTAGENT_H
+#include "Agent.h"
 
-namespace Agent{
+namespace Agentspace{
 
-class ImplementAgent: protected Agent
+class ImplementAgent: public Agent
 {
 	public:
-		inline bool done(){
-				//while(something)
-				//{wait for something to do}
-				return false;			
-		}
+		inline bool done();
 
 		void setRelayCount(int numberofRelays);
 
+		bool inRange(Coordinate test);
+
 	private:
-		inline void PlaceRelay(int _ID){ //physical shit;
-						 super.PlaceRelay(_ID);
+		inline void PlaceRelay(int _ID, Coordinate whereToPlace){
+                        //physical shit;
+						 Agent::PlaceRelay(_ID, whereToPlace);
 						}
-		inline void PickupRelay(Relay toAdd){//physical shit;
-						 super.PickupRelay(_ID);
+		inline void PickupRelay(int ID){
+                        //physical shit;
+						 Agent::PickupRelay(ID);
 							}
-			//for now these two are inline, as there is nothing they really do different
+
+        void move(Direction toMove);
+
 };
 }
 #endif

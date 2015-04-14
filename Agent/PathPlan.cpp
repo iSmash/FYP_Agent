@@ -1,11 +1,12 @@
 //A* search method
 #include "PathPlan.h"
+#include <iostream>
 
-using namespace Agent;
+using namespace Agentspace;
 
-Node* PathPlan::findPath(Coordinate goal)
+Coordinate PathPlan::findPath(Coordinate goal)
 {
-    cout<<"RUNNING"<<endl;
+    std::cout<<"RUNNING"<<std::endl;
     Node* temp =NULL;
 }
 

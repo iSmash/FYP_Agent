@@ -1,36 +1,34 @@
 #include <math.h>
 #include "SimulationRelay.h"
+using namespace Relayspace;
 
-std::vector<Coordinate> Relay::domain()
+std::vector<Coordinate> SimulationRelay::domain()
  {
            std::vector<Coordinate> domaintemp;
-          	
 
-           int halfRange=ceil((double)range/2.0);
-      
 
-           for(int i = 0; i<= halfRange; i++)
+           for(int i = 0; i<= Ranges[activeRange]; i++)
            {
-                for(int j=0; j<=halfRange-i; j++)
+                for(int j=0; j<=Ranges[activeRange]-i; j++)
                 {
                     try{
 
-                        Coordinate temp= Coordinate(   position.getRow()-i, position.getColumn()-j  ) ;
+                        Coordinate temp= Coordinate(   gridLocation.getRow()-i, gridLocation.getColumn()-j  ) ;
                         domaintemp.push_back(  temp  );
                         }
                     catch(std::out_of_range e){}
                     try{
-                         Coordinate t= Coordinate(   position.getRow()-i, position.getColumn()+j  ) ;
+                         Coordinate temp= Coordinate(   gridLocation.getRow()-i, gridLocation.getColumn()+j  ) ;
                         domaintemp.push_back(  temp  );
                         }
                     catch(std::out_of_range e){}
                     try{
-                     Coordinate t= Coordinate(   position.getRow()+i, position.getColumn()-j  ) ;
+                     Coordinate temp= Coordinate(   gridLocation.getRow()+i, gridLocation.getColumn()-j  ) ;
                         domaintemp.push_back( temp  );
                         }
                     catch(std::out_of_range e){}
                      try{
-                      Coordinate t= Coordinate(   position.getRow()+i, position.getColumn()+j  ) ;
+                      Coordinate temp= Coordinate(   gridLocation.getRow()+i, gridLocation.getColumn()+j  ) ;
                         domaintemp.push_back(  temp  );
                         }
                     catch(std::out_of_range e){}
@@ -40,3 +38,10 @@ std::vector<Coordinate> Relay::domain()
           return domaintemp;
 
         }
+
+bool SimulationRelay::inRange(Coordinate test)
+{
+    std::cout<<"no in Range"<<std::endl;
+      return false;
+
+}
