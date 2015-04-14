@@ -16,9 +16,10 @@ using namespace std;
 using namespace Search;
 namespace input
 {
-    void readfile(Grid& grid, string filename)
+    Coordinate readfile(Grid& grid, string filename)
     {
         unsigned M, N, x, y, w, h;
+Coordinate goal;
         filename= filename+".txt";
 		ifstream problemFile((char*)filename.c_str());
 		//find M and N for grid size
@@ -41,6 +42,10 @@ namespace input
 			grid[robotCoord].setCont(Cell::Robot);
 
 			grid[robotCoord].setNoded(true);
+			
+			Relay Basestation;
+			basestation.updatePos(	Coordinate(y,x));		
+			grid.placeRelay(Relay Basestation);
 
 		}
 		//find goal pos
@@ -51,6 +56,7 @@ namespace input
 			problemFile.ignore();
 			problemFile>>y;
 			grid[Coordinate(y,x)].setCont(Cell::Goal);
+			goal= Coordinate(y,x);
 		}
 
         problemFile.ignore(3);
@@ -73,6 +79,7 @@ namespace input
             cout<<"error reading file";
 
 		problemFile.close();
+		return goal;
 
 	}
 
@@ -105,7 +112,8 @@ namespace input
 			problemFile>>temp;
 			if(temp>oldtemp)
 			{
-				addRange(temp);
+				agent.addRange(temp);
+				grid.addRange(temp);
 			}	
 			problemFile.ignore(1);
 		}

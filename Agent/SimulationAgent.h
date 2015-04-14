@@ -3,8 +3,11 @@
 
 namespace Agent{
 
-	class ImplementAgent: protected Agent
+	class SimulationAgent: protected Agent
 	{	
+		
+		public:
+			void setRelayCount(int numberofRelays);
 	};
 }
 

@@ -10,8 +10,12 @@ class Grid
 		public:
 			void  adRealy(Relay toadd);
             		inline vector<Relay> getRelays(){return relays;} //remember this is just a copy, editing will not stick
-			vector<Relay> getRelay(int _ID);
+			Relay getRelay(int _ID);
+			vector<Relay> getRelays();//namechange for error provension? na
+
 			void removeRelay(int _ID);
+			void placeRelay(Relay toPlace);
+
 		private:
 		    vector<vector<Cell>> cells; // vector of vectors, is a matrix of any other name not just as Keano?
 		  vector<Relay> deployedRelays;

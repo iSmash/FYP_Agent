@@ -10,21 +10,25 @@ int main()
 	//make agent
 	#ifdef Simulation
 		Agent AgentSmith= simulationAgent();
+		static Grid trueworld;
+		//read file 
+		Coordinate goalLocation= readfile(AgentSmith, GRIDFILE);
+
 	#else	
 		Agent AgentSmith= ImpementAgent();
-	#endif
-
-	//read files
-
+	#endif	
+	
+		readfile(
+	
 	//make GUI
 	#ifdef Simulation
 		GridGUI True = GridGUI(AgentSmith.getTrue());
 	#endif
 ;
 	//Agent run
-	while(AgentSmith.done()) //loop until robot job is done. this should never happen for implementation robot
+	while(AgentSmith.done()) //loop until robot job is done. 
 	{
-		AgentSmith.findPath();
+		AgentSmith.findPath(goalLocation);
 		AgentSmith.tryPath();
 		
 	}

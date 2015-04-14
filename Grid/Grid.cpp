@@ -23,3 +23,8 @@ void Grid::removeRelay(int _ID);
 			relays.erase(i);
 	}
 }
+
+void Grid::placeRelay(Relay toPlace)
+{
+	deployedRelays.push_back(toPlace);
+}

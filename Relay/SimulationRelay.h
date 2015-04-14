@@ -9,7 +9,7 @@ namespace Relay
 	{
 		public:
 			inline void addRange(int add){Ranges.push_back(add);}
-std::vector<Coordinate> domain();
+			std::vector<Coordinate> domain();
 		private:
 			std::vector<int> Ranges;
 	}

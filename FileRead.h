@@ -16,7 +16,7 @@ namespace input
         read the text file, adding the test case data, grid size, wall locations, starting point, goal
         @param grid, the grid to be resized and added to.
         */
-       void readfile(Grid& grid, string filename); //read file for grid creation, simultion only
+       Coordinate readfile(Grid& grid, string filename); //read file for grid creation, simultion only
        void readfile(Grid& grid, Agent& agent, string filename); //read file for number of relays and relay sizes.
 
 
