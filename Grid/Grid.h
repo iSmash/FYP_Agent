@@ -16,6 +16,12 @@ class Grid
 			void removeRelay(int _ID);
 			void placeRelay(Relay toPlace);
 
+			inline Coordinate getLast(){return LastCell;}
+			void updateSize();
+
+			///Allows gird cell to be called like an array.
+			Cell& operator [] (const Coordinate coord);
+
 		private:
 		    vector<vector<Cell>> cells; // vector of vectors, is a matrix of any other name not just as Keano?
 		  vector<Relay> deployedRelays;

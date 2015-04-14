@@ -51,26 +51,6 @@ class WinBGImPainter : public Painter
         void drawSquare(const Pixel& centre, unsigned size);
 
 
-
-        void drawAngUp(const Pixel& centre, unsigned size);
-        void drawAngDown(const Pixel& centre, unsigned size);
-        void drawAngLeft(const Pixel& centre, unsigned size);
-        void drawAngRight(const Pixel& centre, unsigned size);
-
-        /** \brief Add text to painter window
-         *
-         * \param centre, center of text
-         * \param text, text to be added
-         */
-         void writeText(const Pixel& centre, const std::string& text )
-        {
-        int size=15;
-        setPenColour(Colour(254,254,254));
-       setbkcolor(LIGHTGRAY);
-        settextstyle(0,HORIZ_DIR,2);
-        outtextxy(centre.getX()-5, centre.getY()-9, text.c_str());
-        }
-
     protected:
         unsigned Hight;
         unsigned Width;

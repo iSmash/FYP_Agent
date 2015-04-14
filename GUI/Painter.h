@@ -46,11 +46,6 @@ public:
 
   virtual void drawCircle (const Pixel& centre, unsigned radius) = 0;
   virtual void drawSquare (const Pixel& centre, unsigned size) = 0;
-  virtual void drawAngUp(const Pixel& center, unsigned size)=0;
- virtual void drawAngDown(const Pixel& center, unsigned size)=0;
- virtual void drawAngLeft(const Pixel& center, unsigned size)=0;
- virtual void drawAngRight(const Pixel& center, unsigned size)=0;
- virtual void writeText(const Pixel& centre, const std::string& text)=0;
 
 };
 
