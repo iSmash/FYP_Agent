@@ -12,21 +12,23 @@
 
 using namespace Agentspace;
 using namespace environment;
-
+using namespace std;
 int main()
 {
 	//make agent
 	#ifdef Simulation
+        cout<<"Simulation"<<endl;
 		Agent* AgentSmith= new SimulationAgent();
 		static Grid trueworld;
 
 		//read file about trueworld and relay
 		Coordinate goalLocation= readfile(trueworld, GRIDFILE);
 		readfile(trueworld, (SimulationAgent*)AgentSmith, RELAYFILE);
+        cout<<trueworld.getLast().getColumn()<<endl;
 
 		//make GUI
-		GridGUI True = GridGUI(&trueworld, "True grid",20);
-
+		GridGUI TrueGUI = GridGUI(&trueworld, "True grid",5);
+        TrueGUI.paint();
 	#else
 		Agent* AgentSmith= new ImpementAgent();
 

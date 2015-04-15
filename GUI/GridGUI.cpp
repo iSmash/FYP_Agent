@@ -30,7 +30,7 @@ void GridGUI::updateSize(Grid* paintgrid)
 {
 	grid= paintgrid;
 	windowHeight=pixels_per_cell*(grid->getLast().getRow()+1);
-        windowWidth=pixels_per_cell*(grid->getLast().getColumn()+1);
+    windowWidth=pixels_per_cell*(grid->getLast().getColumn()+1);
 }
 
 void GridGUI::paint()

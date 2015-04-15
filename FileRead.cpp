@@ -18,20 +18,20 @@
 using namespace std;
 
 
-    Coordinate readfile(Grid& grid, char *filename)
+    Coordinate readfile(Grid& grid, char *filename) //simulation only
     {
         unsigned x, y, w, h;
-Coordinate goal;
+        Coordinate goal;
         ifstream problemFile(filename);
 
 		//find M and N for grid size
 		if(problemFile.good())
 		{
-		problemFile.ignore();
-		problemFile>> x;
-		problemFile.ignore();
-		problemFile>>y;
-		grid.updateSize(Coordinate(y,x));
+            problemFile.ignore();
+            problemFile>> x;
+            problemFile.ignore();
+            problemFile>>y;
+            grid.updateSize(Coordinate(y,x));
 		}
 		//find robot starting pos
 		if(problemFile.good())
@@ -44,15 +44,9 @@ Coordinate goal;
 			grid[robotCoord].addContent(ContentType::Robot);
 
 			grid[robotCoord].setViewed(true);
-
-            #ifdef Simulation
-                Relay* basesStation = new SimulationRelay();
-			#else
-                Relay* basesStation = new ImplementRelay();
-			#endif
-			basesStation->updatePos(Coordinate(y,x));
-			grid.placeRelay(basesStation);
-
+            Relay* basesStation = new SimulationRelay();
+            basesStation->updatePos(Coordinate(y,x));
+            grid.placeRelay(basesStation);
 		}
 		//find goal pos
 		if(problemFile.good())

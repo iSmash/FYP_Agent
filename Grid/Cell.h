@@ -11,7 +11,7 @@ namespace environment
 {
    public:
 
-	Cell();
+	Cell(){viewed=false;}
 
 	//gets
 	inline const std::vector<Content> getContent() const {return content;}

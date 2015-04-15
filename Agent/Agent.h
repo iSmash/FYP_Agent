@@ -15,7 +15,7 @@ namespace Agentspace{
 			virtual bool done()=0;
 
 
-
+            Agent(){endofRunLocation=Coordinate(0,0);}
 			inline void findPath(Coordinate goal)
 			{
                 KnownWorld[endofRunLocation].setViewed(true);

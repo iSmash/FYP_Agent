@@ -37,10 +37,10 @@ void Grid::clearGridViewed()
 {
     for( int i =0; i< cells.size(); i++)
     {
-        vector<Cell> temp = cells[i];
-        for(int j=0; j< temp.size(); j++)
+        vector<Cell> *temp = &cells[i];
+        for(int j=0; j< temp->size(); j++)
         {
-            temp[j].setViewed(false);
+            (*temp)[j].setViewed(false);
 
         }
     }
@@ -53,15 +53,36 @@ void Grid::placeWall(int x, int y, int width, int high)
     {
         for(unsigned j=x; j< (x+width); j++)
         {
-            vector<Cell> col= cells[i];
-            col[j].addContent(ContentType::Wall);
+            vector<Cell> *col= &cells[i];
+            (*col)[j].addContent(ContentType::Wall);
         }
     }
 
 
 }
-void Grid::updateSize(Coordinate newSize){std::cout<<"no updte";}
-void Grid::updateSize(updateSizeDirection toAdd){std::cout<<"no updte";}
+void Grid::updateSize(Coordinate newSize)
+{
+
+    for(int i=cells.size(); i<newSize.getRow(); i++ )
+    {
+        cells.push_back(vector<Cell>());
+    }
+
+     for(int i=0; i<cells.size(); i++ )
+    {
+        vector<Cell> *temp= &cells[i];
+        for(int j=temp->size(); j< newSize.getColumn();j++)
+        {
+            temp->push_back(Cell());
+        }
+    }
+
+}
+
+void Grid::updateSize(updateSizeDirection toAdd)
+{
+    cout<<"no updte"<<endl;
+}
 
 
 
