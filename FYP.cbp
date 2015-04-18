@@ -49,6 +49,8 @@
 		<Unit filename="Agent\Agent.h" />
 		<Unit filename="Agent\ImplementAgent.cpp" />
 		<Unit filename="Agent\ImplementAgent.h" />
+		<Unit filename="Agent\Node.cpp" />
+		<Unit filename="Agent\Node.h" />
 		<Unit filename="Agent\PathPlan.cpp" />
 		<Unit filename="Agent\PathPlan.h" />
 		<Unit filename="Agent\SimulationAgent.cpp" />

@@ -15,6 +15,6 @@ void ImplementAgent::setRelayCount(int numberofRelays)
 	}
 }
 
-void ImplementAgent::move(Direction toMove){std::cout<<"no move";}
+bool ImplementAgent::move(Node::Direction toMove){std::cout<<"no move";}
 bool ImplementAgent::done(){std::cout<<"no done"; return false;}
 void ImplementAgent::lookAround(){std::cout<<"no look around";}

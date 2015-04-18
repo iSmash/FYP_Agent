@@ -20,10 +20,11 @@
 using namespace std;
 
 
-    Coordinate readfileGrid(SimulationAgent* agent, char *filename) //simulation only
+    RelativeCoordinate readfileGrid(SimulationAgent* agent, char *filename) //simulation only
     {
         unsigned x, y, w, h;
-        Coordinate goal;
+        Coordinate goal, current;
+        RelativeCoordinate relation;
 
         ifstream problemFile(filename);
 
@@ -44,6 +45,7 @@ using namespace std;
 
             }
 
+
 		}
 		//find robot starting pos
 		if(problemFile.good())
@@ -59,6 +61,7 @@ using namespace std;
             Relay* basesStation = new SimulationRelay();
             basesStation->updatePos(Coordinate(y,x));
             agent->trueworld.placeRelay(basesStation);
+            current= Coordinate(y,x);
 		}
 		//find goal pos
 		if(problemFile.good())
@@ -68,8 +71,12 @@ using namespace std;
 			problemFile.ignore();
 			problemFile>>y;
 			agent->trueworld[Coordinate(y,x)].addContent(ContentType::Goal);
+
 			goal= Coordinate(y,x);
+			relation= RelativeCoordinate(goal.getRow()-current.getRow(), goal.getColumn()-current.getColumn());
+
 		}
+
 
         problemFile.ignore(3);
 		//find walls
@@ -91,7 +98,7 @@ using namespace std;
             cout<<"error reading file";
 
 		problemFile.close();
-		return goal;
+		return relation;
 
 	}
 

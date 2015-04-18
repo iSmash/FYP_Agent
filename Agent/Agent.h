@@ -20,13 +20,11 @@ namespace Agentspace{
    KnownWorld.updateSize(Coordinate(1,1));
 }
 
-			inline void findPath(Coordinate goal)
+			inline void findPath()
 			{
-			    //agent has been told that there is more world in goal direction. thus make that much world
-
-
-                KnownWorld[CurrentLocation].setViewed(true);
-                actionList = planner.findPath(CurrentLocation, goal,KnownWorld);
+			    std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
+			  KnownWorld[CurrentLocation].setViewed(true);
+                actionList = planner.findPath(CurrentLocation, Goal,KnownWorld);
 			}
 			void tryPath();
 
@@ -36,15 +34,17 @@ namespace Agentspace{
 
             inline Grid* getKnownGrid(){return &KnownWorld;}
 
+            void setGoal(RelativeCoordinate relativeToGoal);/**using magic we find where the goal is */
+
 		protected:
-			enum Direction {North, East, South, West};
-			virtual void move(Direction toMove)=0;
+			virtual bool move(Node::Direction toMove)=0;
 			void lookAround();
 
 			void PlaceRelay(int ID, Coordinate whereToPlace);
 			void PickupRelay(int ID);
 
 			Coordinate CurrentLocation;
+			Coordinate Goal;
 			vector<Node::Direction> actionList;
 			PathPlan planner;
 			Grid KnownWorld;

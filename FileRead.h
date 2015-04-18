@@ -11,6 +11,7 @@
 #include "Grid/Grid.h"
 #include "Agent/SimulationAgent.h"
 
+
 using namespace environment;
 using namespace Agentspace;
 
@@ -18,7 +19,7 @@ using namespace Agentspace;
         read the text file, adding the test case data, grid size, wall locations, starting point, goal
         @param grid, the grid to be resized and added to.
         */
-       Coordinate readfileGrid(SimulationAgent* agent, char *filename); //read file for grid creation, simultion only
+       RelativeCoordinate readfileGrid(SimulationAgent* agent, char *filename); //read file for grid creation, simultion only
        void readfileRelay(SimulationAgent* agent, char * filename); //read file for number of relays and relay sizes.
 
 

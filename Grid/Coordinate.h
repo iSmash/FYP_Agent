@@ -19,21 +19,21 @@ namespace environment
         /** Constructor
          * @param row - vertical position
          * @param colum- the horazontal position */
-        Coordinate(unsigned rows = 0, unsigned columns =0);
+        Coordinate(int rows = 0, int columns =0);
 
 
          //Get functions
-        inline const unsigned getRow() const {return row;}
-        inline const unsigned getColumn() const {return column;}
+        inline const int getRow() const {return row;}
+        inline const int getColumn() const {return column;}
 
         //Set funtions
-        inline void setRow(const unsigned coordrow)
+        inline void setRow(const int coordrow)
 {
 if(coordrow<0)
  throw(std::out_of_range("below 0") );
 row = coordrow;
 }
-        inline void setColumn(const unsigned coordcol)
+        inline void setColumn(const int coordcol)
  {
 if(coordcol<0)
  throw(std::out_of_range("below 0") );
@@ -44,12 +44,31 @@ column = coordcol;
         */
         bool operator ==(const Coordinate &testcoords);
 
-    private:
-        unsigned row;
-        unsigned column;
+    protected:
+        int row;
+        int column;
     };
 
+class RelativeCoordinate : public Coordinate //this corrdinate can be negative, dont use unless relative
+{
+    public:
+    RelativeCoordinate(int rows = 0, int columns =0);
+
+     //Set funtions
+        inline void setRow(const int coordrow)
+{
+row = coordrow;
 }
+        inline void setColumn(const int coordcol)
+ {
+
+column = coordcol;
+}
+
+} ;
+
+}
+
 
 
 

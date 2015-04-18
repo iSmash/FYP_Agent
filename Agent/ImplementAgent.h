@@ -23,7 +23,7 @@ class ImplementAgent: public Agent
 						 Agent::PickupRelay(ID);
 							}
 
-        void move(Direction toMove);
+        bool move(Node::Direction toMove);
         void lookAround();
 
 };

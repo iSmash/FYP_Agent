@@ -6,12 +6,29 @@
 
 using namespace Agentspace;
 
-vector<Node::Direction> PathPlan::findPath(Coordinate start, Coordinate goal,Grid KnownWorld)
+void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
+{
+    //std::cout<<"error"<<std::endl;
+
+    KnownWorld.updateSize(Grid::right);
+    KnownWorld.updateSize(Grid::bottom);
+    KnownWorld.updateSize(Grid::top);
+    KnownWorld.updateSize(Grid::left);
+
+    start=Coordinate(start.getRow()+1, start.getColumn()+1);
+       Leaves.push_back(new Node(start));
+       KnownWorld.clearGridViewed();
+        KnownWorld[start].setViewed(true);
+
+
+}
+
+vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate goal,Grid& KnownWorld)
 {
     std::cout<<"RUNNING"<<std::endl;
     Node* NodePoint =NULL;
+    Node* goalPoint=NULL;
     Leaves.push_back(new Node(start));
-
      while(1)//loop till broken
      {
     //std::cout<<"loop"<<std::endl;
@@ -32,36 +49,37 @@ vector<Node::Direction> PathPlan::findPath(Coordinate start, Coordinate goal,Gri
                     BestCoord =Coordinate((*BestItor)->getState().getRow(), (*BestItor)->getState().getColumn());
                     BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
                 }
-            else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[BestCoord].hasContent(ContentType::Unknown))       //if same but that one had unkonws
-                {
+            else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[BestCoord].hasContent(ContentType::Unknown))
+               {
                     BestItor=searchItor;
-                    BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
+                   BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
                 }
 
 
         }
-        std::cout<<"best"<<(*BestItor)->getState().getRow()<<" "<< (*BestItor)->getState().getColumn()<<" "<<(*BestItor)->getHeuristic()<<" "<<Leaves.size()<<std::endl;
+       //std::cout<<"best"<<(*BestItor)->getState().getRow()<<" "<< (*BestItor)->getState().getColumn()<<" "<<(*BestItor)->getHeuristic()<<" "<<Leaves.size()<<std::endl;
         NodePoint=(*BestItor);
-        Leaves.erase(BestItor); //pop cosen of the choice list
+       Leaves.erase(BestItor); //pop cosen of the choice list
 
-        NodePoint=explore(KnownWorld, NodePoint); //explore node for children
-        if(NodePoint!=NULL)//found goal
-           break;
+        goalPoint=explore(KnownWorld, NodePoint); //explore node for children
+        if(goalPoint!=NULL)//found goal
+          {
+              break;
+          }
          if(!Leaves.size())//nothing in list, all paths explored without result
 		 {
-
-		     throw(std::exception());
+		     ErrorState(start, KnownWorld);
 		 }
 
      }
 
     //unravel, so we can go from current direction, to goal
      vector<Node::Direction> actionList; //list of directions
-		while(NodePoint!=NULL) //directionlist from child to root, take and put in action list
+		while(goalPoint!=NULL) //directionlist from child to root, take and put in action list
 		{
-			actionList.push_back(NodePoint->getAction());
-			//cout<<path[temp->getLevel()].getColumn()<<','<<path[temp->getLevel()].getRow()<<" "<<temp->getLevel()<<endl;
-			NodePoint=NodePoint->getParent();
+			actionList.push_back(goalPoint->getAction());
+
+			goalPoint=goalPoint->getParent();
 
 		}
 		return actionList;
@@ -86,12 +104,14 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
     bool rightOK=false;
     bool belowOK =false;
     bool leftOK=false;*/
-    Coordinate above= Coordinate(state.getRow()-1,state.getColumn());
-    Coordinate right= Coordinate(state.getRow(),state.getColumn()+1);
-    Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
-    Coordinate left= Coordinate(state.getRow(),state.getColumn()-1);
+
+
+
+
+
 
     try{
+          Coordinate above= Coordinate(state.getRow()-1,state.getColumn());
         if (!(grid[above].hasContent(ContentType::Wall)) && !grid[above].getViewed())
            {
 
@@ -102,6 +122,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
         }
     catch(std::out_of_range){}
     try{
+          Coordinate right= Coordinate(state.getRow(),state.getColumn()+1);
         if (!(grid[right].hasContent(ContentType::Wall)) && !grid[right].getViewed())
             {
 
@@ -112,6 +133,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
           }
     catch(std::out_of_range){}
  try{
+        Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
      if ( !(grid[below].hasContent(ContentType::Wall)) &&!grid[below].getViewed())
       {
 
@@ -122,6 +144,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
      }
     catch(std::out_of_range){}
      try{
+             Coordinate left= Coordinate(state.getRow(),state.getColumn()-1);
          if ( !(grid[left].hasContent(ContentType::Wall))&&!grid[left].getViewed())
            {
 

@@ -8,6 +8,7 @@ Node::Node(Coordinate _state)
     state=_state;
     Parent = NULL;
     level =0;
+    actionToReach=Root;
     heuristic=0;
     children=0;
 }
@@ -45,6 +46,7 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
 
 
 void Node::setHeuristic(Coordinate goal)
-{
+{   //std::cout<<state.getRow()<<" "<<goal.getRow()<<std::endl;
+    //std::cout<<abs(state.getRow()-goal.getRow())<<" "<<abs(state.getColumn()-goal.getColumn())<<" "<<level<<std::endl;
     heuristic= abs(state.getRow()-goal.getRow())+abs(state.getColumn()-goal.getColumn())+level;
 }

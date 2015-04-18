@@ -20,10 +20,16 @@ bool Coordinate::operator ==(const Coordinate &testcoords)
                  { return (testcoords.getRow() == row )&& (testcoords.getColumn() == column);}
 
 ///constructor
-Coordinate::Coordinate(unsigned rows, unsigned columnes)
+Coordinate::Coordinate(int rows, int columnes)
 {
 if(rows<0 || columnes<0)
  throw(std::out_of_range("below 0") );
+    row = rows;
+    column = columnes;
+}
+
+RelativeCoordinate::RelativeCoordinate(int rows, int columnes)
+{
     row = rows;
     column = columnes;
 }

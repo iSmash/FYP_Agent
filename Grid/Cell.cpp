@@ -58,7 +58,7 @@ bool Cell::removeContent(const Content cont)
 void Cell::addContent(const Content cont)
 {
      removeContent(Unknown); //if adding stuff, its no longer unknonw
-    removeContent(Empty); //if adding stuff it wont be empty;
+        removeContent(Empty); //if adding stuff it wont be empty;
 
     if(cont==ContentType::Unknown)
     {

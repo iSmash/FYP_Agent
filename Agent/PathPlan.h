@@ -12,12 +12,16 @@ namespace Agentspace{
 
  class PathPlan{
 	public:
-		vector<Node::Direction> findPath(Coordinate start, Coordinate goal, Grid KnownWorld);
+		vector<Node::Direction> findPath(Coordinate&
+                                    start, Coordinate goal, Grid& KnownWorld);
 		   inline void clear(){Leaves.clear();}
 
 	private:
 	     Node* explore(Grid& grid, Node* toExplores);
 		list<Node*> Leaves;
+
+		void ErrorState(Coordinate& start,Grid& KnownWorld);
+
 };
 
 

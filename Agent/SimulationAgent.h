@@ -9,11 +9,7 @@ namespace Agentspace{
 	{
 
 		public:
-        SimulationAgent(): Agent()
-        {
 
-
-        }
 		    bool done();
 			void setRelayCount(int numberofRelays);
 			void addRange(int range);
@@ -24,7 +20,7 @@ namespace Agentspace{
 
  void lookAround(); //make private later
 		private:
-            void move(Direction toMove);
+            bool move(Node::Direction toMove);
 
             Coordinate trueCurrentLocation;
 

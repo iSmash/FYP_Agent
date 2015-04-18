@@ -9,7 +9,7 @@ using namespace environment;
 GridGUI::GridGUI(Grid* paintgrid, int screenLeft)
 	{
 //colour defines
-            Grid_line= Colour(100,100,100);
+            Grid_line= Colour(0,0,0);
             Grid_fill= Colour(175,175,175);
             Wall_fill= Colour(125,125,125);
 
