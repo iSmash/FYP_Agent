@@ -96,7 +96,7 @@ AgentSmith->trueworld[Coordinate(2,9)].addContent(ContentType::Robot);
 
 ;
 	//Agent run
-	while(AgentSmith->done()) //loop until robot job is done.
+	//while(AgentSmith->done()) //loop until robot job is done.
 	{
 		AgentSmith->findPath(goalLocation);
 		AgentSmith->tryPath();

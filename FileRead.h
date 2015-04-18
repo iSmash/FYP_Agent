@@ -18,8 +18,8 @@ using namespace Agentspace;
         read the text file, adding the test case data, grid size, wall locations, starting point, goal
         @param grid, the grid to be resized and added to.
         */
-       Coordinate readfile(Grid& grid, char *filename); //read file for grid creation, simultion only
-       void readfile(Grid& grid, SimulationAgent* agent,char * filename); //read file for number of relays and relay sizes.
+       Coordinate readfileGrid(SimulationAgent* agent, char *filename); //read file for grid creation, simultion only
+       void readfileRelay(SimulationAgent* agent, char * filename); //read file for number of relays and relay sizes.
 
 
 	   //randomly generate a grid to explore (still buggy, but not core)

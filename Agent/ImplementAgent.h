@@ -24,6 +24,7 @@ class ImplementAgent: public Agent
 							}
 
         void move(Direction toMove);
+        void lookAround();
 
 };
 }

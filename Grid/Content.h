@@ -4,7 +4,7 @@
 #include <exception>
 namespace ContentType{
    //what can be in a cell, may be several at once
-	enum Content {Wall, Robot, Goal, Unknown};
+	enum Content {Wall, Robot, Goal, Unknown, Empty};
     }
 
 namespace environment

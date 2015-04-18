@@ -14,12 +14,19 @@ namespace Agentspace{
 		public:
 			virtual bool done()=0;
 
+            Agent()
+{
+   CurrentLocation=Coordinate(0,0);
+   KnownWorld.updateSize(Coordinate(1,1));
+}
 
-            Agent(){endofRunLocation=Coordinate(0,0);}
 			inline void findPath(Coordinate goal)
 			{
-                KnownWorld[endofRunLocation].setViewed(true);
-                endofRunLocation = planner.findPath(goal);
+			    //agent has been told that there is more world in goal direction. thus make that much world
+
+
+                KnownWorld[CurrentLocation].setViewed(true);
+                actionList = planner.findPath(CurrentLocation, goal,KnownWorld);
 			}
 			void tryPath();
 
@@ -27,16 +34,18 @@ namespace Agentspace{
 			Relay* getRelay(int _ID);
 			vector<Relay*> getRelays() {return heldRelays;} //namechange for error provension? na
 
-
+            inline Grid* getKnownGrid(){return &KnownWorld;}
 
 		protected:
 			enum Direction {North, East, South, West};
 			virtual void move(Direction toMove)=0;
+			void lookAround();
 
 			void PlaceRelay(int ID, Coordinate whereToPlace);
 			void PickupRelay(int ID);
 
-			Coordinate endofRunLocation;
+			Coordinate CurrentLocation;
+			vector<Node::Direction> actionList;
 			PathPlan planner;
 			Grid KnownWorld;
 			vector<Relay*> heldRelays; //relays held on the robot, moved to grid's vector of relays when deployed.
