@@ -12,9 +12,9 @@ using namespace environment;
 	class GridGUI
 	{
 	public:
-    GridGUI(Grid* paintgrid, char* name, int screenLeft);
+    GridGUI(Grid* paintgrid,  int screenLeft);
 
-	void updateSize(Grid* paintgrid);
+	void updateSize();
 
 
 	void paint();
@@ -33,6 +33,8 @@ using namespace environment;
          Colour Wall_fill;
          Colour Goal;
          Colour Robot;
+          Colour Wifi;
+           Colour THEVOID_THAT_IS_MY_SOUL;
 
 
 	};

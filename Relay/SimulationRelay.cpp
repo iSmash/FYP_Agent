@@ -2,6 +2,7 @@
 #include "SimulationRelay.h"
 using namespace Relayspace;
 
+
 std::vector<Coordinate> SimulationRelay::domain()
  {
            std::vector<Coordinate> domaintemp;
@@ -9,6 +10,7 @@ std::vector<Coordinate> SimulationRelay::domain()
 
            for(int i = 0; i<= Ranges[activeRange]; i++)
            {
+
                 for(int j=0; j<=Ranges[activeRange]-i; j++)
                 {
                     try{
@@ -35,13 +37,25 @@ std::vector<Coordinate> SimulationRelay::domain()
                }
 
            }
+
           return domaintemp;
 
         }
 
 bool SimulationRelay::inRange(Coordinate test)
 {
-    std::cout<<"no in Range"<<std::endl;
-      return false;
 
+     std::vector<Coordinate> temp = domain();
+
+           for( int i =0; i< temp.size(); i++)
+           {
+               if(temp[i]==test)
+               {
+                //std::cout<<test.getRow()<<" "<<test.getColumn()<<std::endl;
+                return true;
+
+               }
+            }
+
+           return false;
 }

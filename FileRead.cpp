@@ -14,14 +14,17 @@
 #include "Relay/ImplementRelay.h"
 #include "Relay/SimulationRelay.h"
 
+#include "Simulation.h"
+
 #define MAX_FAILS 5000
 using namespace std;
 
 
-    Coordinate readfile(Grid& grid, char *filename) //simulation only
+    Coordinate readfileGrid(SimulationAgent* agent, char *filename) //simulation only
     {
         unsigned x, y, w, h;
         Coordinate goal;
+
         ifstream problemFile(filename);
 
 		//find M and N for grid size
@@ -31,7 +34,16 @@ using namespace std;
             problemFile>> x;
             problemFile.ignore();
             problemFile>>y;
-            grid.updateSize(Coordinate(y,x));
+            agent->trueworld.updateSize(Coordinate(y,x));
+            for(int i=0; i<x; i++)
+            {
+                for( int j=0; j<y; j++)
+                {
+                    agent->trueworld[Coordinate(j,i)].addContent(ContentType::Empty);
+                }
+
+            }
+
 		}
 		//find robot starting pos
 		if(problemFile.good())
@@ -41,12 +53,12 @@ using namespace std;
 			problemFile.ignore();
 			problemFile>>y;
 			Coordinate robotCoord = Coordinate(y,x);
-			grid[robotCoord].addContent(ContentType::Robot);
-
-			grid[robotCoord].setViewed(true);
+			agent->trueworld[robotCoord].addContent(ContentType::Robot);
+            agent->setTrueCurrentLocation(robotCoord);
+			agent->trueworld[robotCoord].setViewed(true);
             Relay* basesStation = new SimulationRelay();
             basesStation->updatePos(Coordinate(y,x));
-            grid.placeRelay(basesStation);
+            agent->trueworld.placeRelay(basesStation);
 		}
 		//find goal pos
 		if(problemFile.good())
@@ -55,7 +67,7 @@ using namespace std;
 			problemFile>> x;
 			problemFile.ignore();
 			problemFile>>y;
-			grid[Coordinate(y,x)].addContent(ContentType::Goal);
+			agent->trueworld[Coordinate(y,x)].addContent(ContentType::Goal);
 			goal= Coordinate(y,x);
 		}
 
@@ -63,7 +75,7 @@ using namespace std;
 		//find walls
 		while(problemFile.good())
 		{
-
+ //std::cout<<"wall"<<std::endl;
 			problemFile>>x;
 			problemFile.ignore();
 			problemFile>>y;
@@ -72,7 +84,7 @@ using namespace std;
 			problemFile.ignore();
 			problemFile>>h;
 
-			grid.placeWall(x, y, w, h);
+			agent->trueworld.placeWall(x, y, w, h);
 			problemFile.ignore(3);
 		}
         if(problemFile.bad())
@@ -84,7 +96,7 @@ using namespace std;
 	}
 
 
-   void readfile(Grid& grid, SimulationAgent* agent, char * filename)
+   void readfileRelay(SimulationAgent* agent, char * filename)
     {
 	/*
 		looks like>
@@ -109,14 +121,19 @@ using namespace std;
 		 #ifdef Simulation
 		while(problemFile.good())
 		{
+
 			oldtemp=temp;
 			problemFile>>temp;
 			if(temp>oldtemp)
 			{
 				agent->addRange(temp);
-				 for(int i=0; i<grid.getRelays().size(); i++
+
+				vector<Relay*> RelayRange = agent->trueworld.getRelays();
+				 for(int i=0; i<RelayRange.size(); i++)
                 {
-                    grid.getRelays()[i]->addRange(temp);
+                    SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
+                    rel->addRange(temp);
+                    rel->setRange(1);
                 }
 			}
 			problemFile.ignore(1);

@@ -33,3 +33,18 @@ bool Cell::removeContent(const Content cont)
  }
  return ContentFound;
 }
+
+void Cell::addContent(const Content cont)
+{
+     removeContent(Unknown); //if adding stuff, its no longer unknonw
+
+    if(cont==ContentType::Unknown)
+    {
+        content.empty();        //if making unkonw, we cant know anything else about it.
+    }
+
+    if(!hasContent(cont))
+    {
+        content.push_back(cont);
+    }
+}//only add content if new, stops two Robots or two walls.

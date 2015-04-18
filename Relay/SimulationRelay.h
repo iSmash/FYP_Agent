@@ -8,6 +8,12 @@ namespace Relayspace
 	class SimulationRelay : public Relay
 	{
 		public:
+
+		    SimulationRelay():Relay()
+            {Ranges.push_back(0);
+            activeRange=0;
+            }
+
 			inline void addRange(int add){Ranges.push_back(add);}
 			std::vector<Coordinate> domain();
 

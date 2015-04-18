@@ -15,7 +15,8 @@
  */
 class Colour
 {
-  unsigned char red, green, blue;
+    protected:
+        unsigned char red, green, blue;
 
 public:
 /** \brief Constructors, take no param or 3 chars, use of chars to work with WinBGImPainter
@@ -33,6 +34,14 @@ public:
   unsigned char get_green () const { return green; }
   unsigned char get_blue () const  { return blue; }
 
+  inline Colour operator + (const Colour toAdd)
+  {
+      Colour newCol;
+      newCol.red = (this->red+toAdd.red)/2;
+      newCol.blue = (this->blue+toAdd.blue)/2;
+      newCol.green = (this->green+toAdd.green)/2;
+      return newCol;
+  }
 };
 
 #endif

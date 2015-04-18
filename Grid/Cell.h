@@ -19,7 +19,7 @@ namespace environment
         inline const bool getViewed() const {return viewed;} //gets if this cell has been already seen as a potential 		path point
 
 //set
-		inline void addContent(const Content cont) {if(!hasContent(cont)){content.push_back(cont);}}//only add content if new, stops two Robots or two walls.
+		void addContent(const Content cont);//only add content if new, stops two Robots or two walls.
 		bool removeContent(const Content cont);// returns true if removed, false if was not there.
 		inline void setViewed(const bool view){viewed=view;}
 
