@@ -23,7 +23,7 @@ void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
 
 }
 
-vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate goal,Grid& KnownWorld)
+vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,Grid& KnownWorld)
 {
     std::cout<<"RUNNING"<<std::endl;
     Node* NodePoint =NULL;
@@ -61,7 +61,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate goal,Gr
         NodePoint=(*BestItor);
        Leaves.erase(BestItor); //pop cosen of the choice list
 
-        goalPoint=explore(KnownWorld, NodePoint); //explore node for children
+        goalPoint=explore(KnownWorld, NodePoint, goal); //explore node for children
         if(goalPoint!=NULL)//found goal
           {
               break;
@@ -91,14 +91,16 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate goal,Gr
 }
 
 
-Node* PathPlan::explore(Grid& grid, Node* toExplore)
+Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
  {
 
      Coordinate state = toExplore->getState();
     if(grid[state].hasContent(ContentType::Goal))
     {
+        goal=state;
       return toExplore;
     }
+
 
     /*bool aboveOK=false;
     bool rightOK=false;
