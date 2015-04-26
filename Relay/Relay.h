@@ -1,6 +1,6 @@
 #ifndef RELAY_H
  #define RELAY_H
-#include "../Grid/coordinate.h"
+#include "../Grid/Coordinate.h"
 #include <exception>
 #include <iostream>
 using namespace environment;
