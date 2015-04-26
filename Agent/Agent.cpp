@@ -19,21 +19,24 @@ void printDirection2(Node::Direction toprint)
 
 void Agent::tryPath()
 {
-    std::cout<<"Path is"<<std::endl;
+    //std::cout<<"Path is"<<std::endl;
+
 	while(actionList.size()!=0)
     {
-        printDirection2(actionList.back());
+        //printDirection2(actionList.back());
+
         if(!move(actionList.back()))
             break;
-        actionList.pop_back();
+
+          actionList.pop_back();
         KnownWorld[CurrentLocation].addContent(ContentType::Robot);
     }
 
 
-
+    //clean up old search
     KnownWorld.clearGridViewed();
     planner.clear();
-    //clean up old search
+
 }
 
 
@@ -47,29 +50,14 @@ Relay* Agent::getRelay(int _ID)
 	}
 }
 
-void Agent::PlaceRelay(int ID, Coordinate whereToPlace)
+void Agent::PlaceRelay(Coordinate whereToPlace)
 {
-	Relay* tobePlaced = NULL;
-	for(int i=0; i< heldRelays.size(); i++)
-	{
-		if(heldRelays[i]->getID()== ID)
-		{
-			tobePlaced=heldRelays[i];
-			heldRelays.erase(heldRelays.begin()+i);
-			break;
-		}
-	}
-	if (tobePlaced==NULL)
-		throw(RelayError());
-
-	tobePlaced->updatePos(whereToPlace);
-	KnownWorld.placeRelay(tobePlaced);
+    KnownWorld[whereToPlace].addContent(ContentType::RelayMarker);
 }
 
-void Agent::PickupRelay(int ID)
+void Agent::PickupRelay(Coordinate PickFrom)
 {
-	heldRelays.push_back(KnownWorld.getRelay(ID));
-	KnownWorld.removeRelay(ID);
+    KnownWorld[PickFrom].removeContent(ContentType::RelayMarker);
 }
 
 void Agent::lookAround()
@@ -79,7 +67,7 @@ void Agent::lookAround()
     if(CurrentLocation.getRow()==0)
     {
         //as top as can be, so lets make more world
-         std::cout<<"top ";
+         //std::cout<<"top ";
         KnownWorld.updateSize(Grid::top);
         //as we are push above the grid, we need to move down our knonw position
         CurrentLocation=Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn());
@@ -89,7 +77,7 @@ void Agent::lookAround()
     if(CurrentLocation.getRow()>=KnownWorld.getLast().getRow()-1)
     {
         //as top as can be, so lets make more world
-        std::cout<<"bot ";
+        //std::cout<<"bot ";
         KnownWorld.updateSize(Grid::bottom);
     }
 
@@ -99,7 +87,7 @@ void Agent::lookAround()
     if(CurrentLocation.getColumn()>=KnownWorld.getLast().getColumn()-1)
     {
         //as top as can be, so lets make more world
-         std::cout<<"right ";
+         //std::cout<<"right ";
         KnownWorld.updateSize(Grid::right);
     }
 
@@ -107,7 +95,7 @@ void Agent::lookAround()
     if(CurrentLocation.getColumn()==0)
     {
         //as top as can be, so lets make more world
-         std::cout<<"left ";
+        // std::cout<<"left ";
         KnownWorld.updateSize(Grid::left);
         //as we are push above the grid, we need to move down our knonw position
         CurrentLocation=Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1);

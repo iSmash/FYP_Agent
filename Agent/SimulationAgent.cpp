@@ -21,16 +21,47 @@ void SimulationAgent::setRelayCount(int numberofRelays)
      {
          SimulationRelay* temp= (SimulationRelay*)heldRelays[i];
          temp->addRange(range);
+         temp->setRange(1);
      }
      for(int i=0; i<KnownWorld.getRelays().size(); i++)
      {
          SimulationRelay* temp= (SimulationRelay*)KnownWorld.getRelays()[i];
          temp->addRange(range);
+         temp->setRange(1);
      }
 
 
  }
 
+void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlaceKnown, Coordinate whereToPlacetrue)
+{
+   Relay* tobePlaced = NULL;
+	for(int i=0; i< heldRelays.size(); i++)
+	{
+		if(heldRelays[i]->getID()== ID)
+		{
+			tobePlaced=heldRelays[i];
+			heldRelays.erase(heldRelays.begin()+i);
+			break;
+		}
+	}
+	if (tobePlaced==NULL)
+		throw(RelayError());
+
+	tobePlaced->updatePos(whereToPlacetrue);
+	trueworld.placeRelay(tobePlaced);
+	trueworld[whereToPlacetrue].addContent(ContentType::RelayMarker);
+	Agent::PlaceRelay(whereToPlaceKnown);
+}
+
+void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
+{
+    cout<<"pickup2"<<endl;
+	trueworld[whereToTake].removeContent(ContentType::RelayMarker);
+heldRelays.push_back(KnownWorld.getRelay(ID));
+	KnownWorld.removeRelay(ID);
+
+}
  void SimulationAgent::lookAround()
  {
 
@@ -103,6 +134,8 @@ catch(std::out_of_range r){}
  {
 
          Coordinate CurrentLocationtemp, trueCurrentLocationtemp;
+         Coordinate OldPosknown = CurrentLocation; //for backtrack in method one
+           Coordinate OldPosTrue = trueCurrentLocation; //for backtrack in method one
      switch (toMove)
      {
      case Node::Right:
@@ -134,8 +167,21 @@ catch(std::out_of_range r){}
          return false;
      }
 
+
         CurrentLocation=CurrentLocationtemp;
         trueCurrentLocation=trueCurrentLocationtemp;
+
+
+
+
+        if(DeploymentMethod==1 && lowSignal()) //find out if need to place a new node donw
+        {
+
+            try{PlaceRelay(heldRelays.front()->getID(),OldPosknown,OldPosTrue);}
+            catch(RelayError e){//cout<<"out of relays"<<endl;
+            }
+        }
+
 
         trueworld[trueCurrentLocation].addContent(ContentType::Robot);
          lookAround();
@@ -150,3 +196,16 @@ catch(std::out_of_range r){}
 
     return false;
      }
+
+bool SimulationAgent::lowSignal()
+{
+    vector<Relay*> gridRelays = trueworld.getRelays();
+    bool poor_range =true;
+    for(int i =0; i< gridRelays.size(); i++)
+    {
+        //cout<<"relay"<<i;
+        if(gridRelays[i]->inRange(trueCurrentLocation) )
+            poor_range=false;
+    }
+    return poor_range;
+}

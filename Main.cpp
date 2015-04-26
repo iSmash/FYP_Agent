@@ -1,6 +1,7 @@
 
 #define GRIDFILE "RelayTestGrid.txt"
 #define RELAYFILE "RelayTestRelay.txt"
+#define MethodType 1
 
 #include "Simulation.h"
 
@@ -17,7 +18,11 @@ int main()
 	#ifdef Simulation
         cout<<"Simulation"<<endl;
 		SimulationAgent* AgentSmith=  new SimulationAgent();
-
+/**
+Relay* basesStation = new SimulationRelay();
+            basesStation->updatePos(Coordinate(0,0));
+             AgentSmith->getKnownGrid()->placeRelay(basesStation);
+*/
 
 		//read file about trueworld and relay
 		RelativeCoordinate relativeToGoal =readfileGrid(AgentSmith, GRIDFILE);
@@ -49,6 +54,7 @@ int main()
 		readfileRelay(AgentSmith, RELAYFILE);
 	#endif
 
+    AgentSmith->defineDeploymentMethod(MethodType);
 
 
 ;
@@ -63,6 +69,6 @@ int main()
 
 
 	}
-	char x;
+char x;
 	cin>>x;
 }

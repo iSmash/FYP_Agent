@@ -16,7 +16,7 @@ class ImplementAgent: public Agent
 	private:
 		inline void PlaceRelay(int _ID, Coordinate whereToPlace){
                         //physical shit;
-						 Agent::PlaceRelay(_ID, whereToPlace);
+						 Agent::PlaceRelay(whereToPlace);
 						}
 		inline void PickupRelay(int ID){
                         //physical shit;

@@ -21,6 +21,9 @@ namespace Agentspace{
  void lookAround(); //make private later
 		private:
             bool move(Node::Direction toMove);
+           bool lowSignal();
+void PlaceRelay(int ID, Coordinate whereToPlaceKnown, Coordinate whereToPlacetrue);
+	void PickupRelay(int ID, Coordinate whereToTake);
 
             Coordinate trueCurrentLocation;
 

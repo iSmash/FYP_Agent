@@ -44,18 +44,18 @@ std::vector<Coordinate> SimulationRelay::domain()
 
 bool SimulationRelay::inRange(Coordinate test)
 {
-
+//std::cout<<test.getRow()<<" "<<test.getColumn()<<std::endl;
      std::vector<Coordinate> temp = domain();
 
            for( int i =0; i< temp.size(); i++)
            {
                if(temp[i]==test)
                {
-                //std::cout<<test.getRow()<<" "<<test.getColumn()<<std::endl;
+
                 return true;
 
                }
             }
-
+//std::cout<<"out of range"<<std::endl;
            return false;
 }

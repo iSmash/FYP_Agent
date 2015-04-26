@@ -97,6 +97,15 @@ void GridGUI::paint()
                         break;
                     }
                 }
+                 for(int r=0; r< RelayDraw.size();r++)
+                    {
+
+                       if(RelayDraw[r]->inRange(Coordinate(i,j)))
+                        {
+                           update=true;
+                        break;
+                        }
+                    }
 }
                 catch(std::out_of_range){
                     //std::cout<<"OldGrid exep"<<std::endl;
@@ -133,10 +142,6 @@ void GridGUI::paint()
                     for(int r=0; r< RelayDraw.size();r++)
                     {
 
-                        painter->setPenColour(Wifi);
-                        painter->setFillColour(Wifi);
-                        painter->drawCircle(Pixel(float(RelayDraw[r]->getPos().getColumn()+1)*pixels_per_cell,float(RelayDraw[r]->getPos().getRow()+1)*pixels_per_cell), pixels_per_cell/6);
-
                        if(RelayDraw[r]->inRange(Coordinate(i,j)))
                         {
                            //std::cout<<"WIIFI"<<std::endl;
@@ -155,6 +160,13 @@ void GridGUI::paint()
                         painter->setFillColour(Robot);
                         painter->drawCircle(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/4);
                     }
+                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::RelayMarker))
+                    {
+                        painter->setPenColour(Wifi);
+                        painter->setFillColour(Wifi);
+                        painter->drawCircle(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/6);
+
+                        }
 
 
 

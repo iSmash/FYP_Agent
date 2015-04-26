@@ -34,7 +34,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,G
     //std::cout<<"loop"<<std::endl;
         list<Node*>::iterator searchItor, BestItor;
         unsigned BestManhattanDistance_plusLevel=-1; //initial worst case, closes to infinity possible
-		Coordinate BestCoord;
+
 		//find best node in list
         for(searchItor = Leaves.begin(); searchItor!= Leaves.end(); searchItor++)
         {
@@ -46,10 +46,9 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,G
             if((*searchItor)->getHeuristic()<BestManhattanDistance_plusLevel)
                 {
                     BestItor=searchItor;
-                    BestCoord =Coordinate((*BestItor)->getState().getRow(), (*BestItor)->getState().getColumn());
                     BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
                 }
-            else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[BestCoord].hasContent(ContentType::Unknown))
+            else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[Coordinate((*searchItor)->getState().getRow(), (*searchItor)->getState().getColumn())].hasContent(ContentType::Unknown))
                {
                     BestItor=searchItor;
                    BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
