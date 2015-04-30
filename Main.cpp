@@ -1,3 +1,10 @@
+/* Main.cpp
+ * Author:  Phil Smith
+ * Date:    20150411
+ * Version: inf
+ *
+ */
+
 
 #define GRIDFILE "RelayTestGrid.txt"
 #define RELAYFILE "RelayTestRelay.txt"
