@@ -15,6 +15,12 @@ void ImplementAgent::setRelayCount(int numberofRelays)
 	}
 }
 
-bool ImplementAgent::move(Node::Direction toMove){std::cout<<"no move";}
+bool ImplementAgent::move(Node::Direction toMove)
+{
+    float x=0.0;
+    float y=0.0;
+//    omniDrive.setVelocity( x, y, 0 );
+}
+bool ImplementAgent::lowSignal(){std::cout<<"no low signal"; return false;}
 bool ImplementAgent::done(){std::cout<<"no done"; return false;}
 void ImplementAgent::lookAround(){std::cout<<"no look around";}

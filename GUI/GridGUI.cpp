@@ -4,21 +4,18 @@
 #include <exception>
 #include "../Relay/SimulationRelay.h"
 
+
+
+
 using namespace environment;
+
+
 
 GridGUI::GridGUI(Grid* paintgrid, int screenLeft)
 	{
 //colour defines
-            Grid_line= Colour(0,0,0);
-            Grid_fill= Colour(175,175,175);
-            Wall_fill= Colour(125,125,125);
 
-            Goal= Colour(1,200,1);
-            Robot= Colour(200,1,1);
 
-            Wifi = Colour(90,90 ,255);
-
-            THEVOID_THAT_IS_MY_SOUL=Colour(0,0,0);
 
 	grid=paintgrid;
 	oldGrid;
@@ -50,22 +47,34 @@ void GridGUI::updateSize()
     delay(100);
 }
 
-void GridGUI::paint()
+void GridGUI::paint(bool Last)
 {
+    Colour Grid_line= Colour(0,0,0);
+         Colour   Grid_fill= Colour(175,175,175);
+          Colour  Wall_fill= Colour(125,125,125);
+
+          Colour  Goal= Colour(1,200,1);
+         Colour   Robot= Colour(200,1,1);
+
+         Colour   Wifi = Colour(90,90 ,255);
+
+          Colour  Client = Colour(204,204,0);
+
+          Colour  THEVOID_THAT_IS_MY_SOUL=Colour(0,0,0);
 
 	if(getcurrentwindow( )!=window)
     	{
        	 setcurrentwindow(window);
      	}
      vector<Relay*> RelayDraw = (*grid).getRelays();
-
 	for(int i=0; i<grid->getLast().getRow();i++)
      	{
 
 
          	for(int j=0; j<grid->getLast().getColumn();j++)
          	{
-                bool update =false;
+                bool update =Last;
+                int updateRange=0;
                 //std::cout<<i<<" "<<j<<",";
                 Grid newGrid= (*grid);
 
@@ -75,8 +84,21 @@ void GridGUI::paint()
 
                 try
                 {
-                     oldContnetList = oldGrid[Coordinate(i,j)].getContent();
 
+
+                for(int r=0; r< RelayDraw.size();r++)
+                    {
+
+                       if(RelayDraw[r]->inRange(Coordinate(i,j)))
+                        {
+
+                           update=true;
+                           updateRange++;
+
+                        }
+                    }
+
+            oldContnetList = oldGrid[Coordinate(i,j)].getContent();
 
                 for(unsigned i=0; i<oldContnetList.size(); i++)
                 {
@@ -97,15 +119,7 @@ void GridGUI::paint()
                         break;
                     }
                 }
-                 for(int r=0; r< RelayDraw.size();r++)
-                    {
 
-                       if(RelayDraw[r]->inRange(Coordinate(i,j)))
-                        {
-                           update=true;
-                        break;
-                        }
-                    }
 }
                 catch(std::out_of_range){
                     //std::cout<<"OldGrid exep"<<std::endl;
@@ -117,46 +131,43 @@ void GridGUI::paint()
            		    //draw grid cell
            		    Colour Background= Grid_fill;
 
+                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::Wall))
+                    {
+                        Background=Wall_fill;
+                    }
 
                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Goal))
                     {
                         Background=Goal;
 
                     }
-                      if((*grid)[Coordinate(i,j)].hasContent(ContentType::Unknown))
+                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::Unknown))
                     {
                         //std::cout<<"unkonw";
                         Background=THEVOID_THAT_IS_MY_SOUL;
 
                     }
 
-                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Wall))
-                    {
-                        Background=Wall_fill;
-                    }
-                else{
+
+                else{ //this mean unknown stays dark
 
 
-                    //make cell a little more blue for each relay doamin its in
-
-                    for(int r=0; r< RelayDraw.size();r++)
-                    {
-
-                       if(RelayDraw[r]->inRange(Coordinate(i,j)))
+                   while(updateRange>0)
                         {
-                           //std::cout<<"WIIFI"<<std::endl;
-                          Background = Background + Wifi;
+                            Background = Background + Wifi;
+
+                            updateRange--;
                         }
-                    }
                 }
 
-     painter->setPenColour(Grid_line);
+
+                    painter->setPenColour(Grid_line);
                     painter->setFillColour(Background);
                     painter->drawSquare(Pixel((j+1)*pixels_per_cell,(i+1)*pixels_per_cell), pixels_per_cell);
 
                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Robot))
                     {
-                        painter->setPenColour(Robot);
+                        painter->setPenColour(THEVOID_THAT_IS_MY_SOUL);
                         painter->setFillColour(Robot);
                         painter->drawCircle(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/4);
                     }
@@ -165,6 +176,14 @@ void GridGUI::paint()
                         painter->setPenColour(Wifi);
                         painter->setFillColour(Wifi);
                         painter->drawCircle(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/6);
+
+                        }
+
+                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::Client))
+                    {
+                        painter->setPenColour(THEVOID_THAT_IS_MY_SOUL);
+                        painter->setFillColour(Client);
+                        painter->drawSquare(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/2);
 
                         }
 

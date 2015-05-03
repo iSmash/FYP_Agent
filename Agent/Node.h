@@ -27,7 +27,7 @@ Node(Node* _Parent, Coordinate _state, Direction _actionToReach);
 
 
          void setHeuristic(Coordinate goal);
-         inline void addChild(){children++;}
+         inline void Broken_condom(){children++;}
          inline void slender_man(){children--;}
  void deadEnd(Grid& grid,  list<Node*>* Leaves);
 

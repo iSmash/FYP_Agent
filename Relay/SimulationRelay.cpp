@@ -5,13 +5,12 @@ using namespace Relayspace;
 
 std::vector<Coordinate> SimulationRelay::domain()
  {
-           std::vector<Coordinate> domaintemp;
+	   std::vector<Coordinate> domaintemp;
 
-
-           for(int i = 0; i<= Ranges[activeRange]; i++)
+           for(int i = 0; i< Ranges[activeRange]; i++)
            {
 
-                for(int j=0; j<=Ranges[activeRange]-i; j++)
+                for(int j=0; j<sqrt(Ranges[activeRange]*Ranges[activeRange]-i*i); j++)
                 {
                     try{
 
@@ -41,6 +40,9 @@ std::vector<Coordinate> SimulationRelay::domain()
           return domaintemp;
 
         }
+
+
+
 
 bool SimulationRelay::inRange(Coordinate test)
 {

@@ -17,7 +17,7 @@ using namespace environment;
 	void updateSize();
 
 
-	void paint();
+	void paint(bool Last=false);
 
 	private:
 	int window;
@@ -27,14 +27,7 @@ using namespace environment;
 	Grid* grid;
 	Grid oldGrid;//this is an old copy of the grid, so we know what to change
 
-	//colours
-	 Colour Grid_line;
-         Colour Grid_fill;
-         Colour Wall_fill;
-         Colour Goal;
-         Colour Robot;
-          Colour Wifi;
-           Colour THEVOID_THAT_IS_MY_SOUL;
+
 
 
 	};

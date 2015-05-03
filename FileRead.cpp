@@ -23,7 +23,7 @@ using namespace std;
     RelativeCoordinate readfileGrid(SimulationAgent* agent, char *filename) //simulation only
     {
         unsigned x, y, w, h;
-        Coordinate goal, current;
+        Coordinate goal, robotCoord;
         RelativeCoordinate relation;
 
         ifstream problemFile(filename);
@@ -54,14 +54,13 @@ using namespace std;
 			problemFile>> x;
 			problemFile.ignore();
 			problemFile>>y;
-			Coordinate robotCoord = Coordinate(y,x);
+			 robotCoord = Coordinate(y,x);
 			agent->trueworld[robotCoord].addContent(ContentType::Robot);
             agent->setTrueCurrentLocation(robotCoord);
 			agent->trueworld[robotCoord].setViewed(true);
             Relay* basesStationReal = new SimulationRelay();
-            basesStationReal->updatePos(Coordinate(y,x));
+            basesStationReal->updatePos(robotCoord);
             agent->trueworld.placeRelay(basesStationReal);
-            current= Coordinate(y,x);
 		}
 		//find goal pos
 		if(problemFile.good())
@@ -71,9 +70,9 @@ using namespace std;
 			problemFile.ignore();
 			problemFile>>y;
 			agent->trueworld[Coordinate(y,x)].addContent(ContentType::Goal);
-
+agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
 			goal= Coordinate(y,x);
-			relation= RelativeCoordinate(goal.getRow()-current.getRow(), goal.getColumn()-current.getColumn());
+			relation= RelativeCoordinate(goal.getRow()-robotCoord.getRow(), goal.getColumn()-robotCoord.getColumn());
 
 		}
 
@@ -103,7 +102,7 @@ using namespace std;
 	}
 
 
-   void readfileRelay(SimulationAgent* agent, char * filename)
+   void readfileRelay(Agent* agent, char * filename)
     {
 	/*
 		looks like>
@@ -133,9 +132,11 @@ using namespace std;
 			problemFile>>temp;
 			if(temp>oldtemp)
 			{
-				agent->addRange(temp);
 
-				vector<Relay*> RelayRange = agent->trueworld.getRelays();
+				SimulationAgent* Sagent= (SimulationAgent*)agent;
+				Sagent->addRange(temp);
+
+				vector<Relay*> RelayRange = Sagent->trueworld.getRelays();
 				 for(int i=0; i<RelayRange.size(); i++)
                 {
                     SimulationRelay* rel = (SimulationRelay*)RelayRange[i];

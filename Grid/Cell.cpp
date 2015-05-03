@@ -26,7 +26,7 @@ const bool Cell::hasContent(Content cont)
 	 {
 	      //cout<<"ok"<<endl;
 	     return true;
-	     }
+	 }
 	     // cout<<endl;
  }
 //if at this point, contnent is not in cell
@@ -57,8 +57,8 @@ bool Cell::removeContent(const Content cont)
 
 void Cell::addContent(const Content cont)
 {
-     removeContent(Unknown); //if adding stuff, its no longer unknonw
-        removeContent(Empty); //if adding stuff it wont be empty;
+     removeContent(Unknown); //if adding stuff, its no longer unknown
+     removeContent(Empty); //if adding stuff it wont be empty;
 
     if(cont==ContentType::Unknown)
     {
