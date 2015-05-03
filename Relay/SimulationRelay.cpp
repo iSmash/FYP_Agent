@@ -10,7 +10,7 @@ std::vector<Coordinate> SimulationRelay::domain()
            for(int i = 0; i< Ranges[activeRange]; i++)
            {
 
-                for(int j=0; j<sqrt(Ranges[activeRange]*Ranges[activeRange]-i*i); j++)
+                 for(int j=0; j<sqrt(Ranges[activeRange]*Ranges[activeRange]-i*i); j++)
                 {
                     try{
 
