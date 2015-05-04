@@ -56,7 +56,7 @@ using namespace std;
 			problemFile>>y;
 			 robotCoord = Coordinate(y,x);
 			agent->trueworld[robotCoord].addContent(ContentType::Robot);
-            agent->setTrueCurrentLocation(robotCoord);
+            agent->setRelativity(robotCoord);
 			agent->trueworld[robotCoord].setViewed(true);
             Relay* basesStationReal = new SimulationRelay();
             basesStationReal->updatePos(robotCoord);

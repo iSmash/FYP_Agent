@@ -8,7 +8,7 @@ using namespace Agentspace;
 
 void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
 {
-	//std::cout<<"error"<<std::endl;
+	std::cout<<"error"<<std::endl;
 
 	KnownWorld.updateSize(Grid::right);
 	KnownWorld.updateSize(Grid::bottom);
@@ -26,11 +26,17 @@ void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
 vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,Grid& KnownWorld)
 {
 	std::cout<<"RUNNING"<<std::endl;
+
+
+//std::cout<<start<<std::endl;
+		//std::cout<<goal<<std::endl;
 	Node* NodePoint =NULL;
 	Node* goalPoint=NULL;
 	Leaves.push_back(new Node(start));
 	while(1)//loop till broken
 	{
+
+
 		//std::cout<<"loop"<<std::endl;
 		list<Node*>::iterator searchItor, BestItor;
 		unsigned BestManhattanDistance_plusLevel=-1; //initial worst case, closes to infinity possible
@@ -48,15 +54,15 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,G
 				BestItor=searchItor;
 				BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
 			}
-			else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[Coordinate((*searchItor)->getState().getRow(), (*searchItor)->getState().getColumn())].hasContent(ContentType::Unknown))
-			{
-				BestItor=searchItor;
-				BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
-			}
+			//else if((*searchItor)->getHeuristic()==BestManhattanDistance_plusLevel && KnownWorld[Coordinate((*searchItor)->getState().getRow(), (*searchItor)->getState().getColumn())].hasContent(ContentType::Unknown))
+			//{
+			//	BestItor=searchItor;
+			//	BestManhattanDistance_plusLevel=(*searchItor)->getHeuristic();
+			//}
 
 
 		}
-		//std::cout<<"best"<<(*BestItor)->getState().getRow()<<" "<< (*BestItor)->getState().getColumn()<<" "<<(*BestItor)->getHeuristic()<<" "<<Leaves.size()<<std::endl;
+		//std::cout<<"best"<<(*BestItor)->getState()<<" "<<(*BestItor)->getHeuristic()<<" "<<Leaves.size()<<std::endl;
 		NodePoint=(*BestItor);
 		Leaves.erase(BestItor); //pop cosen of the choice list
 
@@ -118,7 +124,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 
 			Leaves.push_back(new Node(toExplore, above, Node::Up));
 			grid[above].setViewed(true);
-			toExplore->addChild();
+			toExplore->Broken_condom();
 		}
 	}
 	catch(std::out_of_range){}
@@ -129,7 +135,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 
 			Leaves.push_back(new Node(toExplore, right, Node::Right));
 			grid[right].setViewed(true);
-			toExplore->addChild();
+			toExplore->Broken_condom();
 		}
 	}
 	catch(std::out_of_range){}
@@ -140,7 +146,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 
 			Leaves.push_back(new Node(toExplore, below, Node::Down));
 			grid[below].setViewed(true);
-			toExplore->addChild();
+			toExplore->Broken_condom();
 		}
 	}
 	catch(std::out_of_range){}
@@ -151,7 +157,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 
 			Leaves.push_back(new Node(toExplore, left, Node::Left));
 			grid[left].setViewed(true);
-			toExplore->addChild();
+			toExplore->Broken_condom();
 		}
 	}
 	catch(std::out_of_range){}

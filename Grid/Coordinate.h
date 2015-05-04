@@ -11,6 +11,8 @@
 
 #include <string>
  #include <stdexcept>
+ #include <iostream>
+ using namespace std;
 namespace environment
 {
     class Coordinate
@@ -44,6 +46,9 @@ column = coordcol;
         */
         bool operator ==(const Coordinate &testcoords);
 
+        Coordinate operator +(const Coordinate &secondcoord);
+
+        friend ostream& operator << (ostream& os, const Coordinate &coord) {os<<"Row: "<<coord.getRow()<<" Column: "<<coord.getColumn(); return os;}
     protected:
         int row;
         int column;

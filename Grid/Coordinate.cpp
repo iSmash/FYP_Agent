@@ -19,6 +19,13 @@ using namespace std;
 bool Coordinate::operator ==(const Coordinate &testcoords)
                  { return (testcoords.getRow() == row )&& (testcoords.getColumn() == column);}
 
+  Coordinate Coordinate::operator +(const Coordinate &secondcoord)
+  {
+      return Coordinate(row+secondcoord.getRow(), column+secondcoord.getColumn());
+  }
+
+
+
 ///constructor
 Coordinate::Coordinate(int rows, int columnes)
 {
@@ -33,5 +40,6 @@ RelativeCoordinate::RelativeCoordinate(int rows, int columnes)
     row = rows;
     column = columnes;
 }
+
 
 

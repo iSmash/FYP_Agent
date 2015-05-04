@@ -1,7 +1,7 @@
 #ifndef SIMULATIONREADIN_H
 #define SIMULATIONREADIN_H
 #include "Agent.h"
-//#include "../GUI/GridGUI.h"
+
 
 namespace Agentspace{
 
@@ -16,17 +16,15 @@ public:
 
 	Grid trueworld; //the simulator is a slut, and it dont give no shits if everyone sees it grids
 
-	inline void setTrueCurrentLocation(Coordinate toset){trueCurrentLocation=toset;}
-
 	void lookAround(); //make private later
-
+    inline void setRelativity(Coordinate _trueLocationRelativity){trueLocationRelativity=RelativeCoordinate(_trueLocationRelativity.getRow(), _trueLocationRelativity.getColumn());}
 private:
 	bool move(Node::Direction toMove);
 	bool lowSignal();
-	void PlaceRelay(int ID, Coordinate whereToPlaceKnown, Coordinate whereToPlacetrue);
+	void PlaceRelay(int ID, Coordinate whereToPlace);
 	void PickupRelay(int ID, Coordinate whereToTake);
 
-	Coordinate trueCurrentLocation;
+	RelativeCoordinate trueLocationRelativity;
 
 
 };

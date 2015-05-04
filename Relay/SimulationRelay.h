@@ -14,14 +14,18 @@ namespace Relayspace
             activeRange=0;
             }
 
-			inline void addRange(int add){Ranges.push_back(add);}
-			std::vector<Coordinate> domain();
+        inline void updatePos(Coordinate pos){ gridLocation= pos; findDomain();}
 
-			inline void setRange(int range){if(range>=0 && range<Ranges.size()) activeRange=range;}
+			inline void addRange(int add){Ranges.push_back(add);}
+			void findDomain();
+
+			void setRange(int range);
             bool inRange(Coordinate test);
 		private:
 			std::vector<int> Ranges;
 			int activeRange;
+
+			std::vector<Coordinate> domain;
 	};
 
 }

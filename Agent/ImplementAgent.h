@@ -25,7 +25,7 @@ private:
 
 	bool move(Node::Direction toMove);
 	void lookAround();
-
+    bool lowSignal();
 };
 }
 #endif

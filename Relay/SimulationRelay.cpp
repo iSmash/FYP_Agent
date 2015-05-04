@@ -3,8 +3,9 @@
 using namespace Relayspace;
 
 
-std::vector<Coordinate> SimulationRelay::domain()
+void SimulationRelay::findDomain()
  {
+         //cout<<"findDomain "<<gridLocation<<" "<<Ranges[activeRange]<<endl;
 	   std::vector<Coordinate> domaintemp;
 
            for(int i = 0; i< Ranges[activeRange]; i++)
@@ -37,21 +38,26 @@ std::vector<Coordinate> SimulationRelay::domain()
 
            }
 
-          return domaintemp;
+          domain= domaintemp;
 
         }
 
-
+void SimulationRelay::setRange(int range)
+{
+    if(range>=0 && range<Ranges.size())
+        activeRange=range;
+    if(!(gridLocation == Coordinate(0,0))) // no !- operator, so just use this
+        findDomain();
+}
 
 
 bool SimulationRelay::inRange(Coordinate test)
 {
 //std::cout<<test.getRow()<<" "<<test.getColumn()<<std::endl;
-     std::vector<Coordinate> temp = domain();
 
-           for( int i =0; i< temp.size(); i++)
+           for( int i =0; i< domain.size(); i++)
            {
-               if(temp[i]==test)
+               if(domain[i]==test)
                {
 
                 return true;

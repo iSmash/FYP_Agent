@@ -11,7 +11,7 @@ namespace Relayspace
 class Relay
 {
 public:
-	Relay(){ID=ID_Count++;}
+	Relay(){ID=ID_Count++; gridLocation=Coordinate(0,0);}
 	inline int getID(){return ID;}
 
 	inline void updatePos(Coordinate pos){gridLocation= pos;}

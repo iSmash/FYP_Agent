@@ -2,7 +2,7 @@
 #include "Agent.h"
 using namespace Agentspace;
 using namespace Relayspace;
-
+using namespace std;
 
 void printDirection2(Node::Direction toprint)
 {
@@ -23,7 +23,7 @@ void Agent::tryPath()
 
 	while(actionList.size()!=0)
 	{
-		//printDirection2(actionList.back());
+		printDirection2(actionList.back());
 
 		if(!move(actionList.back()))
 			break;
@@ -48,6 +48,17 @@ Relay* Agent::getRelay(int _ID)
 		if(heldRelays[i]->getID()== _ID)
 			return heldRelays[i];
 	}
+	//cout<<"failed to find relay"<<endl;
+	return NULL;
+}
+
+void Agent::removeRelay(int _ID)
+{
+	for(int i=0; i< heldRelays.size(); i++)
+	{
+		if(heldRelays[i]->getID()== _ID)
+			heldRelays.erase(heldRelays.begin()+i);
+	}
 }
 
 void Agent::PlaceRelay(Coordinate whereToPlace)
@@ -58,6 +69,7 @@ void Agent::PlaceRelay(Coordinate whereToPlace)
 void Agent::PickupRelay(Coordinate PickFrom)
 {
 	knownWorld[PickFrom].removeContent(ContentType::RelayMarker);
+
 }
 
 void Agent::lookAround()
@@ -71,6 +83,7 @@ void Agent::lookAround()
 		knownWorld.updateSize(Grid::top);
 		//as we are push above the grid, we need to move down our knonw position
 		CurrentLocation=Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn());
+		GoalLocation=Coordinate(GoalLocation.getRow()+1, GoalLocation.getColumn());
 	}
 
 	//look donw
@@ -99,6 +112,7 @@ void Agent::lookAround()
 		knownWorld.updateSize(Grid::left);
 		//as we are push above the grid, we need to move down our knonw position
 		CurrentLocation=Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1);
+		GoalLocation=Coordinate(GoalLocation.getRow(), GoalLocation.getColumn()+1);
 	}
 
 
@@ -111,32 +125,47 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
 	Grid::updateSizeDirection direcion;
 	if(relativeToGoal.getRow()<0)
 	{
-		//add up
-		direcion= Grid::top;
+		for(int i =0; i< abs(relativeToGoal.getRow()); i++)
+	{
+		knownWorld.updateSize(Grid::top);
+		CurrentLocation=Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn());
+
+	}
 	}
 	else
-		direcion= Grid::bottom;
-
-	for(int i =0; i< abs(relativeToGoal.getRow()); i++)
+		{
+		for(int i =0; i< abs(relativeToGoal.getRow()); i++)
 	{
-		knownWorld.updateSize(direcion);
+		knownWorld.updateSize(Grid::bottom);
 	}
+		}
+
 
 	if(relativeToGoal.getColumn()<0)
 	{
 		//add up
-		direcion= Grid::left;
+
+		for(int i =0; i< abs(relativeToGoal.getColumn()); i++)
+	{
+		knownWorld.updateSize(Grid::left);
+		CurrentLocation=Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1);
+
+	}
 	}
 	else
-		direcion= Grid::right;
-
-	for(int i =0; i< abs(relativeToGoal.getColumn()); i++)
+		{
+		    	for(int i =0; i< abs(relativeToGoal.getColumn()); i++)
 	{
-		knownWorld.updateSize(direcion);
-	}
+		knownWorld.updateSize(Grid::right);
+		}
+		}
 
-	Goal = Coordinate(CurrentLocation.getRow()+relativeToGoal.getRow(), CurrentLocation.getColumn()+relativeToGoal.getColumn());
-	knownWorld[Goal].addContent(ContentType::Goal);
+
+
+	GoalLocation = CurrentLocation+relativeToGoal;
+   //cout<<"C"<<CurrentLocation<<endl;
+   //cout<<"G"<<GoalLocation<<endl;
+	knownWorld[GoalLocation].addContent(ContentType::Goal);
 
 }
 

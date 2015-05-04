@@ -24,13 +24,14 @@ public:
 	{
 		// std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
 		knownWorld[CurrentLocation].setViewed(true);
-		actionList = planner.findPath(CurrentLocation, Goal,knownWorld);
+		actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
 	}
 	void tryPath();
 
 	virtual void setRelayCount(int numberofRelays)=0; //same, but makes either implemnet, or simulation relays.
 	Relay* getRelay(int _ID);
 	vector<Relay*> getRelays() {return heldRelays;} //namechange for error provension? na
+    void removeRelay(int _ID);
 
 	inline Grid* getKnownGrid(){return &knownWorld;}
 
@@ -38,6 +39,7 @@ public:
 
 	inline void defineDeploymentMethod(int meth){DeploymentMethod=meth;}
 	inline int getDeploymentMethod() {return DeploymentMethod;}
+
 
 protected:
 	virtual bool lowSignal()=0;
@@ -48,7 +50,7 @@ protected:
 	void PickupRelay(Coordinate PickFrom);
 
 	Coordinate CurrentLocation;
-	Coordinate Goal;
+	Coordinate GoalLocation;
 	vector<Node::Direction> actionList;
 	PathPlan planner;
 	Grid knownWorld;
