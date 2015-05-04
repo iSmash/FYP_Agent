@@ -1,0 +1,486 @@
+2015-05-04 23:10:52.9973|WARN|thread: 1|StandardUserErrors|Showing user error Failed to create a new commit.
+GitHub.IO.ProcessException: fatal: pathspec 'Debug/Agent/subdir.mk' did not match any files
+2015-05-04 22:50:28.8873|INFO|thread: 1|CommandLineHandler|Parsing command line arguments:C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14\GitHub.exe
+2015-05-04 22:50:28.8873|INFO|thread: 1|AppInstanceCommunicator|Starting up as master instance of GitHub for Windows
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| #########################################
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| GitHub for Windows started. VERSION: 2.13.2.4
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| Build version: b5813af694417341067e77ba27146bdc57169dba
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***************************************
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***                                 ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***                                 ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***        Have a problem?          ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***    Email support@github.com     ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***      and include this file      ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***                                 ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***                                 ***
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ***************************************
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| OS Version: Windows 7 Service Pack 1 6.1.7601.65536 amd64
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| CLR Version: 4.0.30319.18444
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| Current culture: en-AU
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| Terminal Services session: no
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| Location: C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14\GitHub.exe
+2015-05-04 22:50:28.9503|INFO|thread: 5|StartupLogging| ActivationUri: https://github-windows.s3.amazonaws.com/GitHub.application
+2015-05-04 22:50:28.9763|INFO|thread: 1|HardwareRenderingHelper|Your video card appears to support hardware rendering. If this isn't the case and you see glitches
+2015-05-04 22:50:28.9763|INFO|thread: 1|HardwareRenderingHelper|set the GH_FORCE_SW_RENDERING environment variable to 1
+2015-05-04 22:50:28.9763|INFO|thread: 5|GitEnvironment|Process set up with this SSH Agent info: (null):(null)
+2015-05-04 22:50:28.9763|INFO|thread: 5|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Skype\Phone\;c:\minGW\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| =====================================================
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging|  DIAGNOSTICS                                        |
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| =====================================================
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| Git Extracted: 'True:
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| PortableGit Dir Exists: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad'
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| Git Executable Exists: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe'
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| ----------------------------------------------------
+2015-05-04 22:50:28.9793|INFO|thread: 5|StartupLogging| PATH: C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Skype\Phone\;c:\minGW\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\
+2015-05-04 22:50:29.0143|INFO|thread: 5|StartupLogger|Proxy information: (None)
+2015-05-04 22:50:29.0143|INFO|thread: 5|StartupLogger|Couldn't fetch creds for proxy
+2015-05-04 22:50:29.1633|INFO|thread: 1|App|Checking whether application is network deployed.
+2015-05-04 22:50:29.2053|INFO|thread: 1|ClickOnceAppIconHelper|Updating registry with our application icon 'C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14\Images\App.ico'
+2015-05-04 22:50:29.5133|INFO|thread: 5|PortablePackageManager|Already extracted PortableGit.7z, returning 100%
+2015-05-04 22:50:29.5853|INFO|thread: 5|MsysGitCertificateInstaller|Found certificate cache, loaded 162 certificates
+2015-05-04 22:50:29.5893|INFO|thread: 5|MsysGitCertificateInstaller|Created certificate bundle with 186 entries
+2015-05-04 22:50:30.6984|INFO|thread: 1|CommandLineToolsExtractor|Portable Git and Git LFS are already extracted
+2015-05-04 22:50:30.6984|INFO|thread: 1|GitClient|Installing git lfs filters
+2015-05-04 22:50:30.6984|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: (null):(null)
+2015-05-04 22:50:30.6984|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:50:30.7184|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'lfs init ', Working Directory: C:\Users\M\AppData\Local\Temp\
+2015-05-04 22:50:30.7584|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.ShellViewModel.
+2015-05-04 22:50:30.7584|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.DashboardViewModel.
+2015-05-04 22:50:31.3944|INFO|thread: 1|PortablePackageManager|Already extracted gitignore.7z, returning 100%
+2015-05-04 22:50:34.0706|INFO|thread:13|AsyncReaderWriterLock|Acquiring concurrent lock for operation 1: 'GetRecentBranchNames' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:34.0706|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent lock for operation 1: 'GetRecentBranchNames' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:34.1226|INFO|thread:22|GitEnvironment|Process set up with this SSH Agent info: (null):(null)
+2015-05-04 22:50:34.1226|INFO|thread:22|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:50:34.1226|INFO|thread:22|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'log -g --abbrev-commit --pretty=oneline HEAD -n 2500 ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:50:34.9376|INFO|thread:11|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:50:35.0246|INFO|thread: 5|AsyncReaderWriterLock|Released concurrent lock for operation 1: 'GetRecentBranchNames' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.0246|INFO|thread:11|RepositoryConnection|Loaded '5' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:50:35.4847|INFO|thread: 1|RepositoryHost|Log in from cache for login 'iSmash' to host 'https://api.github.com/' SUCCEEDED
+2015-05-04 22:50:35.5777|INFO|thread:22|ApplicationShellInitializer|Running post login tasks. ~/.gitconfig is set up with user.name = 'ismash' and user.email = 'marshalltsimons@gmail.com'
+2015-05-04 22:50:35.6027|INFO|thread:13|SSHProcessManager|Starting ssh-agent.exe
+2015-05-04 22:50:35.6137|INFO|thread:13|PortablePackageManager|Already extracted lfs-amd64.7z, returning 100%
+2015-05-04 22:50:35.6847|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:50:35.7027|INFO|thread: 5|AsyncReaderWriterLock|Acquiring concurrent lock for operation 2: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.7027|INFO|thread: 5|AsyncReaderWriterLock|Acquired concurrent lock for operation 2: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.7697|INFO|thread:24|AsyncReaderWriterLock|Released concurrent lock for operation 2: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.8347|INFO|thread:11|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:50:35.8557|INFO|thread: 4|AsyncReaderWriterLock|Acquiring concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.8557|INFO|thread:14|AsyncReaderWriterLock|Acquired concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:35.8677|INFO|thread: 5|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:50:35.8677|INFO|thread: 5|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:50:35.8767|INFO|thread:22|GitEnvironment|Process set up with this SSH Agent info: (null):(null)
+2015-05-04 22:50:35.8767|INFO|thread:22|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:50:35.8767|INFO|thread:22|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:50:35.9167|INFO|thread:23|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:50:35.9167|INFO|thread:23|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:50:35.9417|INFO|thread:23|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\ssh-add.exe', Args: '"C:\Users\M\.ssh\github_rsa"', Working Directory: C:\Users\M\AppData\Local\Temp\
+2015-05-04 22:50:36.2767|INFO|thread: 5|AsyncReaderWriterLock|Acquiring concurrent lock for operation 4: 'GetBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.2767|INFO|thread: 5|AsyncReaderWriterLock|Acquired concurrent lock for operation 4: 'GetBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.2767|INFO|thread: 4|AsyncReaderWriterLock|Acquiring concurrent lock for operation 5: 'MergeStatus' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.2767|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent lock for operation 5: 'MergeStatus' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.3027|INFO|thread: 5|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:50:36.3027|INFO|thread:22|AsyncReaderWriterLock|Released concurrent lock for operation 4: 'GetBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.3027|INFO|thread:24|AsyncReaderWriterLock|Released concurrent lock for operation 5: 'MergeStatus' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.3027|INFO|thread: 5|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:50:36.3027|INFO|thread: 4|AsyncReaderWriterLock|Acquiring concurrent lock for operation 6: 'GetUniqueCommits' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.3027|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent lock for operation 6: 'GetUniqueCommits' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.3027|INFO|thread:13|SSHKeyHelper|Found existing SSH key pair
+2015-05-04 22:50:36.3247|INFO|thread:25|AsyncReaderWriterLock|Released concurrent lock for operation 6: 'GetUniqueCommits' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.5047|INFO|thread:11|AsyncReaderWriterLock|Released concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:36.9087|INFO|thread: 1|RepositoryViewModel|Created Shadow Backup for Repo: D:\GitWin\FYP_Agent => 3f52a1a123e1540194b065bc9c129c1b43e4d5e9 in 414ms
+2015-05-04 22:50:37.3818|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:50:37.3878|INFO|thread:14|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:50:37.3878|INFO|thread:14|RepositoryConnection|branch stats: ahead 1, behind 4
+2015-05-04 22:50:37.3878|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts and running a full fetch.
+2015-05-04 22:50:37.3878|INFO|thread: 4|AsyncReaderWriterLock|Acquiring concurrent lock for operation 7: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:37.3878|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent lock for operation 7: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:37.3878|INFO|thread:22|AsyncReaderWriterLock|Released concurrent lock for operation 7: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:50:37.4068|INFO|thread: 5|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:50:37.4068|INFO|thread: 5|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:50:37.4068|INFO|thread: 5|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'fetch origin --prune ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:50:39.1999|INFO|thread:13|SoftwareUpdateViewModel|Checking for new version
+2015-05-04 22:50:40.3019|INFO|thread: 5|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:50:40.3019|INFO|thread: 5|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:54:15.9493|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:54:15.9493|INFO|thread:31|AsyncReaderWriterLock|Acquiring concurrent lock for operation 8: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:15.9613|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent lock for operation 8: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:15.9923|INFO|thread:28|AsyncReaderWriterLock|Released concurrent lock for operation 8: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.0583|INFO|thread:31|AsyncReaderWriterLock|Acquiring concurrent lock for operation 9: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.0583|INFO|thread:31|AsyncReaderWriterLock|Acquired concurrent lock for operation 9: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.0703|INFO|thread:30|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:54:16.0703|INFO|thread:21|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:54:16.0703|INFO|thread:21|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:54:16.0703|INFO|thread:21|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:54:16.0703|INFO|thread:30|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:54:16.1193|INFO|thread:29|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:54:16.1193|INFO|thread:29|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:54:16.2623|INFO|thread:30|AsyncReaderWriterLock|Released concurrent lock for operation 9: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.3013|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:54:16.3013|INFO|thread:29|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:54:16.3043|INFO|thread:29|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:54:16.3043|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts and running a full fetch.
+2015-05-04 22:54:16.3043|INFO|thread:30|AsyncReaderWriterLock|Acquiring concurrent lock for operation 10: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.3043|INFO|thread:31|AsyncReaderWriterLock|Acquired concurrent lock for operation 10: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.3043|INFO|thread:21|AsyncReaderWriterLock|Released concurrent lock for operation 10: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:54:16.3043|INFO|thread:32|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:54:16.3043|INFO|thread:32|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:54:16.3043|INFO|thread:32|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'fetch origin --prune ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:54:17.6244|INFO|thread:31|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:54:17.6244|INFO|thread:31|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:55:54.2489|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:55:54.2489|INFO|thread:39|AsyncReaderWriterLock|Acquiring concurrent lock for operation 11: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.2489|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent lock for operation 11: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.2969|INFO|thread:41|AsyncReaderWriterLock|Released concurrent lock for operation 11: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.2969|INFO|thread:38|AsyncReaderWriterLock|Acquiring concurrent lock for operation 12: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.2969|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent lock for operation 12: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.3049|INFO|thread:36|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:55:54.3049|INFO|thread:42|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:55:54.3049|INFO|thread:42|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:55:54.3049|INFO|thread:42|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:55:54.3049|INFO|thread:36|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:55:54.3219|INFO|thread:37|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:55:54.3219|INFO|thread:37|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:55:54.4899|INFO|thread:38|AsyncReaderWriterLock|Released concurrent lock for operation 12: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:55:54.9639|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:55:54.9639|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:55:54.9639|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --name-status 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 22:55:54.9639|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:55:54.9639|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:55:54.9639|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --numstat 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 22:55:55.3450|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:55:55.3450|INFO|thread:38|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:55:55.3450|INFO|thread:38|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:56:16.2522|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:56:16.2522|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:56:16.2522|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --name-status 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 22:56:16.2582|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:56:16.2582|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:56:16.2582|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --numstat 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 22:56:51.1452|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:56:51.1452|INFO|thread:35|AsyncReaderWriterLock|Acquiring concurrent lock for operation 13: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.1452|INFO|thread:41|AsyncReaderWriterLock|Acquired concurrent lock for operation 13: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.1702|INFO|thread:28|AsyncReaderWriterLock|Released concurrent lock for operation 13: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.2352|INFO|thread:36|AsyncReaderWriterLock|Acquiring concurrent lock for operation 14: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.2352|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent lock for operation 14: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.2352|INFO|thread:33|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:56:51.2352|INFO|thread:33|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:56:51.2352|INFO|thread:33|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:56:51.2522|INFO|thread:36|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:56:51.2522|INFO|thread:36|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:56:51.2712|INFO|thread:36|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:56:51.2762|INFO|thread:36|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:56:51.4302|INFO|thread:41|AsyncReaderWriterLock|Released concurrent lock for operation 14: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:56:51.4792|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:56:51.4792|INFO|thread:36|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:56:51.4792|INFO|thread:36|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:58:33.3010|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:58:33.3010|INFO|thread:28|AsyncReaderWriterLock|Acquiring concurrent lock for operation 15: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.3010|INFO|thread:28|AsyncReaderWriterLock|Acquired concurrent lock for operation 15: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.3490|INFO|thread:31|AsyncReaderWriterLock|Released concurrent lock for operation 15: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.3490|INFO|thread:33|AsyncReaderWriterLock|Acquiring concurrent lock for operation 16: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.3490|INFO|thread:33|AsyncReaderWriterLock|Acquired concurrent lock for operation 16: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.3490|INFO|thread:32|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:58:33.3490|INFO|thread:32|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:58:33.3760|INFO|thread:34|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:58:33.3780|INFO|thread:34|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:58:33.3940|INFO|thread:30|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:58:33.3940|INFO|thread:30|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:58:33.3940|INFO|thread:30|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:58:33.5720|INFO|thread:31|AsyncReaderWriterLock|Released concurrent lock for operation 16: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:33.5880|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped b/c sync is in progress
+2015-05-04 22:58:33.5880|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped b/c sync is in progress
+2015-05-04 22:58:34.6331|INFO|thread: 1|RepositoryHost|Log in from cache for login 'iSmash' to host 'https://api.github.com/' SUCCEEDED
+2015-05-04 22:58:34.6471|INFO|thread: 1|SyncButtonViewModel|Starting sync for D:\GitWin\FYP_Agent - master
+2015-05-04 22:58:34.6471|INFO|thread:26|AsyncReaderWriterLock|Acquiring exclusive lock for operation 17: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:34.6471|INFO|thread:24|AsyncReaderWriterLock|Acquired exclusive lock for operation 17: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:34.6471|INFO|thread:35|GitClient|Sync has latest unpublished commit SHA: '719f4b140703fd9b2efe290205ae2d3f8aecb80b'
+2015-05-04 22:58:34.6651|INFO|thread:35|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:58:34.6651|INFO|thread:35|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:58:34.6651|INFO|thread:35|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'pull --progress --rebase --prune origin master ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:58:34.9511|INFO|thread:27|AsyncReaderWriterLock|Released exclusive lock for operation 17: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:34.9881|WARN|thread: 1|StandardUserErrors|Showing user error It appears that you are in the middle of a merge conflict. Open the Git Shell and resolve the conflicts in your working directory before attempting to sync again.
+GitHub.IO.ProcessException: M	Agent/ImplementAgent.cpp
+M	Agent/Node.h
+D	Debug/Agent/subdir.mk
+D	Debug/Grid/subdir.mk
+D	Debug/Relay/subdir.mk
+D	Debug/makefile
+D	Debug/objects.mk
+D	Debug/sources.mk
+D	Debug/subdir.mk
+U	FYP.depend
+M	FYP.layout
+U	FileRead.cpp
+U	FileRead.h
+M	GUI/GridGUI.cpp
+M	GUI/GridGUI.h
+M	Grid/Content.h
+M	Relay/SimulationRelay.cpp
+U	RelayTestGrid.txt
+U	RelayTestRelay.txt
+Pull is not possible because you have unmerged files.
+Please, fix them up in the work tree, and then use 'git add/rm <file>'
+as appropriate to mark resolution, or use 'git commit -a'.
+2015-05-04 22:58:42.7135|INFO|thread: 1|SyncButtonViewModel|Completing sync for D:\GitWin\FYP_Agent - master
+2015-05-04 22:58:42.7135|INFO|thread:29|AsyncReaderWriterLock|Acquiring concurrent lock for operation 18: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.7135|INFO|thread:29|AsyncReaderWriterLock|Acquired concurrent lock for operation 18: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.7605|INFO|thread:35|AsyncReaderWriterLock|Released concurrent lock for operation 18: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.7705|INFO|thread:33|AsyncReaderWriterLock|Acquiring concurrent lock for operation 19: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.7705|INFO|thread:27|AsyncReaderWriterLock|Acquired concurrent lock for operation 19: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.7705|INFO|thread:31|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:58:42.7705|INFO|thread:41|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:58:42.7705|INFO|thread:41|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:58:42.7705|INFO|thread:41|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:58:42.7705|INFO|thread:31|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:58:42.7955|INFO|thread:29|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:58:42.7955|INFO|thread:29|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:58:42.9365|INFO|thread:28|AsyncReaderWriterLock|Released concurrent lock for operation 19: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:58:42.9535|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:58:42.9535|INFO|thread:32|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:58:42.9565|INFO|thread:32|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 22:59:04.0328|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 22:59:04.0328|INFO|thread:33|AsyncReaderWriterLock|Acquiring concurrent lock for operation 20: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.0328|INFO|thread:34|AsyncReaderWriterLock|Acquired concurrent lock for operation 20: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.0668|INFO|thread:35|AsyncReaderWriterLock|Released concurrent lock for operation 20: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.0668|INFO|thread:28|AsyncReaderWriterLock|Acquiring concurrent lock for operation 21: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.0668|INFO|thread:28|AsyncReaderWriterLock|Acquired concurrent lock for operation 21: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.0668|INFO|thread:27|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:59:04.0668|INFO|thread:27|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:59:04.0848|INFO|thread:24|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 22:59:04.0848|INFO|thread:24|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 22:59:04.1108|INFO|thread:40|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 22:59:04.1108|INFO|thread:40|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 22:59:04.1108|INFO|thread:40|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 22:59:04.2948|INFO|thread:34|AsyncReaderWriterLock|Released concurrent lock for operation 21: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 22:59:04.3118|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 22:59:04.3148|INFO|thread:34|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 22:59:04.3148|INFO|thread:34|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:00:20.2481|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:00:20.2481|INFO|thread:39|AsyncReaderWriterLock|Acquiring concurrent lock for operation 22: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.2481|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent lock for operation 22: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.2801|INFO|thread:35|AsyncReaderWriterLock|Released concurrent lock for operation 22: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.2801|INFO|thread:37|AsyncReaderWriterLock|Acquiring concurrent lock for operation 23: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.2801|INFO|thread:37|AsyncReaderWriterLock|Acquired concurrent lock for operation 23: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.2801|INFO|thread:38|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:00:20.2881|INFO|thread:38|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:00:20.2881|INFO|thread:38|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:00:20.2881|INFO|thread:38|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:00:20.3201|INFO|thread:36|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:00:20.3201|INFO|thread:36|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:00:20.3201|INFO|thread:36|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:00:20.4611|INFO|thread:16|AsyncReaderWriterLock|Released concurrent lock for operation 23: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:00:20.5091|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:00:20.5091|INFO|thread:35|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:00:20.5091|INFO|thread:35|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:07:03.9412|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:07:03.9412|INFO|thread:46|AsyncReaderWriterLock|Acquiring concurrent lock for operation 24: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:03.9412|INFO|thread:46|AsyncReaderWriterLock|Acquired concurrent lock for operation 24: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:03.9882|INFO|thread:49|AsyncReaderWriterLock|Released concurrent lock for operation 24: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:03.9882|INFO|thread:36|AsyncReaderWriterLock|Acquiring concurrent lock for operation 25: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:03.9882|INFO|thread:36|AsyncReaderWriterLock|Acquired concurrent lock for operation 25: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:03.9882|INFO|thread:48|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:03.9882|INFO|thread:48|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:03.9882|INFO|thread:50|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:03.9882|INFO|thread:50|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:03.9882|INFO|thread:50|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:07:04.0372|INFO|thread:46|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:04.0372|INFO|thread:46|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:04.2142|INFO|thread:48|AsyncReaderWriterLock|Released concurrent lock for operation 25: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:04.2662|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:07:04.2662|INFO|thread:50|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:07:04.2662|INFO|thread:50|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:07:04.2662|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts and running a full fetch.
+2015-05-04 23:07:04.2662|INFO|thread:51|AsyncReaderWriterLock|Acquiring concurrent lock for operation 26: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:04.2662|INFO|thread:51|AsyncReaderWriterLock|Acquired concurrent lock for operation 26: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:04.2902|INFO|thread:36|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:04.2902|INFO|thread:36|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:04.2902|INFO|thread:36|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'fetch origin --prune ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:07:04.2902|INFO|thread:53|AsyncReaderWriterLock|Released concurrent lock for operation 26: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:05.6063|INFO|thread:52|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:07:05.6083|INFO|thread:52|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:07:35.0600|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:07:35.0610|INFO|thread:55|AsyncReaderWriterLock|Acquiring concurrent lock for operation 27: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.0610|INFO|thread:55|AsyncReaderWriterLock|Acquired concurrent lock for operation 27: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.0800|INFO|thread:51|AsyncReaderWriterLock|Released concurrent lock for operation 27: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.0800|INFO|thread:56|AsyncReaderWriterLock|Acquiring concurrent lock for operation 28: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.0800|INFO|thread:56|AsyncReaderWriterLock|Acquired concurrent lock for operation 28: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.0980|INFO|thread:51|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:35.0980|INFO|thread:51|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:35.0980|INFO|thread:51|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:07:35.0980|INFO|thread:57|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:35.0980|INFO|thread:57|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:35.1580|INFO|thread:52|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:35.1580|INFO|thread:52|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:35.3090|INFO|thread:57|AsyncReaderWriterLock|Released concurrent lock for operation 28: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:35.3270|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:07:35.3430|INFO|thread:52|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:07:35.3430|INFO|thread:52|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:07:39.6172|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:39.6172|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:39.6172|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --name-status 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 23:07:39.6172|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:39.6172|INFO|thread: 1|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:39.6172|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --numstat 719f4b140703fd9b2efe290205ae2d3f8aecb80b ', Working Directory: D:\GitWin\FYP_Agent
+2015-05-04 23:07:58.3313|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:07:58.3313|INFO|thread:56|AsyncReaderWriterLock|Acquiring concurrent lock for operation 29: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.3313|INFO|thread:56|AsyncReaderWriterLock|Acquired concurrent lock for operation 29: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.3443|INFO|thread:58|AsyncReaderWriterLock|Released concurrent lock for operation 29: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.3443|INFO|thread:55|AsyncReaderWriterLock|Acquiring concurrent lock for operation 30: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.3443|INFO|thread:55|AsyncReaderWriterLock|Acquired concurrent lock for operation 30: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.3443|INFO|thread:57|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:58.3533|INFO|thread:57|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:58.3533|INFO|thread:59|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:07:58.3683|INFO|thread:59|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:07:58.3943|INFO|thread:61|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:07:58.3943|INFO|thread:61|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:07:58.3943|INFO|thread:61|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:07:58.6373|INFO|thread:52|AsyncReaderWriterLock|Released concurrent lock for operation 30: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:07:58.6673|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:07:58.6673|INFO|thread:55|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:07:58.6673|INFO|thread:55|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:08:26.3479|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:08:26.3479|INFO|thread:55|AsyncReaderWriterLock|Acquiring concurrent lock for operation 31: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.3479|INFO|thread:55|AsyncReaderWriterLock|Acquired concurrent lock for operation 31: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.3849|INFO|thread:66|AsyncReaderWriterLock|Acquiring concurrent lock for operation 32: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.3849|INFO|thread:66|AsyncReaderWriterLock|Acquired concurrent lock for operation 32: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.3849|INFO|thread:65|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:08:26.3849|INFO|thread:65|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:08:26.3849|INFO|thread:69|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:08:26.3849|INFO|thread:69|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:08:26.3849|INFO|thread:69|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:08:26.4029|INFO|thread:68|AsyncReaderWriterLock|Released concurrent lock for operation 31: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.4029|INFO|thread:55|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:08:26.4029|INFO|thread:55|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:08:26.5939|INFO|thread:58|AsyncReaderWriterLock|Released concurrent lock for operation 32: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:08:26.6219|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:08:26.6219|INFO|thread:51|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:08:26.6219|INFO|thread:51|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:10:03.7005|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:10:03.7005|INFO|thread:62|AsyncReaderWriterLock|Acquiring concurrent lock for operation 33: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.7005|INFO|thread:62|AsyncReaderWriterLock|Acquired concurrent lock for operation 33: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.7235|INFO|thread:70|AsyncReaderWriterLock|Released concurrent lock for operation 33: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.7305|INFO|thread:62|AsyncReaderWriterLock|Acquiring concurrent lock for operation 34: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.7305|INFO|thread:62|AsyncReaderWriterLock|Acquired concurrent lock for operation 34: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.7305|INFO|thread:69|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:03.7305|INFO|thread:68|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:03.7305|INFO|thread:68|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:03.7305|INFO|thread:68|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:03.7305|INFO|thread:69|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:03.7515|INFO|thread:71|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:03.7515|INFO|thread:71|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:03.9165|INFO|thread:67|AsyncReaderWriterLock|Released concurrent lock for operation 34: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:03.9605|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:10:03.9605|INFO|thread:74|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:10:03.9645|INFO|thread:74|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:10:10.9119|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:10:10.9209|INFO|thread:73|AsyncReaderWriterLock|Acquiring concurrent lock for operation 35: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:10.9209|INFO|thread:73|AsyncReaderWriterLock|Acquired concurrent lock for operation 35: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:10.9429|INFO|thread:68|AsyncReaderWriterLock|Released concurrent lock for operation 35: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:10.9429|INFO|thread:63|AsyncReaderWriterLock|Acquiring concurrent lock for operation 36: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:10.9429|INFO|thread:58|AsyncReaderWriterLock|Acquired concurrent lock for operation 36: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:10.9429|INFO|thread:74|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:10.9559|INFO|thread:74|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:10.9559|INFO|thread:75|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:10.9559|INFO|thread:75|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:10.9559|INFO|thread:75|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:10.9559|INFO|thread:63|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:10.9709|INFO|thread:63|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:11.1719|INFO|thread:63|AsyncReaderWriterLock|Released concurrent lock for operation 36: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:11.2599|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:10:11.2599|INFO|thread:58|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:10:11.2649|INFO|thread:58|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:10:11.2649|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts and running a full fetch.
+2015-05-04 23:10:11.2649|INFO|thread:70|AsyncReaderWriterLock|Acquiring concurrent lock for operation 37: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:11.2649|INFO|thread:70|AsyncReaderWriterLock|Acquired concurrent lock for operation 37: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:11.2649|INFO|thread:66|AsyncReaderWriterLock|Released concurrent lock for operation 37: 'FetchFromUpstreamRemote' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:11.2649|INFO|thread:74|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:11.2649|INFO|thread:74|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:11.2649|INFO|thread:74|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'fetch origin --prune ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:12.6170|INFO|thread:64|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:10:12.6170|INFO|thread:64|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:10:45.7249|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-05-04 23:10:45.7249|INFO|thread:59|AsyncReaderWriterLock|Acquiring concurrent lock for operation 38: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.7249|INFO|thread:59|AsyncReaderWriterLock|Acquired concurrent lock for operation 38: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.7249|INFO|thread:66|AsyncReaderWriterLock|Released concurrent lock for operation 38: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.7529|INFO|thread:68|AsyncReaderWriterLock|Acquiring concurrent lock for operation 39: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.7529|INFO|thread:68|AsyncReaderWriterLock|Acquired concurrent lock for operation 39: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.7529|INFO|thread:51|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:45.7569|INFO|thread:51|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:45.7569|INFO|thread:61|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:45.7569|INFO|thread:61|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:45.7719|INFO|thread:66|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:45.7719|INFO|thread:66|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:45.7719|INFO|thread:66|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:45.9519|INFO|thread:51|AsyncReaderWriterLock|Released concurrent lock for operation 39: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:45.9879|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped b/c sync is in progress
+2015-05-04 23:10:47.0010|INFO|thread: 1|RepositoryHost|Log in from cache for login 'iSmash' to host 'https://api.github.com/' SUCCEEDED
+2015-05-04 23:10:47.0010|INFO|thread: 1|SyncButtonViewModel|Starting sync for D:\GitWin\FYP_Agent - master
+2015-05-04 23:10:47.0010|INFO|thread:70|AsyncReaderWriterLock|Acquiring exclusive lock for operation 40: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:47.0010|INFO|thread:70|AsyncReaderWriterLock|Acquired exclusive lock for operation 40: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:47.0040|INFO|thread:72|GitClient|Sync has latest unpublished commit SHA: '719f4b140703fd9b2efe290205ae2d3f8aecb80b'
+2015-05-04 23:10:47.0040|INFO|thread:72|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:47.0040|INFO|thread:72|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:47.0040|INFO|thread:72|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'pull --progress --rebase --prune origin master ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:47.2640|INFO|thread:68|AsyncReaderWriterLock|Released exclusive lock for operation 40: 'SyncBranch' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:47.2710|WARN|thread: 1|StandardUserErrors|Showing user error It appears that you are in the middle of a merge conflict. Open the Git Shell and resolve the conflicts in your working directory before attempting to sync again.
+GitHub.IO.ProcessException: M	Agent/ImplementAgent.cpp
+M	Agent/Node.h
+D	Debug/Agent/subdir.mk
+D	Debug/Grid/subdir.mk
+D	Debug/Relay/subdir.mk
+D	Debug/makefile
+D	Debug/objects.mk
+D	Debug/sources.mk
+D	Debug/subdir.mk
+U	FYP.depend
+M	FYP.layout
+U	FileRead.cpp
+U	FileRead.h
+M	GUI/GridGUI.cpp
+M	GUI/GridGUI.h
+M	Grid/Content.h
+M	Relay/SimulationRelay.cpp
+U	RelayTestGrid.txt
+U	RelayTestRelay.txt
+Pull is not possible because you have unmerged files.
+Please, fix them up in the work tree, and then use 'git add/rm <file>'
+as appropriate to mark resolution, or use 'git commit -a'.
+2015-05-04 23:10:50.8892|INFO|thread: 1|SyncButtonViewModel|Completing sync for D:\GitWin\FYP_Agent - master
+2015-05-04 23:10:50.8892|INFO|thread:68|AsyncReaderWriterLock|Acquiring concurrent lock for operation 41: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:50.8892|INFO|thread:68|AsyncReaderWriterLock|Acquired concurrent lock for operation 41: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:50.9112|INFO|thread:61|AsyncReaderWriterLock|Acquiring concurrent lock for operation 42: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:50.9112|INFO|thread:61|AsyncReaderWriterLock|Acquired concurrent lock for operation 42: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:50.9362|INFO|thread:72|AsyncReaderWriterLock|Released concurrent lock for operation 41: 'LoadHeadForRepo' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:50.9362|INFO|thread:58|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:50.9362|INFO|thread:58|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:50.9362|INFO|thread:58|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:50.9362|INFO|thread:71|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:50.9362|INFO|thread:71|RepositoryConnection|Loaded '1' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:50.9562|INFO|thread:69|GitClient|Loading commits for repo: D:\GitWin\FYP_Agent
+2015-05-04 23:10:50.9562|INFO|thread:69|RepositoryConnection|Loaded '25' commits for repo: D:\GitWin\FYP_Agent\.
+2015-05-04 23:10:51.1102|INFO|thread:70|AsyncReaderWriterLock|Released concurrent lock for operation 42: 'LoadFilesInWorkingDirectory' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:51.1412|INFO|thread: 1|SyncButtonViewModel|Getting ahead/behind counts but skipping the fetch.
+2015-05-04 23:10:51.1412|INFO|thread:61|RepositoryConnection|Detecting ahead/behind info for branch: master.
+2015-05-04 23:10:51.1412|INFO|thread:61|RepositoryConnection|branch stats: ahead 1, behind 6
+2015-05-04 23:10:52.9223|INFO|thread:73|AsyncReaderWriterLock|Acquiring exclusive lock for operation 43: 'CreateCommit' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:52.9223|INFO|thread:61|AsyncReaderWriterLock|Acquired exclusive lock for operation 43: 'CreateCommit' on resource D:\GitWin\FYP_Agent\.git
+2015-05-04 23:10:52.9223|INFO|thread:58|ExclusiveRepositoryConnection|Creating Commit
+2015-05-04 23:10:52.9223|INFO|thread:58|ExclusiveRepositoryConnection|Creating new commit with 17 file(s). Merge remote-tracking branch 'origin/master'
+
+Conflicts:
+	FYP.depend
+	FileRead.cpp
+	FileRead.h
+	RelayTestGrid.txt
+	RelayTestRelay.txt
+
+2015-05-04 23:10:52.9363|INFO|thread:58|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:52.9363|INFO|thread:58|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:52.9363|INFO|thread:58|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'add --all "Agent/ImplementAgent.cpp" ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:52.9583|INFO|thread:51|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:52.9583|INFO|thread:51|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:52.9583|INFO|thread:51|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'add --all "Agent/Node.h" ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:52.9793|INFO|thread:51|GitEnvironment|Process set up with this SSH Agent info: 6560:/tmp/ssh-fEoNNmYze7vN/agent.2572
+2015-05-04 23:10:52.9793|INFO|thread:51|GitEnvironment|PATH is C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\M\AppData\Local\Apps\2.0\B7H8GDKN.5MP\WLXHA84N.C16\gith..tion_317444273a93ac29_0002.000d_6a9b565322d28a14;C:\Users\M\AppData\Local\GitHub\lfs-amd64_0.5.0-pre2;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Windows\System32
+2015-05-04 23:10:52.9793|INFO|thread:51|ProcessWrapper|Starting: Process - FileName: 'C:\Users\M\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'add --all "Debug/Agent/subdir.mk" ', Working Directory: D:\GitWin\FYP_Agent\
+2015-05-04 23:10:52.9973|INFO|thread:60|AsyncReaderWriterLock|Released exclusive lock for operation 43: 'CreateCommit' on resource D:\GitWin\FYP_Agent\.git
