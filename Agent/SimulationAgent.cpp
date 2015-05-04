@@ -10,7 +10,7 @@ void SimulationAgent::setRelayCount(int numberofRelays)
 	//has too few?
 	while(heldRelays.size()<numberofRelays)
 	{
-		SimulationRelay* temp= new SimulationRelay();
+		SimulationRelay* temp= new SimulationRelay(&trueworld);
 		heldRelays.push_back( temp);
 	}
 }

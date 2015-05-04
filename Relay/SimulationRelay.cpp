@@ -4,43 +4,48 @@ using namespace Relayspace;
 
 
 void SimulationRelay::findDomain()
- {
-         //cout<<"findDomain "<<gridLocation<<" "<<Ranges[activeRange]<<endl;
-	   std::vector<Coordinate> domaintemp;
+{
+    //cout<<"findDomain "<<gridLocation<<" "<<Ranges[activeRange]<<endl;
+    std::vector<Coordinate> domaintemp;
 
-           for(int i = 0; i< Ranges[activeRange]; i++)
-           {
+    //cout<<"range "<<Ranges[activeRange]<<endl;
+    for(double ang=0.0; ang<6.283; ang=ang+0.001){
 
-                 for(int j=0; j<sqrt(Ranges[activeRange]*Ranges[activeRange]-i*i); j++)
+    double limit=Ranges[activeRange];
+       double radius=0;;
+    bool up=true;
+    while(sqrt(pow(ceil(radius*sin(ang)),2.0)+pow(ceil(radius*cos(ang)),2.0))<limit)
+    {
+        //cout<<x*sin(ang)<<" "<<y*cos(ang)<<" "<<sqrt(pow(x*sin(ang),2.0)+pow(y*cos(ang),2.0))<<endl;
+        try
+        {
+
+            Coordinate temp= Coordinate(   gridLocation.getRow()+ceil(radius*sin(ang)), gridLocation.getColumn()+ceil(radius*cos(ang))  ) ;
+            if((*trueWorld)[temp].hasContent(ContentType::Wall))
                 {
-                    try{
+                limit--;
+                }
 
-                        Coordinate temp= Coordinate(   gridLocation.getRow()-i, gridLocation.getColumn()-j  ) ;
-                        domaintemp.push_back(  temp  );
-                        }
-                    catch(std::out_of_range e){}
-                    try{
-                         Coordinate temp= Coordinate(   gridLocation.getRow()-i, gridLocation.getColumn()+j  ) ;
-                        domaintemp.push_back(  temp  );
-                        }
-                    catch(std::out_of_range e){}
-                    try{
-                     Coordinate temp= Coordinate(   gridLocation.getRow()+i, gridLocation.getColumn()-j  ) ;
-                        domaintemp.push_back( temp  );
-                        }
-                    catch(std::out_of_range e){}
-                     try{
-                      Coordinate temp= Coordinate(   gridLocation.getRow()+i, gridLocation.getColumn()+j  ) ;
-                        domaintemp.push_back(  temp  );
-                        }
-                    catch(std::out_of_range e){}
-               }
-
-           }
-
-          domain= domaintemp;
-
+            bool newCoord=true;
+            for(int i=0; i<domaintemp.size(); i++)
+            {
+                if(domaintemp[i]==temp)
+                {
+                    newCoord=false;
+                    break;
+                }
+            }
+            if(newCoord)
+                domaintemp.push_back(  temp  );
         }
+        catch(std::out_of_range e) {}
+    radius++;
+    }
+    }
+
+    domain= domaintemp;
+
+}
 
 void SimulationRelay::setRange(int range)
 {
