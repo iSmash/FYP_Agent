@@ -22,11 +22,12 @@ using namespace std;
 
     RelativeCoordinate readfileGrid(SimulationAgent* agent, string filename) //simulation only
     {
+        cout<< filename<<endl;
         unsigned x, y, w, h;
         Coordinate goal, robotCoord;
         RelativeCoordinate relation;
 
-        ifstream problemFile(filename);
+        ifstream problemFile(filename.c_str());
 
 		//find M and N for grid size
 		if(problemFile.good())
@@ -113,7 +114,7 @@ agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
         unsigned robotRelayNumber, oldtemp, temp=0;
 
 
-		ifstream problemFile(filename);
+		ifstream problemFile(filename.c_str());
 		//find relaynumber
 		if(problemFile.good())
 		{
