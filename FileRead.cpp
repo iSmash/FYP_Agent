@@ -20,7 +20,7 @@
 using namespace std;
 
 
-    RelativeCoordinate readfileGrid(SimulationAgent* agent, char *filename) //simulation only
+    RelativeCoordinate readfileGrid(SimulationAgent* agent, string filename) //simulation only
     {
         unsigned x, y, w, h;
         Coordinate goal, robotCoord;
@@ -103,7 +103,7 @@ agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
 	}
 
 
-   void readfileRelay(Agent* agent, char * filename)
+   void readfileRelay(SimulationAgent* agent, string filename)
     {
 	/*
 		looks like>

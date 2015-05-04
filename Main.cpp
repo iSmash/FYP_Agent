@@ -6,7 +6,7 @@
  */
 
 
-#define GRIDFILE "RelayTestGrid.txt"
+#define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
 #define MethodType 1
 
@@ -19,8 +19,7 @@
 using namespace Agentspace;
 using namespace environment;
 using namespace std;
-int main()
-{
+int mainint main(int argc, char* argv[]) {
 	//make agent
 #ifdef Simulation
 	cout<<"Simulation"<<endl;
