@@ -9,22 +9,17 @@ using namespace std;
 using namespace environment;
 namespace Agentspace{
 
+class PathPlan{
+public:
+    vector<Node::Direction> findPath(Coordinate& start, Coordinate& goal, Grid& KnownWorld);
+    inline void clear(){Leaves.clear();}
 
- class PathPlan{
-	public:
-		vector<Node::Direction> findPath(Coordinate&
-                                    start, Coordinate& goal, Grid& KnownWorld);
-		   inline void clear(){Leaves.clear();}
+private:
+    Node* explore(Grid& grid, Node* toExplores, Coordinate& goal);
+    list<Node*> Leaves;
 
-	private:
-	     Node* explore(Grid& grid, Node* toExplores, Coordinate& goal);
-		list<Node*> Leaves;
-
-		void ErrorState(Coordinate& start,Grid& KnownWorld);
+    void ErrorState(Coordinate& start,Grid& KnownWorld);
 
 };
-
-
-
 }
 #endif

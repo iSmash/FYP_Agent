@@ -9,7 +9,7 @@ void SimulationRelay::findDomain()
     std::vector<Coordinate> domaintemp;
 
     //cout<<"range "<<Ranges[activeRange]<<endl;
-    for(double ang=0.0; ang<6.283; ang=ang+0.001){
+    for(double ang=0.0; ang<6.283; ang=ang+0.1){
 
     double limit=Ranges[activeRange];
        double radius=0;;

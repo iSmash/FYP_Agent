@@ -14,10 +14,10 @@ public:
         Left,
         Up,
         Down,
-        Up-Right,
-        Up-Left,
-        Down-Right,
-        Down-Left,
+        UpRight,
+        UpLeft,
+        DownRight,
+        DownLeft,
         Root };//Root means did not move to get there, as at ....root position
 
     Node(Coordinate _state);

@@ -8,11 +8,15 @@ void printDirection2(Node::Direction toprint)
 {
 	switch(toprint)
 	{
-	case Node::Right: cout<<"Right; ";break;
-	case Node::Left: cout<<"Left; "; break;
-	case Node::Up: cout<<"Up; ";break;
-	case Node::Down: cout<<"Down; ";break;
-	case Node::Root:cout<<"start;" ;break;
+    case Node::Right:     cout<<"Right; ";      break;
+    case Node::Left:      cout<<"Left; ";       break;
+    case Node::Up:        cout<<"Up; ";         break;
+    case Node::Down:      cout<<"Down; ";       break;
+    case Node::UpRight:   cout<<"UpRight; ";    break;
+    case Node::UpLeft:    cout<<"UpLeft; ";     break;
+    case Node::DownLeft:  cout<<"DownLeft; ";   break;
+    case Node::DownRight: cout<<"DownRight; ";  break;
+    case Node::Root:      cout<<"Start;";       break;
 	}
 }
 
@@ -36,12 +40,11 @@ void Agent::tryPath()
 	//clean up old search
 	knownWorld.clearGridViewed();
 	planner.clear();
-
 }
 
 
 
-Relay* Agent::getRelay(int _ID)
+Relay* Agent::GetRelay(int _ID)
 {
 	for(int i=0; i< heldRelays.size(); i++)
 	{
@@ -52,7 +55,7 @@ Relay* Agent::getRelay(int _ID)
 	return NULL;
 }
 
-void Agent::removeRelay(int _ID)
+void Agent::RemoveRelay(int _ID)
 {
 	for(int i=0; i< heldRelays.size(); i++)
 	{
@@ -72,6 +75,7 @@ void Agent::PickupRelay(Coordinate PickFrom)
 
 }
 
+// TODO 20150505 does this need to be expanded for new diagonal movement? I think not..
 void Agent::lookAround()
 {
 	//look up
@@ -86,7 +90,7 @@ void Agent::lookAround()
 		GoalLocation=Coordinate(GoalLocation.getRow()+1, GoalLocation.getColumn());
 	}
 
-	//look donw
+	//look down
 	if(CurrentLocation.getRow()>=knownWorld.getLast().getRow()-1)
 	{
 		//as top as can be, so lets make more world
