@@ -2,18 +2,16 @@
  #define SIMULATIONRELAY_H
 #include <vector>
 #include "Relay.h"
-#include "../Grid/Grid.h"
+
 namespace Relayspace
 {
 	class SimulationRelay : public Relay
 	{
 		public:
 
-		    SimulationRelay(Grid* _trueWorld):Relay()
-            {
-                Ranges.push_back(0);
+		    SimulationRelay():Relay()
+            {Ranges.push_back(0);
             activeRange=0;
-            trueWorld=_trueWorld;
             }
 
         inline void updatePos(Coordinate pos){ gridLocation= pos; findDomain();}
@@ -29,7 +27,7 @@ namespace Relayspace
 		private:
 			std::vector<int> Ranges;
 			int activeRange;
-            Grid* trueWorld;
+
 			std::vector<Coordinate> domain;
 
 	};

@@ -59,9 +59,8 @@ using namespace std;
 			agent->trueworld[robotCoord].addContent(ContentType::Robot);
             agent->setRelativity(robotCoord);
 			agent->trueworld[robotCoord].setViewed(true);
-            Relay* basesStationReal = new SimulationRelay(&agent->trueworld);
+            Relay* basesStationReal = new SimulationRelay();
             basesStationReal->updatePos(robotCoord);
-            agent->trueworld[robotCoord].addContent(ContentType::RelayMarker);
             agent->trueworld.placeRelay(basesStationReal);
 		}
 		//find goal pos

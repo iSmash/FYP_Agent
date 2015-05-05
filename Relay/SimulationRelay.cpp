@@ -20,11 +20,8 @@ void SimulationRelay::findDomain()
         try
         {
 
-            Coordinate temp= Coordinate(   gridLocation.getRow()+ceil(radius*sin(ang)), gridLocation.getColumn()+ceil(radius*cos(ang))  ) ;
-            if((*trueWorld)[temp].hasContent(ContentType::Wall))
-                {
-                limit--;
-                }
+           for(int i = 0; i< Ranges[activeRange]; i++)
+           {
 
             bool newCoord=true;
             for(int i=0; i<domaintemp.size(); i++)
