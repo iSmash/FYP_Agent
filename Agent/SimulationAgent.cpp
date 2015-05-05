@@ -3,6 +3,25 @@
 using namespace Agentspace;
 using namespace Relayspace;
 using namespace std;
+
+void SimulationAgent::findPath()
+{
+    if(GoalLocation.size()==0)
+        {
+            //dont know where to go
+            //cout<<"run out";
+            vector<Relay*> deployedRelays =trueWorld.getRelays();
+            for(int i=0; i<deployedRelays.size(); i++)
+            {
+
+                ((SimulationRelay*)deployedRelays[i])->incRange();
+            }
+        }
+    else
+        Agent::findPath();
+}
+
+
 void SimulationAgent::setRelayCount(int numberofRelays)
 {
 	//will do nothing if already has more then number told. but this should only be called on startups once.
@@ -10,7 +29,7 @@ void SimulationAgent::setRelayCount(int numberofRelays)
 	//has too few?
 	while(heldRelays.size()<numberofRelays)
 	{
-		SimulationRelay* temp= new SimulationRelay();
+		SimulationRelay* temp= new SimulationRelay(&trueWorld);
 		heldRelays.push_back( temp);
 	}
 }
@@ -21,13 +40,13 @@ void SimulationAgent::addRange(int range)
 	{
 		SimulationRelay* temp= (SimulationRelay*)heldRelays[i];
 		temp->addRange(range);
-		temp->setRange(1);
+//		temp->incRange();
 	}
 	for(int i=0; i<knownWorld.getRelays().size(); i++)
 	{
 		SimulationRelay* temp= (SimulationRelay*)knownWorld.getRelays()[i];
 		temp->addRange(range);
-		temp->setRange(1);
+		//temp->incRange();
 	}
 
 
@@ -40,10 +59,10 @@ void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
     if(tobePlaced == NULL)
         return; //out of nodes.
     RemoveRelay(ID);
-    trueworld.placeRelay(tobePlaced);
+    trueWorld.placeRelay(tobePlaced);
 
 	tobePlaced->updatePos(whereToPlace+trueLocationRelativity);
-	trueworld[whereToPlace+trueLocationRelativity].addContent(ContentType::RelayMarker);
+	trueWorld[whereToPlace+trueLocationRelativity].addContent(ContentType::RelayMarker);
 	Agent::PlaceRelay(whereToPlace);
 }
 
@@ -51,12 +70,12 @@ void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
 {
 	cout<<"pickup2"<<endl; // DEBUG
 
-    Relay* tobePicked = trueworld.getRelay(ID);
-    trueworld.removeRelay(ID);
+    Relay* tobePicked = trueWorld.getRelay(ID);
+    trueWorld.removeRelay(ID);
     heldRelays.push_back(tobePicked);
 
 	tobePicked->updatePos(Coordinate(0,0));
-	trueworld[whereToTake+trueLocationRelativity].removeContent(ContentType::RelayMarker);
+	trueWorld[whereToTake+trueLocationRelativity].removeContent(ContentType::RelayMarker);
 	Agent::PickupRelay(whereToTake);
 }
 void SimulationAgent::lookAround()
@@ -81,7 +100,7 @@ if(CurrentLocation.getRow()==0)
 		{
 			try{        //std::cout<<i<<" "<<j<<std::endl;
 			    Coordinate trueLocation = CurrentLocation+trueLocationRelativity;
-				std::vector<Content> temp= trueworld[Coordinate(trueLocation.getRow()+i, trueLocation.getColumn()+j)].getContent();
+				std::vector<Content> temp= trueWorld[Coordinate(trueLocation.getRow()+i, trueLocation.getColumn()+j)].getContent();
 				//std::cout<<temp.size()<<std::endl;
 				for(int x=0; x< temp.size(); x++)
 				{
@@ -135,12 +154,28 @@ bool SimulationAgent::move(Node::Direction toMove)
 		break;
 	}
 
-	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Wall) || knownWorld[CurrentLocationtemp].hasContent(ContentType::Client))
+	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Wall) )
 	{
 		//bad move
 		return false;
 	}
-
+	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Client))
+	{
+	    if(DeploymentMethod>1)
+            updateGoal();
+        return false;
+	}
+	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal))
+	{
+	    if(DeploymentMethod>1)
+            {
+                GoalLocation.pop_back();
+                try{PlaceRelay(heldRelays.front()->getID(),CurrentLocationtemp);}
+                catch(RelayError e){//cout<<"out of relays"<<endl;
+                }
+            }
+        return false;
+	}
 
 	CurrentLocation=CurrentLocationtemp;
 
@@ -155,7 +190,7 @@ bool SimulationAgent::move(Node::Direction toMove)
     //cout<<"Cur "<< CurrentLocation<<endl;
     //cout<<"Rel "<< trueLocationRelativity<<endl;
     //cout<<"Sum "<< CurrentLocation+trueLocationRelativity<<endl;
-	trueworld[CurrentLocation+trueLocationRelativity].addContent(ContentType::Robot);
+	trueWorld[CurrentLocation+trueLocationRelativity].addContent(ContentType::Robot);
 	lookAround();
 
 	return true;
@@ -163,41 +198,68 @@ bool SimulationAgent::move(Node::Direction toMove)
 
 bool SimulationAgent::done()
 {
-    vector<Relay*> deployedRelays = trueworld.getRelays();
+     //cout<<"done check"<<endl;
+    vector<Relay*> deployedRelays = trueWorld.getRelays();
+vector<SimulationRelay*> tocheck;
 
      for( int j=1; j<deployedRelays.size(); j++) //set all but the base to not be on network
     {
-            deployedRelays[j]OnNetwork=false;
+            ((SimulationRelay*)deployedRelays[j])->OnNetwork=false;
+           // cout<<deployedRelays[j]->getPos()<<endl;
     }
 
-    while(deployedRelays.size()>0)
-    {
-        SimulationRelay* currentRealyFocus= (SimulationRelay*)deployedRelays.front();
+
+        tocheck.push_back((SimulationRelay*)deployedRelays.front()); //put base on first thing to look at
         deployedRelays.erase(deployedRelays.begin());
 
+    while(tocheck.size()>0)
+    {
+     if(tocheck.back()->OnNetwork)
+        {
 
-        if(currentRealyFocus->OnNetwork)
-        {vector<Coordinate> currentdomain = currentRealyFocus->getDomain();
+            vector<Coordinate> currentdomain = tocheck.back()->getDomain();
+            //cout<<"on network "<<tocheck.back()->getPos()<<endl;
+
             for(int i =0; i< currentdomain.size(); i++)
             {
                 //look over every cell that this relay has homain over
-                for( int j=0; j<deployedRelays.size(); i++)
+                if(currentdomain[i]==ClientLocation)
+                    {
+                        //cout<<"sees client"<<endl;
+                        return true;
+                    }
+
+                for( int j=0; j<deployedRelays.size(); j++)
                 {
                     //look over all remaining relays to add them to the network
+
                     if(currentdomain[i]==deployedRelays[j]->getPos())
                     {
-                        //match, this relay is now on the network
-                        deployedRelays[j]->onNetwork=true;
+                        //match, this relay is now on the network we will now check it to see if it connects anyone
+                        ((SimulationRelay*)deployedRelays[j])->OnNetwork=true;
+
+
+                         tocheck.insert(tocheck.begin(),((SimulationRelay*)deployedRelays[j]));
+                         deployedRelays.erase(deployedRelays.begin()+j); //remove it so we dont go back and fourth adding to network
+
                     }
                 }
+
             }
+
         }
+         tocheck.pop_back();
     }
+ //cout<<"not done yet"<<endl;
+    return false;
+
+
+
 }
 
 bool SimulationAgent::lowSignal()
 {
-	vector<Relay*> gridRelays = trueworld.getRelays();
+	vector<Relay*> gridRelays = trueWorld.getRelays();
 	bool poor_range =true;
 	for(int i =0; i< gridRelays.size(); i++)
 	{

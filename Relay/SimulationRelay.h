@@ -2,6 +2,7 @@
  #define SIMULATIONRELAY_H
 #include <vector>
 #include "Relay.h"
+#include "../Grid/Grid.h"
 
 namespace Relayspace
 {
@@ -9,9 +10,10 @@ namespace Relayspace
 	{
 		public:
 
-		    SimulationRelay():Relay()
-            {Ranges.push_back(0);
+		    SimulationRelay(Grid* _trueWorld):Relay()
+            {
             activeRange=0;
+            trueWorld=_trueWorld;
             }
 
         inline void updatePos(Coordinate pos){ gridLocation= pos; findDomain();}
@@ -20,14 +22,16 @@ namespace Relayspace
 			void findDomain();
             inline std::vector<Coordinate> getDomain(){return domain;}
 
-			void setRange(int range);
+			void incRange();
+			void decRange();
             bool inRange(Coordinate test);
+            inline int getRange(){return Ranges[activeRange];}
 
            	bool OnNetwork;//setters and getter would give full access anyway, so fuck it, this is public
 		private:
 			std::vector<int> Ranges;
 			int activeRange;
-
+			Grid* trueWorld;
 			std::vector<Coordinate> domain;
 
 	};

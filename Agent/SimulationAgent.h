@@ -14,7 +14,11 @@ public:
 	void setRelayCount(int numberofRelays);
 	void addRange(int range);
 
-	Grid trueworld; //the simulator is a slut, and it dont give no shits if everyone sees it grids
+void findPath();
+
+
+
+	Grid trueWorld; //the simulator is a slut, and it dont give no shits if everyone sees it grids
 
 	void lookAround(); //make private later
     inline void setRelativity(Coordinate _trueLocationRelativity){trueLocationRelativity=RelativeCoordinate(_trueLocationRelativity.getRow(), _trueLocationRelativity.getColumn());}

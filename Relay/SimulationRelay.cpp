@@ -9,7 +9,7 @@ void SimulationRelay::findDomain()
     std::vector<Coordinate> domaintemp;
 
     //cout<<"range "<<Ranges[activeRange]<<endl;
-    for(double ang=0.0; ang<6.283; ang=ang+0.1){
+    for(double ang=0.0; ang<6.283; ang=ang+0.001){
 
     double limit=Ranges[activeRange];
        double radius=0;;
@@ -20,9 +20,11 @@ void SimulationRelay::findDomain()
         try
         {
 
-           for(int i = 0; i< Ranges[activeRange]; i++)
-           {
-
+           Coordinate temp= Coordinate(   gridLocation.getRow()+ceil(radius*sin(ang)), gridLocation.getColumn()+ceil(radius*cos(ang))  ) ;
+            if((*trueWorld)[temp].hasContent(ContentType::Wall))
+                {
+                limit--;
+                }
             bool newCoord=true;
             for(int i=0; i<domaintemp.size(); i++)
             {
@@ -44,10 +46,21 @@ void SimulationRelay::findDomain()
 
 }
 
-void SimulationRelay::setRange(int range)
+void SimulationRelay::incRange()
 {
-    if(range>=0 && range<Ranges.size())
-        activeRange=range;
+    activeRange++;
+
+    if (activeRange>=Ranges.size())
+        throw string("out of range options");
+
+        findDomain();
+}
+
+void SimulationRelay::decRange()
+{
+    activeRange--;
+    if(activeRange<0)
+         throw string("below 0 range option");
 
         findDomain();
 

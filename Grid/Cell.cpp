@@ -17,17 +17,15 @@ void printContent(ContentType::Content toprint)
 
 const bool Cell::hasContent(Content cont)
 {
+ if(cont == Object)
+    return hasContent(Wall)||hasContent(Client)||hasContent(RelayMarker);
+
  for(int i =0; i< content.size(); i++)
  {
-    // printContent(content[i]);
-    //cout<<"vs";
-   // printContent(cont);
 	if(content[i]==cont)
 	 {
-	      //cout<<"ok"<<endl;
 	     return true;
 	 }
-	     // cout<<endl;
  }
 //if at this point, contnent is not in cell
 return false;
@@ -37,6 +35,13 @@ return false;
 bool Cell::removeContent(const Content cont)
 {
  bool ContentFound=false;
+
+  if(cont == Object)
+  {
+      cout<<"Illigla remove type"<<endl;
+      return false; //dont do this
+  }
+
  for(int i =0; i< content.size(); i++)
  {
 	if(content[i]==cont)
@@ -57,6 +62,12 @@ bool Cell::removeContent(const Content cont)
 
 void Cell::addContent(const Content cont)
 {
+    if(cont == Object)
+  {
+      cout<<"Illigla add type"<<endl;
+      return; //dont do this
+  }
+
      removeContent(Unknown); //if adding stuff, its no longer unknown
      removeContent(Empty); //if adding stuff it wont be empty;
 

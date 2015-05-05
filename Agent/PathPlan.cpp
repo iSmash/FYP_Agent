@@ -163,14 +163,9 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
     bool belowOK =false;
     bool leftOK=false;*/
 
-
-
-
-
-
 	try{
 		Coordinate above= Coordinate(state.getRow()-1,state.getColumn());
-		if (!(grid[above].hasContent(ContentType::Wall)) && !grid[above].getViewed())
+		if (!(grid[above].hasContent(ContentType::Object)) && !grid[above].getViewed())
 		{
 
 			Leaves.push_back(new Node(toExplore, above, Node::Up));
@@ -181,7 +176,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 	catch(std::out_of_range){}
 	try{
 		Coordinate right= Coordinate(state.getRow(),state.getColumn()+1);
-		if (!(grid[right].hasContent(ContentType::Wall)) && !grid[right].getViewed())
+		if (!(grid[right].hasContent(ContentType::Object)) && !grid[right].getViewed())
 		{
 
 			Leaves.push_back(new Node(toExplore, right, Node::Right));
@@ -192,7 +187,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 	catch(std::out_of_range){}
 	try{
 		Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
-		if ( !(grid[below].hasContent(ContentType::Wall)) &&!grid[below].getViewed())
+		if ( !(grid[below].hasContent(ContentType::Object)) &&!grid[below].getViewed())
 		{
 
 			Leaves.push_back(new Node(toExplore, below, Node::Down));
@@ -203,7 +198,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 	catch(std::out_of_range){}
 	try{
 		Coordinate left= Coordinate(state.getRow(),state.getColumn()-1);
-		if ( !(grid[left].hasContent(ContentType::Wall))&&!grid[left].getViewed())
+		if ( !(grid[left].hasContent(ContentType::Object))&&!grid[left].getViewed())
 		{
 
 			Leaves.push_back(new Node(toExplore, left, Node::Left));

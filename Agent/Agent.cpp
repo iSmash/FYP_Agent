@@ -44,16 +44,23 @@ void Agent::tryPath()
 
 void Agent::updateGoal()
 {
-    if(CurrentLocation==ClientLocation)
-       {
-           //at clinet, now set where relays should place.
-           knownWorld[GoalLocation.back()].removeContent(ContentType::Goal);
-           GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation);
-           for(int i=0; i<GoalLocation.size(); i++)
-           {
-            knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
-           }
-       }
+    cout<<"update goals";
+
+    //at clinet, now set where relays should place.
+
+    knownWorld[GoalLocation.back()].removeContent(ContentType::Goal);
+
+    for(int i =0; i< GoalLocation.size(); i++)
+    {
+        cout<<GoalLocation[i]<<endl;
+    }
+    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation);
+    for(int i=0; i<GoalLocation.size(); i++)
+    {
+        cout<<GoalLocation[i]<<endl;
+        knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
+    }
+
 
 }
 

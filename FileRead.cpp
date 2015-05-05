@@ -36,12 +36,12 @@ using namespace std;
             problemFile>> x;
             problemFile.ignore();
             problemFile>>y;
-            agent->trueworld.updateSize(Coordinate(y,x));
+            agent->trueWorld.updateSize(Coordinate(y,x));
             for(int i=0; i<x; i++)
             {
                 for( int j=0; j<y; j++)
                 {
-                    agent->trueworld[Coordinate(j,i)].addContent(ContentType::Empty);
+                    agent->trueWorld[Coordinate(j,i)].addContent(ContentType::Empty);
                 }
 
             }
@@ -56,12 +56,13 @@ using namespace std;
 			problemFile.ignore();
 			problemFile>>y;
 			 robotCoord = Coordinate(y,x);
-			agent->trueworld[robotCoord].addContent(ContentType::Robot);
+			agent->trueWorld[robotCoord].addContent(ContentType::Robot);
             agent->setRelativity(robotCoord);
-			agent->trueworld[robotCoord].setViewed(true);
-            Relay* basesStationReal = new SimulationRelay();
-            basesStationReal->updatePos(robotCoord);
-            agent->trueworld.placeRelay(basesStationReal);
+			agent->trueWorld[robotCoord].setViewed(true);
+            Relay* basesStation = new SimulationRelay(&agent->trueWorld);
+            basesStation->updatePos(robotCoord);
+            ((SimulationRelay*)basesStation)->OnNetwork=true;
+            agent->trueWorld.placeRelay(basesStation);
 		}
 		//find goal pos
 		if(problemFile.good())
@@ -70,8 +71,8 @@ using namespace std;
 			problemFile>> x;
 			problemFile.ignore();
 			problemFile>>y;
-			agent->trueworld[Coordinate(y,x)].addContent(ContentType::Goal);
-agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
+			agent->trueWorld[Coordinate(y,x)].addContent(ContentType::Goal);
+agent->trueWorld[Coordinate(y,x)].addContent(ContentType::Client);
 			goal= Coordinate(y,x);
 			relation= RelativeCoordinate(goal.getRow()-robotCoord.getRow(), goal.getColumn()-robotCoord.getColumn());
 
@@ -91,7 +92,7 @@ agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
 			problemFile.ignore();
 			problemFile>>h;
 
-			agent->trueworld.placeWall(x, y, w, h);
+			agent->trueWorld.placeWall(x, y, w, h);
 			problemFile.ignore(3);
 		}
         if(problemFile.bad())
@@ -137,12 +138,12 @@ agent->trueworld[Coordinate(y,x)].addContent(ContentType::Client);
 				SimulationAgent* Sagent= (SimulationAgent*)agent;
 				Sagent->addRange(temp);
 
-				vector<Relay*> RelayRange = Sagent->trueworld.getRelays();
+				vector<Relay*> RelayRange = Sagent->trueWorld.getRelays();
 				 for(int i=0; i<RelayRange.size(); i++)
                 {
                     SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
                     rel->addRange(temp);
-                    rel->setRange(1);
+                   // rel->incRange();
                 }
 			}
 			problemFile.ignore(1);

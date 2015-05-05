@@ -28,6 +28,7 @@ public:
         // std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
         knownWorld[CurrentLocation].setViewed(true);
         actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
+        tryPath();
     }
     void tryPath();
 
