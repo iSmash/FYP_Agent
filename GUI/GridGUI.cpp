@@ -175,6 +175,7 @@ void GridGUI::paint(bool Last)
                     {
                         painter->setPenColour(Wifi);
                         painter->setFillColour(Wifi);
+
                         painter->drawCircle(Pixel(float(j+1)*pixels_per_cell,float(i+1)*pixels_per_cell), pixels_per_cell/6);
 
                         }

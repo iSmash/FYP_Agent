@@ -36,10 +36,10 @@ void SimulationAgent::addRange(int range)
 void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
 {
     //cout<<"place node"<<endl;
-	SimulationRelay* tobePlaced = (SimulationRelay*)getRelay(ID);
+	SimulationRelay* tobePlaced = (SimulationRelay*)GetRelay(ID);
     if(tobePlaced == NULL)
         return; //out of nodes.
-    removeRelay(ID);
+    RemoveRelay(ID);
     trueworld.placeRelay(tobePlaced);
 
 	tobePlaced->updatePos(whereToPlace+trueLocationRelativity);
@@ -165,7 +165,7 @@ bool SimulationAgent::done()
 {
     vector<Relay*> deployedRelays = trueworld.getRelays();
 
-     for( int j=1; j<deployedRelays.size(); i++) //set all but the base to not be on network
+     for( int j=1; j<deployedRelays.size(); j++) //set all but the base to not be on network
     {
             deployedRelays[j]OnNetwork=false;
     }
