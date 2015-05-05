@@ -27,18 +27,18 @@ bool Coordinate::operator ==(const Coordinate &testcoords)
 
 
 ///constructor
-Coordinate::Coordinate(int rows, int columnes)
+Coordinate::Coordinate(int rows, int columns)
 {
-if(rows<0 || columnes<0)
- throw(std::out_of_range("below 0") );
+if(rows<0 || columns<0)
+    throw(std::out_of_range("below 0") );
     row = rows;
-    column = columnes;
+    column = columns;
 }
 
-RelativeCoordinate::RelativeCoordinate(int rows, int columnes)
+RelativeCoordinate::RelativeCoordinate(int rows, int columns)
 {
     row = rows;
-    column = columnes;
+    column = columns;
 }
 
 
