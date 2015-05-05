@@ -39,11 +39,12 @@ void GridGUI::updateSize()
     	{
        	 setcurrentwindow(window);
      	}
+
 	windowHeight=pixels_per_cell*(grid->getLast().getRow()+1);
     windowWidth=pixels_per_cell*(grid->getLast().getColumn()+1);
 
     closegraph(window);
-    window= initwindow(windowWidth, windowHeight, "name" ,500);
+    window= initwindow(windowWidth, windowHeight, "name" ,900);
     delay(100);
 }
 

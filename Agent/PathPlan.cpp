@@ -33,7 +33,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
     /**/
 
 //std::cout<<start<<std::endl;
-		//std::cout<<goal<<std::endl;
+//		std::cout<<goal<<std::endl;
 	Node* NodePoint =NULL;
 	Node* goalPoint=NULL;
 	Leaves.push_back(new Node(start));
@@ -102,21 +102,97 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 }
 
 
-vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Client)
+vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Client, Grid* knownWorld)
 {
     vector<Coordinate> relayPositions;
     relayPositions.push_back(Base);
     relayPositions.push_back(Client);
-    cout<<relayCount<<" "<<relayPositions.size();
+
     while(relayCount+2>relayPositions.size())
     {
 
         vector<Coordinate> templist= relayPositions;
         for(int i = 1; i< relayPositions.size(); i++)
         {
-            //cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+            cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
             int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
             int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
+            cout<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+    /** adujust position based on walls bettewen points */
+            int top_left_walls=0;
+            int bot_right_wall=0;
+
+            int top= relayPositions[i-1].getRow();
+            if(relayPositions[i-1].getRow() > relayPositions[i].getRow())
+                top=relayPositions[i].getRow();
+
+            int left= relayPositions[i-1].getColumn();
+             if(relayPositions[i-1].getColumn() > relayPositions[i].getColumn())
+                left=relayPositions[i].getColumn();
+
+               for(int i=top+1; i<rowMidPoint; i++)
+               {
+                   for( int j = left+1; j<columnMidPoint; j++)
+                   {
+                       if( (*knownWorld)[Coordinate(i,j)].hasContent(ContentType::Wall) )
+                        top_left_walls++;
+                   }
+               }
+
+            int bot=  relayPositions[i].getRow();
+            if(relayPositions[i-1].getRow() > relayPositions[i].getRow())
+                bot=relayPositions[i-1].getRow();
+
+            int right= relayPositions[i].getColumn();
+             if(relayPositions[i-1].getColumn() > relayPositions[i].getColumn())
+                right=relayPositions[i-1].getColumn();
+
+
+             for(int i=rowMidPoint+1; i<bot; i++)
+               {
+                   for( int j = columnMidPoint+1; j<right; j++)
+                   {
+                       if((*knownWorld)[Coordinate(i,j)].hasContent(ContentType::Wall))
+                        bot_right_wall++;
+                   }
+               }
+            cout<<"Wall changes: -"<<top_left_walls<<"+"<<bot_right_wall<<endl;
+               rowMidPoint=rowMidPoint-top_left_walls+bot_right_wall;
+               columnMidPoint=columnMidPoint-top_left_walls+bot_right_wall;
+               cout<<"gives "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+    /**  */
+    //if adjustment made it not in between any more, put it on the boarder.
+               if(rowMidPoint<top)
+                rowMidPoint=top+1;
+               if(rowMidPoint>bot)
+                rowMidPoint=bot-1;
+                 if(columnMidPoint<left)
+                columnMidPoint=left+1;
+                 if(columnMidPoint>right)
+                columnMidPoint=right-1;
+
+                cout<<"out of bounds fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+
+                //make sure not on top of wall
+                int moveRange = 1;
+                while((*knownWorld)[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Wall))
+                {
+                    for(int i=-(rowMidPoint); i<=moveRange; i++)
+                    {
+                        for(int j=-(rowMidPoint); j<=moveRange; j++)
+                        {
+
+                            if(!((*knownWorld)[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Wall)))
+                            {
+                                rowMidPoint=rowMidPoint+i;
+                                columnMidPoint=columnMidPoint+j;
+                                i=moveRange+1;//break outer for loop too
+                                break;
+                            }
+                        }
+                    }
+                }
+
             templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
             //cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
         }
@@ -132,13 +208,13 @@ return relayPositions;
 }
 
 
- vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client)
+ vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid* knownWorld)
  {
 
         cout<<"start finding positons"<<endl;
 
     if (method ==2)
-         return MidWayPlacemtn(relayCount, Base,  Client);
+         return MidWayPlacemtn(relayCount, Base,  Client, knownWorld);
 
 
     vector<Coordinate> fail;
@@ -203,6 +279,54 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 
 			Leaves.push_back(new Node(toExplore, left, Node::Left));
 			grid[left].setViewed(true);
+			toExplore->Broken_condom();
+		}
+	}
+	catch(std::out_of_range){}
+
+	try{
+		Coordinate aboveleft= Coordinate(state.getRow()-1,state.getColumn()-1);
+		if ( !(grid[aboveleft].hasContent(ContentType::Object))&&!grid[aboveleft].getViewed())
+		{
+
+			Leaves.push_back(new Node(toExplore, aboveleft, Node::UpLeft));
+			grid[aboveleft].setViewed(true);
+			toExplore->Broken_condom();
+		}
+	}
+	catch(std::out_of_range){}
+
+	try{
+		Coordinate abovelright= Coordinate(state.getRow()-1,state.getColumn()+1);
+		if ( !(grid[abovelright].hasContent(ContentType::Object))&&!grid[abovelright].getViewed())
+		{
+
+			Leaves.push_back(new Node(toExplore, abovelright, Node::UpRight));
+			grid[abovelright].setViewed(true);
+			toExplore->Broken_condom();
+		}
+	}
+	catch(std::out_of_range){}
+
+	try{
+		Coordinate belowleft= Coordinate(state.getRow()+1,state.getColumn()-1);
+		if ( !(grid[belowleft].hasContent(ContentType::Object))&&!grid[belowleft].getViewed())
+		{
+
+			Leaves.push_back(new Node(toExplore, belowleft, Node::DownLeft));
+			grid[belowleft].setViewed(true);
+			toExplore->Broken_condom();
+		}
+	}
+	catch(std::out_of_range){}
+
+	try{
+		Coordinate belowright= Coordinate(state.getRow()+1,state.getColumn()+1);
+		if ( !(grid[belowright].hasContent(ContentType::Object))&&!grid[belowright].getViewed())
+		{
+
+			Leaves.push_back(new Node(toExplore, belowright, Node::DownRight));
+			grid[belowright].setViewed(true);
 			toExplore->Broken_condom();
 		}
 	}

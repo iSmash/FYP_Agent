@@ -12,10 +12,10 @@ void printDirection2(Node::Direction toprint)
     case Node::Left:      cout<<"Left; ";       break;
     case Node::Up:        cout<<"Up; ";         break;
     case Node::Down:      cout<<"Down; ";       break;
-    case Node::UpRight:   cout<<"UpRight; ";    break;
-    case Node::UpLeft:    cout<<"UpLeft; ";     break;
-    case Node::DownLeft:  cout<<"DownLeft; ";   break;
-    case Node::DownRight: cout<<"DownRight; ";  break;
+    case Node::UpRight:   cout<<"Up-Right; ";    break;
+    case Node::UpLeft:    cout<<"Up-Left; ";     break;
+    case Node::DownLeft:  cout<<"Down-Left; ";   break;
+    case Node::DownRight: cout<<"Down-Right; ";  break;
     case Node::Root:      cout<<"Start;";       break;
 	}
 }
@@ -27,7 +27,7 @@ void Agent::tryPath()
 
 	while(actionList.size()!=0)
 	{
-		printDirection2(actionList.back());
+		//printDirection2(actionList.back());
 
 		if(!move(actionList.back()))
 			break;
@@ -50,14 +50,14 @@ void Agent::updateGoal()
 
     knownWorld[GoalLocation.back()].removeContent(ContentType::Goal);
 
-    for(int i =0; i< GoalLocation.size(); i++)
+    /*for(int i =0; i< GoalLocation.size(); i++)
     {
         cout<<GoalLocation[i]<<endl;
-    }
-    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation);
+    }*/
+    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, &knownWorld);
     for(int i=0; i<GoalLocation.size(); i++)
     {
-        cout<<GoalLocation[i]<<endl;
+        //cout<<GoalLocation[i]<<endl;
         knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
     }
 

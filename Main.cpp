@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
 
 	GridGUI TrueGUI = GridGUI(&AgentSmith->trueWorld,5);
-	GridGUI  KnownGUI=GridGUI(AgentSmith->getKnownGrid(),500);
+	GridGUI  KnownGUI=GridGUI(AgentSmith->getKnownGrid(),900);
 	AgentSmith->lookAround();
 
 
@@ -67,8 +67,7 @@ int main(int argc, char* argv[]) {
 		AgentSmith->findPath();
 
 
-            //char x;
-            //cin>>x;
+            char x;cin>>x;
 	}
 	}
 	catch(string s){cout<<s<<endl;}
