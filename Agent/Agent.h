@@ -17,6 +17,7 @@ public:
 	Agent()
 	{
 		CurrentLocation=Coordinate(0,0);
+		BaseLocation= CurrentLocation;
 		knownWorld.updateSize(Coordinate(1,1));
 	}
 
@@ -37,6 +38,8 @@ public:
 
 	void setGoal(RelativeCoordinate relativeToGoal);/**using magic we find where the goal is */
 
+    void updateGoal();
+
 	inline void defineDeploymentMethod(int meth){DeploymentMethod=meth;}
 	inline int getDeploymentMethod() {return DeploymentMethod;}
 
@@ -45,12 +48,15 @@ protected:
 	virtual bool lowSignal()=0;
 	virtual bool move(Node::Direction toMove)=0;
 	void lookAround();
+void ShuffleLoctions(int row, int column);
 
 	void PlaceRelay(Coordinate whereToPlace);
 	void PickupRelay(Coordinate PickFrom);
 
 	Coordinate CurrentLocation;
-	Coordinate GoalLocation;
+	vector<Coordinate> GoalLocation;
+	Coordinate ClientLocation;
+	Coordinate BaseLocation;
 	vector<Node::Direction> actionList;
 	PathPlan planner;
 	Grid knownWorld;

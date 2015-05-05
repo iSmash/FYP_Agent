@@ -13,10 +13,11 @@ class PathPlan{
 public:
     vector<Node::Direction> findPath(Coordinate& start, Coordinate& goal, Grid& KnownWorld);
     inline void clear(){Leaves.clear();}
+ vector<Coordinate> positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client);
 
-private:
-    Node* explore(Grid& grid, Node* toExplores, Coordinate& goal);
-    list<Node*> Leaves;
+	private:
+	     Node* explore(Grid& grid, Node* toExplores, Coordinate& goal);
+		list<Node*> Leaves;
 
     void ErrorState(Coordinate& start,Grid& KnownWorld);
 

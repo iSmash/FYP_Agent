@@ -8,7 +8,7 @@
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
-#define MethodType 1
+#define MethodType 2
 
 #include "Simulation.h"
 
@@ -60,11 +60,13 @@ int main(int argc, char* argv[]) {
 	//Agent run
 	while(!AgentSmith->done()) //loop until robot job is done.
 	{
-	    TrueGUI.paint();
-		KnownGUI.updateSize();
-		KnownGUI.paint();
+	    //TrueGUI.paint();
+		//KnownGUI.updateSize();
+		//KnownGUI.paint();
 		AgentSmith->findPath();
 		AgentSmith->tryPath();
+		if(MethodType>1)
+            AgentSmith->updateGoal();
 	}
 
 	TrueGUI.paint(true);

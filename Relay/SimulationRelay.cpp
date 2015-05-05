@@ -51,8 +51,9 @@ void SimulationRelay::setRange(int range)
 {
     if(range>=0 && range<Ranges.size())
         activeRange=range;
-    if(!(gridLocation == Coordinate(0,0))) // no !- operator, so just use this
+
         findDomain();
+
 }
 
 

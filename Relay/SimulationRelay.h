@@ -20,14 +20,18 @@ namespace Relayspace
 
 			inline void addRange(int add){Ranges.push_back(add);}
 			void findDomain();
+            inline std::vector<Coordinate> getDomain(){return domain;}
 
 			void setRange(int range);
             bool inRange(Coordinate test);
+
+           	bool OnNetwork;//setters and getter would give full access anyway, so fuck it, this is public
 		private:
 			std::vector<int> Ranges;
 			int activeRange;
             Grid* trueWorld;
 			std::vector<Coordinate> domain;
+
 	};
 
 }

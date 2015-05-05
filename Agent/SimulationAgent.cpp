@@ -135,7 +135,7 @@ bool SimulationAgent::move(Node::Direction toMove)
 		break;
 	}
 
-	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Wall))
+	if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Wall) || knownWorld[CurrentLocationtemp].hasContent(ContentType::Client))
 	{
 		//bad move
 		return false;
@@ -163,10 +163,36 @@ bool SimulationAgent::move(Node::Direction toMove)
 
 bool SimulationAgent::done()
 {
-	if(knownWorld[CurrentLocation].hasContent(ContentType::Goal))
-		return true;
+    vector<Relay*> deployedRelays = trueworld.getRelays();
 
-	return false;
+     for( int j=1; j<deployedRelays.size(); i++) //set all but the base to not be on network
+    {
+            deployedRelays[j]OnNetwork=false;
+    }
+
+    while(deployedRelays.size()>0)
+    {
+        SimulationRelay* currentRealyFocus= (SimulationRelay*)deployedRelays.front();
+        deployedRelays.erase(deployedRelays.begin());
+
+
+        if(currentRealyFocus->OnNetwork)
+        {vector<Coordinate> currentdomain = currentRealyFocus->getDomain();
+            for(int i =0; i< currentdomain.size(); i++)
+            {
+                //look over every cell that this relay has homain over
+                for( int j=0; j<deployedRelays.size(); i++)
+                {
+                    //look over all remaining relays to add them to the network
+                    if(currentdomain[i]==deployedRelays[j]->getPos())
+                    {
+                        //match, this relay is now on the network
+                        deployedRelays[j]->onNetwork=true;
+                    }
+                }
+            }
+        }
+    }
 }
 
 bool SimulationAgent::lowSignal()

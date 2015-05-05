@@ -42,6 +42,20 @@ void Agent::tryPath()
 	planner.clear();
 }
 
+void Agent::updateGoal()
+{
+    if(CurrentLocation==ClientLocation)
+       {
+           //at clinet, now set where relays should place.
+           knownWorld[GoalLocation.back()].removeContent(ContentType::Goal);
+           GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation);
+           for(int i=0; i<GoalLocation.size(); i++)
+           {
+            knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
+           }
+       }
+
+}
 
 
 Relay* Agent::GetRelay(int _ID)
@@ -86,8 +100,7 @@ void Agent::lookAround()
 		//std::cout<<"top ";
 		knownWorld.updateSize(Grid::top);
 		//as we are push above the grid, we need to move down our knonw position
-		CurrentLocation=Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn());
-		GoalLocation=Coordinate(GoalLocation.getRow()+1, GoalLocation.getColumn());
+		ShuffleLoctions(1,0);
 	}
 
 	//look down
@@ -115,13 +128,23 @@ void Agent::lookAround()
 		// std::cout<<"left ";
 		knownWorld.updateSize(Grid::left);
 		//as we are push above the grid, we need to move down our knonw position
-		CurrentLocation=Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1);
-		GoalLocation=Coordinate(GoalLocation.getRow(), GoalLocation.getColumn()+1);
+
+		ShuffleLoctions(0,1);
 	}
 
 
 
 }
+
+void Agent::ShuffleLoctions(int row, int column)
+{
+    CurrentLocation=Coordinate(CurrentLocation.getRow()+row, CurrentLocation.getColumn()+column);
+	for(int i=0; i< GoalLocation.size(); i++)
+        GoalLocation[i]=Coordinate(GoalLocation[i].getRow()+row, GoalLocation[i].getColumn()+column);
+	BaseLocation=Coordinate(BaseLocation.getRow()+row, BaseLocation.getColumn()+column);
+	ClientLocation=Coordinate(ClientLocation.getRow()+row, ClientLocation.getColumn()+column);
+}
+
 
 void Agent::setGoal(RelativeCoordinate relativeToGoal)
 {/**using magic we find where the goal is */
@@ -166,10 +189,11 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
 
 
 
-	GoalLocation = CurrentLocation+relativeToGoal;
+	ClientLocation = CurrentLocation+relativeToGoal;
+	GoalLocation.push_back(ClientLocation);
    //cout<<"C"<<CurrentLocation<<endl;
    //cout<<"G"<<GoalLocation<<endl;
-	knownWorld[GoalLocation].addContent(ContentType::Goal);
+	knownWorld[GoalLocation.back()].addContent(ContentType::Goal);
 
 }
 

@@ -23,10 +23,14 @@ void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
 
 }
 
-vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,Grid& KnownWorld)
+vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate> goals,Grid& KnownWorld)
 {
 	std::cout<<"RUNNING"<<std::endl;
 
+    /**for now lets just look at a single goal at a time
+    */
+    Coordinate goal= goals.back();
+    /**/
 
 //std::cout<<start<<std::endl;
 		//std::cout<<goal<<std::endl;
@@ -78,9 +82,11 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,G
 
 	}
 
+
+
 	//unravel, so we can go from current direction, to goal
 	vector<Node::Direction> actionList; //list of directions
-	while(goalPoint!=NULL) //directionlist from child to root, take and put in action list
+	while(goalPoint!=NULL) //directionlist from goal to root, take and put in action list
 	{
 		actionList.push_back(goalPoint->getAction());
 
@@ -94,6 +100,51 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, Coordinate& goal,G
 
 
 }
+
+
+vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Client)
+{
+    vector<Coordinate> relayPositions;
+    relayPositions.push_back(Base);
+    relayPositions.push_back(Client);
+    cout<<relayCount<<" "<<relayPositions.size();
+    while(relayCount+2>relayPositions.size())
+    {
+
+        vector<Coordinate> templist= relayPositions;
+        for(int i = 1; i< relayPositions.size(); i++)
+        {
+            //cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+            int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
+            int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
+            templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
+            //cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
+        }
+        cout<<endl;
+        relayPositions= templist;
+    }
+
+    relayPositions.pop_back();
+    relayPositions.erase(relayPositions.begin()); //remove the base and clinet from the list
+
+return relayPositions;
+
+}
+
+
+ vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client)
+ {
+
+        cout<<"start finding positons"<<endl;
+
+    if (method ==2)
+         return MidWayPlacemtn(relayCount, Base,  Client);
+
+
+    vector<Coordinate> fail;
+    return fail;
+ }
+
 
 
 Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
