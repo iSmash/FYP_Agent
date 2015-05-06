@@ -2,26 +2,12 @@
 #include "PathPlan.h"
 #include <iostream>
 #include <exception>
+#include <math.h>
 
 
 using namespace Agentspace;
 
-void PathPlan::ErrorState(Coordinate& start,Grid& KnownWorld)
-{
-	std::cout<<"error"<<std::endl;
 
-	KnownWorld.updateSize(Grid::right);
-	KnownWorld.updateSize(Grid::bottom);
-	KnownWorld.updateSize(Grid::top);
-	KnownWorld.updateSize(Grid::left);
-
-	start=Coordinate(start.getRow()+1, start.getColumn()+1);
-	Leaves.push_back(new Node(start));
-	KnownWorld.clearGridViewed();
-	KnownWorld[start].setViewed(true);
-
-
-}
 
 vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate> goals,Grid& KnownWorld)
 {
@@ -77,7 +63,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 		}
 		if(!Leaves.size())//nothing in list, all paths explored without result
 		{
-			ErrorState(start, KnownWorld);
+			throw string("Error, out of leaves");
 		}
 
 	}
@@ -90,8 +76,9 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 	{
 		actionList.push_back(goalPoint->getAction());
 
+		Node*temp = goalPoint;
 		goalPoint=goalPoint->getParent();
-
+        delete temp;
 	}
 	return actionList;
 
@@ -102,7 +89,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 }
 
 
-vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Client, Grid* knownWorld)
+vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld)
 {
     vector<Coordinate> relayPositions;
     relayPositions.push_back(Base);
@@ -134,7 +121,7 @@ vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Cli
                {
                    for( int j = left+1; j<columnMidPoint; j++)
                    {
-                       if( (*knownWorld)[Coordinate(i,j)].hasContent(ContentType::Wall) )
+                       if( knownWorld[Coordinate(i,j)].hasContent(ContentType::Wall) )
                         top_left_walls++;
                    }
                }
@@ -152,7 +139,7 @@ vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Cli
                {
                    for( int j = columnMidPoint+1; j<right; j++)
                    {
-                       if((*knownWorld)[Coordinate(i,j)].hasContent(ContentType::Wall))
+                       if(knownWorld[Coordinate(i,j)].hasContent(ContentType::Wall))
                         bot_right_wall++;
                    }
                }
@@ -175,14 +162,18 @@ vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Cli
 
                 //make sure not on top of wall
                 int moveRange = 1;
-                while((*knownWorld)[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Wall))
+                while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Wall) ||
+                        knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Unknown)
+                    )
                 {
-                    for(int i=-(rowMidPoint); i<=moveRange; i++)
+                    for(int i=-(moveRange); i<=moveRange; i++)
                     {
-                        for(int j=-(rowMidPoint); j<=moveRange; j++)
+                        for(int j=-(moveRange); j<=moveRange; j++)
                         {
 
-                            if(!((*knownWorld)[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Wall)))
+                            if(  !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Wall))  &&
+                                 !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Unknown))
+                               )
                             {
                                 rowMidPoint=rowMidPoint+i;
                                 columnMidPoint=columnMidPoint+j;
@@ -191,8 +182,9 @@ vector<Coordinate> MidWayPlacemtn(int relayCount,Coordinate Base, Coordinate Cli
                             }
                         }
                     }
+                    moveRange++;
                 }
-
+            cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
             templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
             //cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
         }
@@ -208,13 +200,102 @@ return relayPositions;
 }
 
 
- vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid* knownWorld)
+vector<Coordinate> MidWayPlacemtn2(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld)
+{
+    vector<Coordinate> relayPositions;
+    relayPositions.push_back(Base);
+    relayPositions.push_back(Client);
+
+    while(relayCount+2>relayPositions.size())
+    {
+
+        vector<Coordinate> templist= relayPositions;
+        for(int i = 1; i< relayPositions.size(); i++)
+        {
+            cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+            int left= relayPositions[i-1].getColumn();
+            int right=relayPositions[i].getColumn();
+            if(relayPositions[i-1].getColumn() > relayPositions[i].getColumn())
+                {
+                    left=relayPositions[i].getColumn();
+                    right=relayPositions[i-1].getColumn();
+                }
+
+            int top= relayPositions[i-1].getRow();
+            int bot= relayPositions[i].getRow();
+            if(relayPositions[i-1].getRow() > relayPositions[i].getRow())
+                {
+                    top=relayPositions[i].getRow();
+                    bot= relayPositions[i-1].getRow();
+                }
+
+            Coordinate bestCord;
+            double bestScore=99999;
+            for(int x=left; x<=right; x++)
+            {
+                for (int y=top; y<=bot; y++)
+                {
+                    //look thorugh all cells bweteen points for best placemtnet
+                    if(!knownWorld[Coordinate(y,x)].hasContent(ContentType::Wall)&&!knownWorld[Coordinate(y,x)].hasContent(ContentType::Unknown))
+                    {
+                        int walls_left_top=0;
+                        int walls_right_bot=0;
+                        for(int wall_x=left; wall_x<=x; wall_x++)
+                        {
+                            for(int wall_y=top; wall_y<=y; wall_y++)
+                            {
+                                if(knownWorld[Coordinate(wall_y,wall_x)].hasContent(ContentType::Wall))
+                                    //walls_left_top++;
+                                    NULL;
+                            }
+                        }
+
+                        for(int wall_x=x; wall_x<=right; wall_x++)
+                        {
+                            for(int wall_y=y; wall_y<=bot; wall_y++)
+                            {
+                                if(knownWorld[Coordinate(wall_y,wall_x)].hasContent(ContentType::Wall))
+                                    //walls_right_bot++;
+                                    NULL;
+                            }
+                        }
+                        double scoreCOL=  ( (x-left)+walls_left_top ) - ( (right-x)+walls_right_bot );
+                        double scoreROW= ( (y-top)+walls_left_top ) - ( (bot-y)+walls_right_bot );
+                        double score= sqrt( pow(scoreROW,2.0) + pow(scoreCOL,2.0));
+                        //cout<<score<<" "<<Coordinate(y,x)<<endl;
+                        if(score<bestScore)
+                        {
+                            bestScore=score;
+                            bestCord=Coordinate(y,x);
+                        }
+                    }
+                }
+            }
+
+
+
+            //cout<<bestCord<<endl;
+            templist.insert(templist.begin()+i, bestCord);
+        }
+        cout<<endl;
+        relayPositions= templist;
+    }
+
+    relayPositions.pop_back();
+    relayPositions.erase(relayPositions.begin()); //remove the base and clinet from the list
+    return relayPositions;
+}
+
+
+ vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
  {
 
         cout<<"start finding positons"<<endl;
 
     if (method ==2)
          return MidWayPlacemtn(relayCount, Base,  Client, knownWorld);
+         else   if (method ==3)
+         return MidWayPlacemtn2(relayCount, Base,  Client, knownWorld);
 
 
     vector<Coordinate> fail;
@@ -333,8 +414,8 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, Coordinate& goal)
 	catch(std::out_of_range){}
 
 
-	if(toExplore->getChildren()==0) //dead end
-			//toExplore->deadEnd(grid,&Leaves);
+	if(toExplore->getChildren()==0) // end
+			toExplore->deadEnd(grid,Leaves);
 
 
 	return NULL;

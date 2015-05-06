@@ -20,6 +20,34 @@ void printDirection2(Node::Direction toprint)
 	}
 }
 
+void Agent::findPath()
+    {
+        // std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
+
+        bool success=false;
+            while(!success)
+            {
+
+             knownWorld[CurrentLocation].setViewed(true);
+        try{
+            actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
+            success=true;//to get here, we need to not crash
+        }
+        catch(string &s)
+        {
+
+            cout<<s;
+
+               knownWorld.updateSize(Grid::right);
+              knownWorld.updateSize(Grid::bottom);
+            knownWorld.updateSize(Grid::top);
+               knownWorld.updateSize(Grid::left);
+                ShuffleLoctions(1,1);
+               knownWorld.clearGridViewed();
+        }
+            }
+        tryPath();
+    }
 
 void Agent::tryPath()
 {
@@ -54,7 +82,7 @@ void Agent::updateGoal()
     {
         cout<<GoalLocation[i]<<endl;
     }*/
-    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, &knownWorld);
+    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
     for(int i=0; i<GoalLocation.size(); i++)
     {
         //cout<<GoalLocation[i]<<endl;

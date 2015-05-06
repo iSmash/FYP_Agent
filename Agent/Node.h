@@ -36,7 +36,7 @@ public:
     void setHeuristic(Coordinate goal);
     inline void Broken_condom(){children++;}
     inline void slender_man(){children--;}
-    void deadEnd(Grid& grid,  list<Node*>* Leaves);
+    void deadEnd(Grid& grid,  list<Node*> &Leaves);
 
 private:
     Node* Parent;   //the node that made this node

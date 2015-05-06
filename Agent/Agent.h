@@ -23,13 +23,8 @@ public:
         knownWorld.updateSize(Coordinate(1,1));
     }
 
-    inline void findPath()
-    {
-        // std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
-        knownWorld[CurrentLocation].setViewed(true);
-        actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
-        tryPath();
-    }
+     void findPath();
+
     void tryPath();
 
     virtual void setRelayCount(int numberofRelays)=0; //same, but makes either implemnet, or simulation relays.
@@ -40,9 +35,9 @@ public:
     }
     void RemoveRelay(int _ID);
 
-    inline Grid* getKnownGrid()
+    inline Grid &getKnownGrid()
     {
-        return &knownWorld;
+        return knownWorld;
     }
 
     void setGoal(RelativeCoordinate relativeToGoal);/**using magic we find where the goal is */

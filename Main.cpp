@@ -8,7 +8,7 @@
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
-#define MethodType 2
+
 
 #include "Simulation.h"
 
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 	readfileRelay(AgentSmith, (string)RELAYFILE);
 
 	GridGUI TrueGUI = GridGUI(&AgentSmith.trueWorld,5);
-	GridGUI KnownGUI = GridGUI(AgentSmith.getKnownGrid(),900);
+	GridGUI KnownGUI = GridGUI(&AgentSmith.getKnownGrid(),900);
 	AgentSmith.lookAround();
 
 #else
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 	readfileRelay(AgentSmith, RELAYFILE);
 
 #endif
-	AgentSmith.defineDeploymentMethod(MethodType);
+	AgentSmith.defineDeploymentMethod(atoi(argv[2]));
 
 	//Agent run
 	try{
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 			KnownGUI.paint();
 			AgentSmith.findPath();
 
-			char x;cin>>x;
+			//char x;cin>>x;
 		}
 	}
 	catch(string s){cout<<s<<endl;}

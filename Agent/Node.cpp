@@ -25,7 +25,7 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
 }
 
 
- void Node::deadEnd(Grid& grid, list<Node*>* Leaves) //needed param, thus not using ~
+ void Node::deadEnd(Grid& grid, list<Node*> &Leaves) //needed param, thus not using ~
  {
     //cout<<"DELETING "<<state.getRow()<<' '<<state.getColumn()<<' '<<heuristic<<endl;
       //cout<<Parent->getState().getRow()<<' '<<Parent->getState().getColumn()<<' '<<Parent->getChildren()<<endl;
@@ -33,12 +33,11 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
         Parent->setHeuristic(heuristic);
 
         Parent->slender_man();
-	 if(!Parent->getChildren())//if no children, parent is a leaf again
-        {
-            Leaves->push_back(Parent);
-        }
 
-	 grid[state].setViewed(false);//GUI
+	 if(!Parent->getChildren()&& Parent->getParent()!=NULL)//if no children, parent is a leaf again unless its the root
+        {
+            Leaves.push_back(Parent);
+        }
 
      delete this;
  }
