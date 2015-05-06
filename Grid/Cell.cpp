@@ -38,7 +38,7 @@ bool Cell::removeContent(const Content cont)
 
   if(cont == Object)
   {
-      cout<<"Illigla remove type"<<endl;
+      cout<<"Illegal remove type."<<endl;
       return false; //dont do this
   }
 
@@ -58,22 +58,22 @@ bool Cell::removeContent(const Content cont)
  return ContentFound;
 }
 
-//overlapting contnet is walls, goals and robots
+//overlapping content is walls, goals and robots.
 
 void Cell::addContent(const Content cont)
 {
     if(cont == Object)
   {
-      cout<<"Illigla add type"<<endl;
+      cout<<"Illegal add type"<<endl;
       return; //dont do this
   }
 
      removeContent(Unknown); //if adding stuff, its no longer unknown
-     removeContent(Empty); //if adding stuff it wont be empty;
+     removeContent(Empty);   //if adding stuff it wont be empty;
 
     if(cont==ContentType::Unknown)
     {
-        content.empty();        //if making unkonw, we cant know anything else about it.
+        content.empty();        //if making unknown, we cant know anything else about it.
     }
 
 
