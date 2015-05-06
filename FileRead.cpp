@@ -1,9 +1,9 @@
 /**                                                                 *
- *   Implamentation of readin, reads grid from file                 *
+ *   Implementation of readin, reads grid from file                 *
  *   Navigating robot                                               *
  *   @author Phillip C. Smith                                       *
  *   @version 1.1                                                   *
- *   @date 23/3/13                                                   *
+ *   @date 23/3/13                                                  *
  *                                                                **/
 
 #include "FileRead.h"
@@ -20,144 +20,142 @@
 using namespace std;
 
 
-    RelativeCoordinate readfileGrid(SimulationAgent* agent, string filename) //simulation only
-    {
-        cout<< filename<<endl;
-        unsigned x, y, w, h;
-        Coordinate goal, robotCoord;
-        RelativeCoordinate relation;
+RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename) //simulation only
+{
+	cout<< filename<<endl;
+	unsigned x, y, w, h;
+	Coordinate goal, robotCoord;
+	RelativeCoordinate relation;
 
-        ifstream problemFile(filename.c_str());
+	ifstream problemFile(filename.c_str());
 
-		//find M and N for grid size
-		if(problemFile.good())
+	//find M and N for grid size
+	if(problemFile.good())
+	{
+		problemFile.ignore();
+		problemFile>> x;
+		problemFile.ignore();
+		problemFile>>y;
+		agent.trueWorld.updateSize(Coordinate(y,x));
+		for(int i=0; i<x; i++)
 		{
-            problemFile.ignore();
-            problemFile>> x;
-            problemFile.ignore();
-            problemFile>>y;
-            agent->trueWorld.updateSize(Coordinate(y,x));
-            for(int i=0; i<x; i++)
-            {
-                for( int j=0; j<y; j++)
-                {
-                    agent->trueWorld[Coordinate(j,i)].addContent(ContentType::Empty);
-                }
-
-            }
-
-
-		}
-		//find robot starting pos
-		if(problemFile.good())
-		{
-			problemFile.ignore(3);
-			problemFile>> x;
-			problemFile.ignore();
-			problemFile>>y;
-			 robotCoord = Coordinate(y,x);
-			agent->trueWorld[robotCoord].addContent(ContentType::Robot);
-            agent->setRelativity(robotCoord);
-			agent->trueWorld[robotCoord].setViewed(true);
-            Relay* basesStation = new SimulationRelay(&agent->trueWorld);
-            basesStation->updatePos(robotCoord);
-            ((SimulationRelay*)basesStation)->OnNetwork=true;
-            agent->trueWorld.placeRelay(basesStation);
-		}
-		//find goal pos
-		if(problemFile.good())
-		{
-			problemFile.ignore(3);
-			problemFile>> x;
-			problemFile.ignore();
-			problemFile>>y;
-			agent->trueWorld[Coordinate(y,x)].addContent(ContentType::Goal);
-agent->trueWorld[Coordinate(y,x)].addContent(ContentType::Client);
-			goal= Coordinate(y,x);
-			relation= RelativeCoordinate(goal.getRow()-robotCoord.getRow(), goal.getColumn()-robotCoord.getColumn());
+			for( int j=0; j<y; j++)
+			{
+				agent.trueWorld[Coordinate(j,i)].addContent(ContentType::Empty);
+			}
 
 		}
 
 
-        problemFile.ignore(3);
-		//find walls
-		while(problemFile.good())
-		{
- //std::cout<<"wall"<<std::endl;
-			problemFile>>x;
-			problemFile.ignore();
-			problemFile>>y;
-			problemFile.ignore();
-			problemFile>>w;
-			problemFile.ignore();
-			problemFile>>h;
-
-			agent->trueWorld.placeWall(x, y, w, h);
-			problemFile.ignore(3);
-		}
-        if(problemFile.bad())
-            cout<<"error reading file";
-
-		problemFile.close();
-		return relation;
+	}
+	//find robot starting pos
+	if(problemFile.good())
+	{
+		problemFile.ignore(3);
+		problemFile>> x;
+		problemFile.ignore();
+		problemFile>>y;
+		robotCoord = Coordinate(y,x);
+		agent.trueWorld[robotCoord].addContent(ContentType::Robot);
+		agent.setRelativity(robotCoord);
+		agent.trueWorld[robotCoord].setViewed(true);
+		Relay* basesStation = new SimulationRelay(&agent.trueWorld);
+		basesStation->updatePos(robotCoord);
+		((SimulationRelay*)basesStation)->OnNetwork=true;
+		agent.trueWorld.placeRelay(basesStation);
+	}
+	//find goal pos
+	if(problemFile.good())
+	{
+		problemFile.ignore(3);
+		problemFile>> x;
+		problemFile.ignore();
+		problemFile>>y;
+		agent.trueWorld[Coordinate(y,x)].addContent(ContentType::Goal);
+		agent.trueWorld[Coordinate(y,x)].addContent(ContentType::Client);
+		goal= Coordinate(y,x);
+		relation= RelativeCoordinate(goal.getRow()-robotCoord.getRow(), goal.getColumn()-robotCoord.getColumn());
 
 	}
 
 
-   void readfileRelay(SimulationAgent* agent, string filename)
-    {
+	problemFile.ignore(3);
+	//find walls
+	while(problemFile.good())
+	{
+		//std::cout<<"wall"<<std::endl;
+		problemFile>>x;
+		problemFile.ignore();
+		problemFile>>y;
+		problemFile.ignore();
+		problemFile>>w;
+		problemFile.ignore();
+		problemFile>>h;
+
+		agent.trueWorld.placeWall(x, y, w, h);
+		problemFile.ignore(3);
+	}
+	if(problemFile.bad())
+		cout<<"error reading file";
+
+	problemFile.close();
+	return relation;
+
+}
+
+
+void readfileRelay(SimulationAgent &agent, string filename)
+{
 	/*
 		looks like>
 		3
 		(1,2,7,9)
- 	*/
-        unsigned robotRelayNumber, oldtemp, temp=0;
+	 */
+	unsigned robotRelayNumber, oldtemp, temp=0;
 
 
-		ifstream problemFile(filename.c_str());
-		//find relaynumber
-		if(problemFile.good())
-		{
+	ifstream problemFile(filename.c_str());
+	//find relaynumber
+	if(problemFile.good())
+	{
 		problemFile>> robotRelayNumber;
-		agent->setRelayCount(robotRelayNumber);
-		}
-
-
-        	problemFile.ignore(2);
-
-		//relay ranges, simulation only.
-		 #ifdef Simulation
-		while(problemFile.good())
-		{
-
-			oldtemp=temp;
-			problemFile>>temp;
-			if(temp>oldtemp)
-			{
-
-				SimulationAgent* Sagent= (SimulationAgent*)agent;
-				Sagent->addRange(temp);
-
-				vector<Relay*> RelayRange = Sagent->trueWorld.getRelays();
-				 for(int i=0; i<RelayRange.size(); i++)
-                {
-                    SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
-                    rel->addRange(temp);
-                   // rel->incRange();
-                }
-			}
-			problemFile.ignore(1);
-		}
-		#endif
-        if(problemFile.bad())
-            cout<<"error reading file";
-
-		problemFile.close();
-
+		agent.setRelayCount(robotRelayNumber);
 	}
 
 
-	//generate grid to explore //old code
+	problemFile.ignore(2);
+
+	//relay ranges, simulation only.
+#ifdef Simulation
+	while(problemFile.good())
+	{
+
+		oldtemp=temp;
+		problemFile>>temp;
+		if(temp>oldtemp)
+		{
+			agent.addRange(temp);
+
+			vector<Relay*> RelayRange = agent.trueWorld.getRelays();
+			for(int i=0; i<RelayRange.size(); i++)
+			{
+				SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
+				rel->addRange(temp);
+				// rel->incRange();
+			}
+		}
+		problemFile.ignore(1);
+	}
+#endif
+	if(problemFile.bad())
+		cout<<"error reading file";
+
+	problemFile.close();
+
+}
+
+
+//generate grid to explore //old code
 void makefile()
 {
 	unsigned M, N, x1, y1, x2, y2, x3, y3, w=0, h=0, walls;
@@ -191,22 +189,22 @@ void makefile()
 
 		do
 		{
-		    placeOK=true;
+			placeOK=true;
 			//make wall starting points
-            x3=rand() %(M-1);
+			x3=rand() %(M-1);
 
-            y3= rand() %(N-1);
-            w=rand() %(M-1);
-            h=rand() %(N-1);
-            //x3=1; y3=1;
-            //w=2; h=2;
+			y3= rand() %(N-1);
+			w=rand() %(M-1);
+			h=rand() %(N-1);
+			//x3=1; y3=1;
+			//w=2; h=2;
 
 			//make sure wall size are inside grid
-            if((w+x3)>M)
-                {placeOK=false; cout<<"err1 ";}
+			if((w+x3)>M)
+			{placeOK=false; cout<<"err1 ";}
 
-            if((h+y3)>N)
-                {placeOK=false; cout<<"err2 ";}
+			if((h+y3)>N)
+			{placeOK=false; cout<<"err2 ";}
 
 			//make sure wall not ontop of goal or agent
 			for(unsigned j= x3; j<(w+x3); j++)
@@ -214,10 +212,10 @@ void makefile()
 
 				for(unsigned k= y3; k<(h+y3); k++)
 				{
-                    if(k==y1&&j==x1)
-						{placeOK=false; cout<<"err3 ";}
-                    if(k==y2&&j==x2)
-                        {placeOK=false; cout<<"err4 ";}
+					if(k==y1&&j==x1)
+					{placeOK=false; cout<<"err3 ";}
+					if(k==y2&&j==x2)
+					{placeOK=false; cout<<"err4 ";}
 				}
 			}
 			failL1++;
@@ -225,8 +223,8 @@ void makefile()
 			//if no valid place for a wall, this will end stop an endless loop
 			if(failL1==MAX_FAILS)
 			{
-			    //cout<<"here, "<<x3<<' '<<y3<<' '<<w<<' '<<h<<endl;
-			    //cout<<"here";
+				//cout<<"here, "<<x3<<' '<<y3<<' '<<w<<' '<<h<<endl;
+				//cout<<"here";
 				h=0;
 				w=0;
 				break;
