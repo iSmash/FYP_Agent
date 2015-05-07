@@ -1,0 +1,2 @@
+Simulation;15;2015-05-07.22:31:241;2.171;Row: 1 Column: 6 Row: 1 Column: 7 Row: 1 Column: 8 ;[20,8](0,4)(19,4));3(3,5,9,15));
+Simulation;15;2015-05-07.22:31:301;2.15;Row: 1 Column: 6 Row: 1 Column: 7 Row: 1 Column: 8 ;[20,8](0,4)(19,4));3(3,5,9,15));
