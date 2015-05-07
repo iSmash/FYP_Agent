@@ -52,13 +52,15 @@ int main(int argc, char* argv[]) {
 		{
 			TrueGUI.paint();
 			KnownGUI.updateSize();
-			KnownGUI.paint();
-			AgentSmith.findPath();
+			KnownGUI.paint(true);
 
 			//char x;cin>>x;
+			try{AgentSmith.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
+
+
 		}
 	}
-	catch(string s){cout<<s<<endl;}
+	catch(string s){cout<<s<<endl;} //yall done goofed, lets stop
 
 	TrueGUI.paint(true);
 	KnownGUI.updateSize();

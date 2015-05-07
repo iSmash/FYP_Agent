@@ -134,8 +134,9 @@ void Grid::updateSize(updateSizeDirection toAdd)
 		{
 			Cell c = Cell();
 			c.addContent(ContentType::Unknown);
-			vector<Cell> *temp= &cells[i];
-			temp->insert(temp->begin(),c);
+			//vector<Cell> *temp= &cells[i];
+			//temp->insert(temp->begin(),c);
+			cells[i].insert(cells[i].begin(), c);
 		}
 		LastCell=Coordinate(LastCell.getRow(), LastCell.getColumn()+1);
 		break;

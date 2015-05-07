@@ -18,8 +18,8 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
     Coordinate goal= goals.back();
     /**/
 
-//std::cout<<start<<std::endl;
-//		std::cout<<goal<<std::endl;
+std::cout<<start<<std::endl;
+		std::cout<<goal<<std::endl;
 	Node* NodePoint =NULL;
 	Node* goalPoint=NULL;
 	Leaves.push_back(new Node(start));

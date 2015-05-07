@@ -31,3 +31,4 @@
 FYP.layout
 *.layout
 *.cscope_file_list
+*.depend

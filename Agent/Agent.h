@@ -57,11 +57,11 @@ public:
 protected:
     virtual bool lowSignal()=0;
     virtual bool move(Node::Direction toMove)=0;
-    void lookAround();
-    void ShuffleLoctions(int row, int column);
+    virtual void lookAround();
+   virtual void ShuffleLoctions(int row, int column);
 
-    void PlaceRelay(Coordinate whereToPlace);
-    void PickupRelay(Coordinate PickFrom);
+  virtual  void PlaceRelay(Coordinate whereToPlace);
+  virtual  void PickupRelay(Coordinate PickFrom);
 
     Coordinate CurrentLocation;
     vector<Coordinate> GoalLocation;

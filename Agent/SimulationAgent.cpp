@@ -78,16 +78,22 @@ void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
 	trueWorld[whereToTake+trueLocationRelativity].removeContent(ContentType::RelayMarker);
 	Agent::PickupRelay(whereToTake);
 }
+
+void SimulationAgent::ShuffleLoctions(int row, int column)
+{
+    trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow()-row, trueLocationRelativity.getColumn()-column);
+    Agent::ShuffleLoctions(row, column);
+}
 void SimulationAgent::lookAround()
 {
-if(CurrentLocation.getRow()==0)
+/*if(CurrentLocation.getRow()==0)
 	{
 		trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow()-1, trueLocationRelativity.getColumn());
 	}
 	if(CurrentLocation.getColumn()==0)
 	{
 		trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow(), trueLocationRelativity.getColumn()-1);
-	}
+	}*/
 	Agent::lookAround();
 
 
@@ -198,7 +204,7 @@ bool SimulationAgent::move(Node::Direction toMove)
 
 bool SimulationAgent::done()
 {
-     //cout<<"done check"<<endl;
+     cout<<"done check"<<endl;
     vector<Relay*> deployedRelays = trueWorld.getRelays();
 vector<SimulationRelay*> tocheck;
 
@@ -218,14 +224,14 @@ vector<SimulationRelay*> tocheck;
         {
 
             vector<Coordinate> currentdomain = tocheck.back()->getDomain();
-            //cout<<"on network "<<tocheck.back()->getPos()<<endl;
+            cout<<"on network "<<tocheck.back()->getPos()<<endl;
 
             for(int i =0; i< currentdomain.size(); i++)
             {
                 //look over every cell that this relay has homain over
-                if(currentdomain[i]==ClientLocation)
+                if(currentdomain[i]==ClientLocation+trueLocationRelativity)
                     {
-                        //cout<<"sees client"<<endl;
+                        cout<<"sees client"<<endl;
                         return true;
                     }
 

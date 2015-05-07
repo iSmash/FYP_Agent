@@ -25,27 +25,44 @@ void Agent::findPath()
         // std::cout<<"current"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
 
         bool success=false;
-            while(!success)
-            {
+
+
 
              knownWorld[CurrentLocation].setViewed(true);
         try{
+
             actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
-            success=true;//to get here, we need to not crash
+
         }
         catch(string &s)
         {
 
             cout<<s;
 
-               knownWorld.updateSize(Grid::right);
+
+   /* cout<<"Last"<<knownWorld.getLast()<<endl;
+    cout<<"cur"<<CurrentLocation<<endl;
+    cout<<"goal"<<GoalLocation.back()<<endl;
+    cout<<"cli"<<ClientLocation<<endl;
+    cout<<"base"<<BaseLocation<<endl;*/
+  knownWorld.updateSize(Grid::right);
               knownWorld.updateSize(Grid::bottom);
             knownWorld.updateSize(Grid::top);
                knownWorld.updateSize(Grid::left);
-                ShuffleLoctions(1,1);
+               ShuffleLoctions(1,1);
+
+
+  /*cout<<"Last"<<knownWorld.getLast()<<endl;
+    cout<<"cur"<<CurrentLocation<<endl;
+    cout<<"goal"<<GoalLocation.back()<<endl;
+    cout<<"cli"<<ClientLocation<<endl;
+    cout<<"base"<<BaseLocation<<endl;
+    */
                knownWorld.clearGridViewed();
+
+               throw 1;
         }
-            }
+
         tryPath();
     }
 
@@ -173,6 +190,7 @@ void Agent::lookAround()
 
 void Agent::ShuffleLoctions(int row, int column)
 {
+
     CurrentLocation=Coordinate(CurrentLocation.getRow()+row, CurrentLocation.getColumn()+column);
 	for(int i=0; i< GoalLocation.size(); i++)
         GoalLocation[i]=Coordinate(GoalLocation[i].getRow()+row, GoalLocation[i].getColumn()+column);
