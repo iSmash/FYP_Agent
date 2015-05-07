@@ -12,26 +12,24 @@ namespace Relayspace
 
 		    SimulationRelay(Grid* _trueWorld):Relay()
             {
-            activeRange=0;
             trueWorld=_trueWorld;
             }
 
         inline void updatePos(Coordinate pos){ gridLocation= pos; findDomain();}
 
-			inline void addRange(int add){Ranges.push_back(add);}
+			inline static void addRange(int add){Ranges.push_back(add);}
 			void findDomain();
             inline std::vector<Coordinate> getDomain(){return domain;}
 
-			void incRange();
-			void decRange();
+            static void  incRange(vector<Relay*> relays);
+			static void  decRange(vector<Relay*> relays);
             bool inRange(Coordinate test);
-            inline int getRange(){return Ranges[activeRange];}
+            inline static int getRange(){return Ranges[activeRange];}
 
-           	bool OnNetwork;//setters and getter would give full access anyway, so fuck it, this is public
 		private:
-			std::vector<int> Ranges;
-			int activeRange;
-			Grid* trueWorld;
+			static std::vector<int> Ranges;
+			static int activeRange;
+			 Grid* trueWorld;
 			std::vector<Coordinate> domain;
 
 	};

@@ -5,16 +5,27 @@
  *
  */
 
+/**
+Deployment methods
+0 Basic Reflex drop with pre-set threshold
+1 Reflex drop we evaluated threshold
+2 Midpoint via halfway, adjust for wall
+3 Midpoint via lowest force
+4 Virtual force relay self positioning using V.
+5  ""
+*/
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
-
+#define LOGFILE "LogFile.txt"
 
 #include "Simulation.h"
 
 #include "Agent/ImplementAgent.h"
 #include "FileRead.h"
+#include <fstream>
 #include "GUI/GridGUI.h"
+#include <ctime>
 
 using namespace Agentspace;
 using namespace environment;
@@ -46,8 +57,16 @@ int main(int argc, char* argv[]) {
 #endif
 	AgentSmith.defineDeploymentMethod(atoi(argv[2]));
 
-	//Agent run
+
+
+ clock_t start = clock();
 	try{
+
+	     if(AgentSmith.getDeploymentMethod()==1)
+    {
+        AgentSmith.evaluateRealayRange();
+    }
+	    //Agent run
 		while(!AgentSmith.done()) //loop until robot job is done.
 		{
 			TrueGUI.paint();
@@ -61,14 +80,36 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	catch(string s){cout<<s<<endl;} //yall done goofed, lets stop
-
+     double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
 	TrueGUI.paint(true);
 	KnownGUI.updateSize();
 	KnownGUI.paint(true);
 #ifdef Simulation
-	SimulationRelay* temp=(SimulationRelay*)(AgentSmith.trueWorld.getRelay(1));
-	cout<<"relay range used: "<<temp->getRange()<<endl;
+	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
 #endif
-	char x;
-	cin>>x;
+
+    //print results to file
+
+    ofstream Log(LOGFILE, fstream::app );
+    if(Log.is_open())
+    {
+        #ifdef Simulation
+        Log<<"Simulation;"
+        #else
+        Log<<"Implementation;"
+        #endif
+
+        Log<<argv[1]<<";";//grid tested
+        Log<<argv[2]<<";";//method
+        Log<<timer<<";";
+
+        #ifdef Simulation //now for some less intersting details
+        Log<<SimulationRelay::getRange()<<";";
+        #endif
+        for()
+        Log<<
+
+        Log<<endl;
+        Log.close();
+    }
 }

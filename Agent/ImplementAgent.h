@@ -16,11 +16,11 @@ public:
 private:
 	inline void PlaceRelay(int _ID, Coordinate whereToPlace){
 		//physical shit;
-		Agent::PlaceRelay(whereToPlace);
+		Agent::PlaceRelay(_ID,whereToPlace);
 	}
 	inline void PickupRelay(int ID){
 		//physical shit;
-		Agent::PickupRelay(ID);
+		//Agent::PickupRelay(ID);
 	}
 
 	bool move(Node::Direction toMove);

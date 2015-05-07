@@ -53,15 +53,16 @@ public:
         return DeploymentMethod;
     }
 
+    virtual void evaluateRealayRange()=0;
 
 protected:
     virtual bool lowSignal()=0;
-    virtual bool move(Node::Direction toMove)=0;
+    virtual bool move(Node::Direction toMove);
     virtual void lookAround();
    virtual void ShuffleLoctions(int row, int column);
 
-  virtual  void PlaceRelay(Coordinate whereToPlace);
-  virtual  void PickupRelay(Coordinate PickFrom);
+  virtual  void PlaceRelay(int ID,Coordinate whereToPlace);
+  virtual  void PickupRelay(int ID,Coordinate PickFrom);
 
     Coordinate CurrentLocation;
     vector<Coordinate> GoalLocation;

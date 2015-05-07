@@ -22,7 +22,9 @@ void findPath();
 
 	void lookAround(); //make private later
     inline void setRelativity(Coordinate _trueLocationRelativity){trueLocationRelativity=RelativeCoordinate(_trueLocationRelativity.getRow(), _trueLocationRelativity.getColumn());}
-void ShuffleLoctions(int row, int column);
+    void ShuffleLoctions(int row, int column);
+    void evaluateRealayRange();
+
 private:
 
 	bool move(Node::Direction toMove);

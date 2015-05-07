@@ -2,6 +2,8 @@
 #include "SimulationRelay.h"
 using namespace Relayspace;
 
+int SimulationRelay::activeRange=0;
+std::vector<int> SimulationRelay::Ranges= std::vector<int>(0);
 
 void SimulationRelay::findDomain()
 {
@@ -11,7 +13,7 @@ void SimulationRelay::findDomain()
     //cout<<"range "<<Ranges[activeRange]<<endl;
     for(double ang=0.0; ang<6.283; ang=ang+0.001){
 
-    double limit=Ranges[activeRange];
+    double limit=SimulationRelay::getRange();
        double radius=0;;
     bool up=true;
     while(sqrt(pow(ceil(radius*sin(ang)),2.0)+pow(ceil(radius*cos(ang)),2.0))<limit)
@@ -46,23 +48,30 @@ void SimulationRelay::findDomain()
 
 }
 
-void SimulationRelay::incRange()
+ void SimulationRelay::incRange(vector<Relay*> relays)
 {
     activeRange++;
 
     if (activeRange>=Ranges.size())
         throw string("out of range options");
 
-        findDomain();
+ for(int i=0; i<relays.size(); i++)
+        {
+             ((SimulationRelay*)relays[i])->findDomain();
+       }
 }
 
-void SimulationRelay::decRange()
+ void SimulationRelay::decRange(vector<Relay*> relays)
 {
     activeRange--;
     if(activeRange<0)
          throw string("below 0 range option");
 
-        findDomain();
+ for(int i=0; i<relays.size(); i++)
+        {
+             ((SimulationRelay*)relays[i])->findDomain();
+       }
+
 
 }
 

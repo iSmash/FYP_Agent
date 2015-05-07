@@ -11,7 +11,7 @@ using namespace Agentspace;
 
 vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate> goals,Grid& KnownWorld)
 {
-	std::cout<<"RUNNING"<<std::endl;
+	//std::cout<<"RUNNING"<<std::endl;
 
     /**for now lets just look at a single goal at a time
     */
@@ -286,21 +286,24 @@ vector<Coordinate> MidWayPlacemtn2(int relayCount,Coordinate Base, Coordinate Cl
     return relayPositions;
 }
 
+vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
+{
+    cout<<"start finding positons"<<endl;
 
- vector<Coordinate> PathPlan::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
- {
+    switch (method)
+    {
+    case 2:
+        return MidWayPlacemtn(relayCount, Base,  Client, knownWorld);
+    case 3:
+        return MidWayPlacemtn2(relayCount, Base,  Client, knownWorld);
+    default:
+        vector<Coordinate> fail; //return this if method 0, 1 or error and method is not defined
+            return fail;
+    }
 
-        cout<<"start finding positons"<<endl;
-
-    if (method ==2)
-         return MidWayPlacemtn(relayCount, Base,  Client, knownWorld);
-         else   if (method ==3)
-         return MidWayPlacemtn2(relayCount, Base,  Client, knownWorld);
 
 
-    vector<Coordinate> fail;
-    return fail;
- }
+}
 
 
 

@@ -61,7 +61,6 @@ RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename) //simul
 		agent.trueWorld[robotCoord].setViewed(true);
 		Relay* basesStation = new SimulationRelay(&agent.trueWorld);
 		basesStation->updatePos(robotCoord);
-		((SimulationRelay*)basesStation)->OnNetwork=true;
 		agent.trueWorld.placeRelay(basesStation);
 	}
 	//find goal pos
@@ -136,13 +135,13 @@ void readfileRelay(SimulationAgent &agent, string filename)
 		{
 			agent.addRange(temp);
 
-			vector<Relay*> RelayRange = agent.trueWorld.getRelays();
+			/*vector<Relay*> RelayRange = agent.trueWorld.getRelays();
 			for(int i=0; i<RelayRange.size(); i++)
 			{
 				SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
 				rel->addRange(temp);
 				// rel->incRange();
-			}
+			}*/
 		}
 		problemFile.ignore(1);
 	}
