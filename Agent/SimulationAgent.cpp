@@ -76,7 +76,7 @@ void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
 
 	tobePicked->updatePos(Coordinate(0,0));
 	trueWorld[whereToTake+trueLocationRelativity].removeContent(ContentType::RelayMarker);
-	Agent::PickupRelay(whereToTake);
+ 	Agent::PickupRelay(ID,whereToTake);
 }
 void SimulationAgent::evaluateRealayRange()
 {

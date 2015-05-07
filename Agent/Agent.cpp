@@ -211,6 +211,10 @@ void Agent::ShuffleLoctions(int row, int column)
         GoalLocation[i]=Coordinate(GoalLocation[i].getRow()+row, GoalLocation[i].getColumn()+column);
     BaseLocation=Coordinate(BaseLocation.getRow()+row, BaseLocation.getColumn()+column);
     ClientLocation=Coordinate(ClientLocation.getRow()+row, ClientLocation.getColumn()+column);
+    for(int i=0; i<knownWorld.getRelays().size(); i++)
+    {
+        knownWorld.getRelays()[i]->updatePos(Coordinate(knownWorld.getRelays()[i]->getPos().getRow(),knownWorld.getRelays()[i]->getPos().getColumn()));
+    }
 }
 
 

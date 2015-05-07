@@ -25,56 +25,69 @@ Deployment methods
 #include "FileRead.h"
 #include <fstream>
 #include "GUI/GridGUI.h"
-#include <ctime>
+#include <time.h>
 
 using namespace Agentspace;
 using namespace environment;
 using namespace std;
+
+const string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
+
 int main(int argc, char* argv[]) {
 	//make agent
 #ifdef Simulation
 	cout<<"Simulation"<<endl;
-	//SimulationAgent* AgentSmith = new SimulationAgent();
-	SimulationAgent AgentSmith;
+	//SimulationAgent* Robotino = new SimulationAgent();
+	SimulationAgent Robotino;
 
 	//read file about trueWorld and relay
-	RelativeCoordinate relativeToGoal = readfileGrid(AgentSmith, (string)GRIDFILE+(string)argv[1]+".txt");
+	RelativeCoordinate relativeToGoal = readfileGrid(Robotino, (string)GRIDFILE+(string)argv[1]+".txt");
 
-	AgentSmith.setGoal(relativeToGoal);/**using magic we find where the goal is */
+	Robotino.setGoal(relativeToGoal);/**using magic we find where the goal is */
 
-	readfileRelay(AgentSmith, (string)RELAYFILE);
+	readfileRelay(Robotino, (string)RELAYFILE);
 
-	GridGUI TrueGUI = GridGUI(&AgentSmith.trueWorld,5);
-	GridGUI KnownGUI = GridGUI(&AgentSmith.getKnownGrid(),900);
-	AgentSmith.lookAround();
+	GridGUI TrueGUI = GridGUI(&Robotino.trueWorld,5);
+	GridGUI KnownGUI = GridGUI(&Robotino.getKnownGrid(),900);
+	Robotino.lookAround();
 
 #else
-	//Agent* AgentSmith= new ImpementAgent();
-	ImplementationAgent AgentSmith;
+	//Agent* Robotino= new ImpementAgent();
+	ImplementationAgent Robotino;
 	//read file of just relay for agent
-	readfileRelay(AgentSmith, RELAYFILE);
+	readfileRelay(Robotino, RELAYFILE);
 
 #endif
-	AgentSmith.defineDeploymentMethod(atoi(argv[2]));
+	Robotino.defineDeploymentMethod(atoi(argv[2]));
 
 
 
  clock_t start = clock();
 	try{
 
-	     if(AgentSmith.getDeploymentMethod()==1)
+	     if(Robotino.getDeploymentMethod()==1)
     {
-        AgentSmith.evaluateRealayRange();
+        Robotino.evaluateRealayRange();
     }
 	    //Agent run
-		while(!AgentSmith.done()) //loop until robot job is done.
+		while(!Robotino.done()) //loop until robot job is done.
 		{
 			TrueGUI.paint();
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
 
 			//char x;cin>>x;
-			try{AgentSmith.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
+			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
 
 
 		}
@@ -94,20 +107,43 @@ int main(int argc, char* argv[]) {
     if(Log.is_open())
     {
         #ifdef Simulation
-        Log<<"Simulation;"
+        Log<<"Simulation;";
+        Log<<SimulationRelay::getRange()<<";";
         #else
-        Log<<"Implementation;"
+        Log<<"Implementation;";
+        //put like ping quality or somehting here
         #endif
-
-        Log<<argv[1]<<";";//grid tested
+        Log<<currentDateTime();
         Log<<argv[2]<<";";//method
         Log<<timer<<";";
+        for(int i=0; i<Robotino.getKnownGrid().getRelays().size(); i++)
+        {
+        Log<< Robotino.getKnownGrid().getRelays()[i]->getPos()<<" ";
+        }
+        Log<<";";
 
-        #ifdef Simulation //now for some less intersting details
-        Log<<SimulationRelay::getRange()<<";";
-        #endif
-        for()
-        Log<<
+        ifstream problemFile(((string)GRIDFILE+(string)argv[1]+".txt").c_str());
+        while(problemFile.good())
+        {
+            char temp;
+            problemFile>>temp;
+            if(temp!= '\n')
+                Log<<temp;
+        }
+        problemFile.close();
+        Log<<";";
+
+        problemFile.open(RELAYFILE);
+        while(problemFile.good())
+        {
+            char temp;
+            problemFile>>temp;
+            if(temp!= '\n')
+                Log<<temp;
+        }
+        problemFile.close();
+        Log<<";";
+
 
         Log<<endl;
         Log.close();
