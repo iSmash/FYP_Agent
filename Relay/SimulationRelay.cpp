@@ -48,29 +48,22 @@ void SimulationRelay::findDomain()
 
 }
 
- void SimulationRelay::incRange(vector<Relay*> relays)
+ void SimulationRelay::incRange()
 {
     activeRange++;
 
     if (activeRange>=Ranges.size())
         throw string("out of range options");
 
- for(int i=0; i<relays.size(); i++)
-        {
-             ((SimulationRelay*)relays[i])->findDomain();
-       }
+
 }
 
- void SimulationRelay::decRange(vector<Relay*> relays)
+ void SimulationRelay::decRange()
 {
     activeRange--;
     if(activeRange<0)
          throw string("below 0 range option");
 
- for(int i=0; i<relays.size(); i++)
-        {
-             ((SimulationRelay*)relays[i])->findDomain();
-       }
 
 
 }

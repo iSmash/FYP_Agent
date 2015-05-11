@@ -21,8 +21,8 @@ namespace Relayspace
 			void findDomain();
             inline std::vector<Coordinate> getDomain(){return domain;}
 
-            static void  incRange(vector<Relay*> relays);
-			static void  decRange(vector<Relay*> relays);
+            static void  incRange();
+			static void  decRange();
             bool inRange(Coordinate test);
             inline static int getRange(){return Ranges[activeRange];}
 

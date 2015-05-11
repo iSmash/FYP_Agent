@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
 
 	readfileRelay(Robotino, (string)RELAYFILE);
 
-	GridGUI TrueGUI = GridGUI(&Robotino.trueWorld,5);
-	GridGUI KnownGUI = GridGUI(&Robotino.getKnownGrid(),900);
+	GridGUI TrueGUI = GridGUI(&Robotino.trueWorld,5, argv[2]);
+	GridGUI KnownGUI = GridGUI(&Robotino.getKnownGrid(),900,argv[2]);
 	Robotino.lookAround();
 
 #else
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 #ifdef Simulation
 	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
 #endif
-
+char x;cin>>x;
     //print results to file
 
     ofstream Log(LOGFILE, fstream::app );

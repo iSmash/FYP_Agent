@@ -94,6 +94,7 @@ void Agent::tryPath()
     //clean up old search
     knownWorld.clearGridViewed();
     planner.clear();
+    cout<<endl;
 }
 
 void Agent::updateGoal()
@@ -107,12 +108,13 @@ void Agent::updateGoal()
     {
         cout<<GoalLocation[i]<<endl;
     }*/
-    GoalLocation = planner.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
+    GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
     for(int i=0; i<GoalLocation.size(); i++)
     {
         //cout<<GoalLocation[i]<<endl;
         knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
     }
+
 
 
 }
@@ -140,13 +142,13 @@ void Agent::RemoveRelay(int _ID)
 
 void Agent::PlaceRelay(int ID,Coordinate whereToPlace)
 {
-   Relay* tobePlaced = GetRelay(ID);
-    if(tobePlaced == NULL)
-        return; //out of nodes.
-    RemoveRelay(ID);
-    knownWorld.placeRelay(tobePlaced);
+   //Relay* tobePlaced = GetRelay(ID);
+   // if(tobePlaced == NULL)
+   //     return; //out of nodes.
+    //RemoveRelay(ID);
+    //knownWorld.placeRelay(tobePlaced);
 
-	tobePlaced->updatePos(whereToPlace);
+
     knownWorld[whereToPlace].addContent(ContentType::RelayMarker);
 }
 
@@ -274,7 +276,6 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
 bool Agent::move(Node::Direction toMove)
 {
     Coordinate CurrentLocationtemp;
-    Coordinate OldPos = CurrentLocation; //for backtrack in method one
     switch (toMove)
     {
     case Node::Right:
@@ -319,7 +320,7 @@ bool Agent::move(Node::Direction toMove)
         return false;
     }
 
-    if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>1)
+    else if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>1)
     {
 
             GoalLocation.pop_back();
@@ -337,7 +338,7 @@ bool Agent::move(Node::Direction toMove)
 
 if(DeploymentMethod<=1 && lowSignal()) //find out if need to place a new node donw
 	{
-		try{PlaceRelay(heldRelays.front()->getID(),OldPos);}
+		try{PlaceRelay(heldRelays.front()->getID(),CurrentLocation);}
 		catch(RelayError e){//cout<<"out of relays"<<endl;
 		}
 	}

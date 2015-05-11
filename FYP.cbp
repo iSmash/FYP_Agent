@@ -11,7 +11,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="A 1" />
+				<Option parameters="A 4" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -48,6 +48,8 @@
 		</Linker>
 		<Unit filename="Agent\Agent.cpp" />
 		<Unit filename="Agent\Agent.h" />
+		<Unit filename="Agent\Deployment.cpp" />
+		<Unit filename="Agent\Deployment.h" />
 		<Unit filename="Agent\ImplementAgent.cpp" />
 		<Unit filename="Agent\ImplementAgent.h" />
 		<Unit filename="Agent\Node.cpp" />
@@ -56,6 +58,12 @@
 		<Unit filename="Agent\PathPlan.h" />
 		<Unit filename="Agent\SimulationAgent.cpp" />
 		<Unit filename="Agent\SimulationAgent.h" />
+		<Unit filename="Agent\VirtualRelay.cpp" />
+		<Unit filename="Agent\VirtualRelay.h" />
+		<Unit filename="Agent\VirtualRelay_IMAIZUMI.cpp" />
+		<Unit filename="Agent\VirtualRelay_IMAIZUMI.h" />
+		<Unit filename="Agent\VirtualRelay_Vieira.cpp" />
+		<Unit filename="Agent\VirtualRelay_Vieira.h" />
 		<Unit filename="FileRead.cpp" />
 		<Unit filename="FileRead.h" />
 		<Unit filename="GUI\Colour.h" />
@@ -73,6 +81,8 @@
 		<Unit filename="Grid\Coordinate.h" />
 		<Unit filename="Grid\Grid.cpp" />
 		<Unit filename="Grid\Grid.h" />
+		<Unit filename="Grid\SubGrid.cpp" />
+		<Unit filename="Grid\SubGrid.h" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Relay\ImplementRelay.cpp" />
 		<Unit filename="Relay\ImplementRelay.h" />

@@ -12,7 +12,7 @@ using namespace environment;
 	class GridGUI
 	{
 	public:
-    GridGUI(Grid* paintgrid,  int screenLeft);
+    GridGUI(Grid* paintgrid,  int screenLeft, char* name);
 
 	void updateSize();
 

@@ -12,8 +12,11 @@ void SimulationAgent::findPath()
             //dont know where to go
             //cout<<"run out";
 
-             SimulationRelay::incRange(trueWorld.getRelays());
-
+             SimulationRelay::incRange();
+ for(int i=0; i<trueWorld.getRelays().size(); i++)
+        {
+             ((SimulationRelay*)trueWorld.getRelays()[i])->findDomain();
+       }
 
         }
     else
@@ -55,15 +58,17 @@ void SimulationAgent::addRange(int range)
 
 void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
 {
-    //cout<<"place node"<<endl;
 	SimulationRelay* tobePlaced = (SimulationRelay*)GetRelay(ID);
     if(tobePlaced == NULL)
         return; //out of nodes.
-
+    cout<<"Placing"<<ID<<" at"<<whereToPlace+trueLocationRelativity<<endl;
+    RemoveRelay(ID);
     trueWorld.placeRelay(tobePlaced);
 	trueWorld[whereToPlace+trueLocationRelativity].addContent(ContentType::RelayMarker);
-
+	tobePlaced->updatePos(whereToPlace+trueLocationRelativity);
+	tobePlaced->findDomain();
 	Agent::PlaceRelay(ID, whereToPlace);
+
 }
 
 void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
@@ -85,7 +90,11 @@ void SimulationAgent::evaluateRealayRange()
     while(distance> relayCount*SimulationRelay::getRange())
     {
         cout<<"too small";
-        SimulationRelay::incRange(trueWorld.getRelays());
+        SimulationRelay::incRange();
+         for(int i=0; i<trueWorld.getRelays().size(); i++)
+        {
+             ((SimulationRelay*)trueWorld.getRelays()[i])->findDomain();
+       }
     }
 }
 
@@ -164,14 +173,14 @@ vector<SimulationRelay*> tocheck;
 
 
             vector<Coordinate> currentdomain = tocheck.back()->getDomain();
-            cout<<"on network "<<tocheck.back()->getPos()<<endl;
+            cout<<"on network "<<tocheck.back()->getID()<<" "<<tocheck.back()->getPos()<<endl;
 
             for(int i =0; i< currentdomain.size(); i++)
             {
                 //look over every cell that this relay has homain over
                 if(currentdomain[i]==ClientLocation+trueLocationRelativity)
                     {
-                        cout<<"sees client"<<endl;
+                       // cout<<"sees client"<<endl;
                         return true;
                     }
 
@@ -182,6 +191,7 @@ vector<SimulationRelay*> tocheck;
                     if(currentdomain[i]==deployedRelays[j]->getPos())
                     {
                         //match, this relay is now on the network we will now check it to see if it connects anyone
+                        cout<<"found"<<deployedRelays[j]->getID();
                         tocheck.insert(tocheck.begin(),((SimulationRelay*)deployedRelays[j]));
                          deployedRelays.erase(deployedRelays.begin()+j); //remove it so we dont go back and fourth adding to network
                     }

@@ -5,6 +5,7 @@
 #include "PathPlan.h"
 #include "../Relay/Relay.h"
 #include "../Grid/Grid.h"
+#include "Deployment.h"
 
 using namespace environment;
 using namespace std;
@@ -73,6 +74,7 @@ protected:
     Grid knownWorld;
     vector<Relay*> heldRelays; //relays held on the robot, moved to grid's vector of relays when deployed.
     int DeploymentMethod;
+    DeploymentSpace::Deployment relayPlace;
 
 };
 }

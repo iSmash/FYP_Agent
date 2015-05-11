@@ -11,7 +11,7 @@ using namespace environment;
 
 
 
-GridGUI::GridGUI(Grid* paintgrid, int screenLeft)
+GridGUI::GridGUI(Grid* paintgrid, int screenLeft, char* name)
 	{
 //colour defines
 
@@ -27,7 +27,7 @@ GridGUI::GridGUI(Grid* paintgrid, int screenLeft)
 
     //make the painter and such
 	painter=  new WinBGImPainter (windowWidth, windowHeight);
-	window= initwindow(windowWidth, windowHeight, "name" ,screenLeft);
+	window= initwindow(windowWidth, windowHeight, name ,screenLeft);
 	delay(100);
 
 

@@ -32,11 +32,13 @@ class Grid
             void clearGridViewed(); //resets grid, so no cells thing they have been looked at, will be used for new search
 
             void placeWall(int x, int y, int width, int high);
-
+        protected:
+            vector< vector<Cell> > cells; // vector of vectors, is a matrix of any other name not just as Keano?
+        Coordinate LastCell; //held max col and row, so we dont need to find it every time.
 		private:
-		  vector< vector<Cell> > cells; // vector of vectors, is a matrix of any other name not just as Keano?
+
 		  vector<Relay*> deployedRelays;
-		Coordinate LastCell; //held max col and row, so we dont need to find it every time.
+
 	};
 }
 

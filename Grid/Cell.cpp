@@ -1,4 +1,4 @@
-#include "Cell.h";
+#include "Cell.h"
 #include <iostream>
 using namespace environment;
 using namespace ContentType;

@@ -14,7 +14,7 @@ namespace environment
 	Cell(){viewed=false;}
 
 	//gets
-	inline const std::vector<Content> getContent() const {return content;}
+	inline std::vector<Content>& getContent() {return content;}
 	const bool hasContent(Content cont);
         inline const bool getViewed() const {return viewed;} //gets if this cell has been already seen as a potential 		path point
 
