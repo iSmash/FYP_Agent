@@ -145,11 +145,11 @@ void Agent::RemoveRelay(int _ID)
 
 void Agent::PlaceRelay(int ID,Coordinate whereToPlace)
 {
-   Relay* tobePlaced = GetRelay(ID);
-    if(tobePlaced == NULL)
-        return; //out of nodes.
-   RemoveRelay(ID);
-    knownWorld.placeRelay(tobePlaced);
+   //Relay* tobePlaced = GetRelay(ID);
+   // if(tobePlaced == NULL)
+    //    return; //out of nodes.
+
+    //knownWorld.placeRelay(tobePlaced);
 
 
     knownWorld[whereToPlace].addContent(ContentType::RelayMarker);

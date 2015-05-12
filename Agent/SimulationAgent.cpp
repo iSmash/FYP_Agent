@@ -64,7 +64,7 @@ void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
     if(tobePlaced == NULL)
         return; //out of nodes.
     //cout<<"Placing"<<ID<<" at"<<whereToPlace+trueLocationRelativity<<endl;
-    //RemoveRelay(ID);
+    RemoveRelay(ID);
     trueWorld.placeRelay(tobePlaced);
 	trueWorld[whereToPlace+trueLocationRelativity].addContent(ContentType::RelayMarker);
 	tobePlaced->updatePos(whereToPlace+trueLocationRelativity);

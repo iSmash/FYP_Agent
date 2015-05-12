@@ -92,7 +92,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
     //cout<<"exploring"<<endl;
 	Coordinate state = toExplore->getState();
 	//   cout<<state<<endl;
-	if(grid[state].hasContent(ContentType::Goal))
+	if(grid[state].hasContent(ContentType::Goal)&& toExplore->getParent()!=NULL)
 	{
 		//goal=state;
 		return toExplore;

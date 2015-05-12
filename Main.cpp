@@ -15,7 +15,7 @@ Deployment methods
 5  ""
 */
 
-#define Show_Graphics
+//#define Show_Graphics
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
@@ -97,7 +97,7 @@ char x;
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
 #endif
-			char x;cin>>x;
+			//char x;cin>>x;
 			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
 
 
@@ -131,10 +131,16 @@ char x;
         Log<<currentDateTime()<<";";
         Log<<argv[2]<<";";//method
         Log<<timer<<";";
-        for(int i=0; i<Robotino.getKnownGrid().getRelays().size(); i++)
+
+        for(int row=0; row<Robotino.getKnownGrid().getLast().getRow(); row++)
         {
-        Log<< Robotino.getKnownGrid().getRelays()[i]->getPos()<<" ";
+             for(int col=0; col<Robotino.getKnownGrid().getLast().getColumn(); col++)
+             {
+                 if(Robotino.getKnownGrid()[Coordinate(row, col)].hasContent(ContentType::RelayMarker))
+                    Log<<Coordinate(row, col)<<endl;
+             }
         }
+
         Log<<";";
         Log<<argv[1]<<";";//GRID
         ifstream problemFile(((string)GRIDFILE+(string)argv[1]+".txt").c_str());
