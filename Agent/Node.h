@@ -33,9 +33,10 @@ public:
     inline const unsigned getHeuristic() const {return heuristic;}
     inline const unsigned getChildren() const {return children;}
 
-    void setHeuristic(Coordinate goal);
-    inline void Broken_condom(){children++;}
-    inline void slender_man(){children--;}
+    void findHeuristic(vector<Coordinate> goals);
+    inline void setHeuristic(int _heuristic){heuristic=_heuristic;}
+    inline void Inc_children(){children++;}
+    inline void Dec_children(){children--;}
     void deadEnd(Grid& grid,  list<Node*> &Leaves);
 
 private:

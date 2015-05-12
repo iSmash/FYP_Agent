@@ -136,6 +136,10 @@ void GridGUI::paint(bool Last)
                     {
                         Background=Wall_fill;
                     }
+                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::Jormungandr_Wall))
+                    {
+                        Background=Wall_fill+THEVOID_THAT_IS_MY_SOUL;
+                    }
 
                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Goal))
                     {

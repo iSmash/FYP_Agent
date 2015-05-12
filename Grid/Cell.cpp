@@ -12,13 +12,14 @@ void printContent(ContentType::Content toprint)
         case ContentType::Goal: cout<<"Goal; ";break;
         case ContentType::Unknown: cout<<"Unknown; ";break;
         case ContentType::Empty: cout<<"Empty; ";break;
+        case ContentType::Jormungandr_Wall: cout<<"World end; "; break;
     }
 }
 
 const bool Cell::hasContent(Content cont)
 {
  if(cont == Object)
-    return hasContent(Wall)||hasContent(Client)||hasContent(RelayMarker);
+    return hasContent(Wall)||hasContent(Client)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall);
 
  for(int i =0; i< content.size(); i++)
  {
@@ -82,3 +83,12 @@ void Cell::addContent(const Content cont)
         content.push_back(cont);
     }
 }//only add content if new, stops two Robots or two walls.
+
+void Cell::printAllContent()
+{
+    for(int contint_index=0; contint_index<content.size(); contint_index++)
+    {
+        printContent(content[contint_index]);
+        cout<<endl;
+    }
+}

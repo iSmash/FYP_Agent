@@ -224,7 +224,7 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
 
 vector<Coordinate> Deployment::positionRelays(int method, int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
 {
-    cout<<"start finding positons"<<endl;
+    //cout<<"start finding positons"<<endl;
 
     switch (method)
     {

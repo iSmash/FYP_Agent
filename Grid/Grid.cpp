@@ -67,6 +67,17 @@ void Grid::placeWall(int x, int y, int width, int high)
 void Grid::updateSize(Coordinate newSize)
 {
 	LastCell=newSize;
+
+	//remove world endge
+	for(int row_index=0;row_index<cells.size(); row_index++)
+    {
+        for(int col_index=0;col_index<cells[row_index].size(); col_index++)
+        {
+                cells[row_index][col_index].removeContent(ContentType::Jormungandr_Wall);
+        }
+
+    }
+
 	for(int i=cells.size(); i<newSize.getRow(); i++ )
 	{
 		cells.push_back(vector<Cell>());
@@ -83,20 +94,29 @@ void Grid::updateSize(Coordinate newSize)
 
 }
 
-void Grid::updateSize(updateSizeDirection toAdd)
+bool Grid::updateSize(updateSizeDirection toAdd)
 {
-	// std::cout<<"adding to grid"<<std::endl;
-	// std::cout<<"rows " <<cells.size();
-	// if(cells.size()!=0)
-		// std::cout<<"column " <<cells[0].size()<<std::endl;
-	// else
+	 //std::cout<<"adding to grid";
+	 //std::cout<<"rows " <<cells.size();
+	 //if(cells.size()!=0)
+	//	 std::cout<<"column " <<cells[0].size()<<std::endl;
+	 //else
 	//    std::cout<<std::endl;
 	switch (toAdd)
 	{
+	    //first go though that area looking for edge of world, rueturn without exansion if end of world reached.
 	case top:{
+	    //std::cout<<"top"<<std::endl;
+		for(int i=0; i<LastCell.getColumn(); i++)
+		{
+		    if(cells.front()[i].hasContent(ContentType::Jormungandr_Wall))
+                return false;
+		}
+
 		vector<Cell> temp;
 		for(int i=0; i<LastCell.getColumn(); i++)
 		{
+		    //make new row
 			Cell c = Cell();
 			c.addContent(ContentType::Unknown);
 			temp.push_back(c);
@@ -106,8 +126,18 @@ void Grid::updateSize(updateSizeDirection toAdd)
 		break;
 	}
 	case  right:{
+	    //std::cout<<"right"<<std::endl;
 		for(int i=0; i<LastCell.getRow(); i++)
 		{
+		    //remove world ege
+		    if(cells[i].back().hasContent(ContentType::Jormungandr_Wall))
+                  return false;
+		}
+
+
+		for(int i=0; i<LastCell.getRow(); i++)
+		{
+            //add new col
 			Cell c = Cell();
 			c.addContent(ContentType::Unknown);
 			cells[i].push_back(c);
@@ -117,10 +147,18 @@ void Grid::updateSize(updateSizeDirection toAdd)
 		break;
 	}
 	case bottom:{
+        //td::cout<<"bot"<<std::endl;
+		for(int i=0; i<LastCell.getColumn(); i++)
+		{
+		    //remove world ege
+            if(cells.back()[i].hasContent(ContentType::Jormungandr_Wall))
+                 return false;
+		}
 
 		vector<Cell> temp;
 		for(int i=0; i<LastCell.getColumn(); i++)
 		{
+		    //add new row
 			Cell c = Cell();
 			c.addContent(ContentType::Unknown);
 			temp.push_back(c);
@@ -130,8 +168,20 @@ void Grid::updateSize(updateSizeDirection toAdd)
 		break;
 	}
 	case left:{
+	    //td::cout<<"left"<<std::endl;
+
 		for(int i=0; i<LastCell.getRow(); i++)
 		{
+		    //remove world ege
+		    if(cells[i].front().hasContent(ContentType::Jormungandr_Wall))
+               return false;
+		}
+
+		for(int i=0; i<LastCell.getRow(); i++)
+		{
+
+
+		    //add new col
 			Cell c = Cell();
 			c.addContent(ContentType::Unknown);
 			//vector<Cell> *temp= &cells[i];
@@ -142,6 +192,7 @@ void Grid::updateSize(updateSizeDirection toAdd)
 		break;
 	}
 	};
+	   return true;
 
 	//std::cout<<"rows " <<cells.size();
 	//if(cells.size()!=0)

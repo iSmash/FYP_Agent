@@ -1,4 +1,6 @@
 #include "Node.h"
+#include <cmath>
+#include <vector>
 using namespace Agentspace;
 
 
@@ -29,23 +31,35 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
  {
     //cout<<"DELETING "<<state.getRow()<<' '<<state.getColumn()<<' '<<heuristic<<endl;
       //cout<<Parent->getState().getRow()<<' '<<Parent->getState().getColumn()<<' '<<Parent->getChildren()<<endl;
+
     if(Parent->getHeuristic()>heuristic) //first time parent Heur is -1 (very big unsigned) so first child deleted will always pass this
         Parent->setHeuristic(heuristic);
 
-        Parent->slender_man();
+        Parent->Dec_children();
 
-	 if(!Parent->getChildren()&& Parent->getParent()!=NULL)//if no children, parent is a leaf again unless its the root
+	 if(!Parent->getChildren() && Parent->getParent()!= NULL)//if no children, parent is a leaf again unless its the root
         {
             Leaves.push_back(Parent);
         }
 
-     delete this;
+    delete this;
  }
 
 
 
-void Node::setHeuristic(Coordinate goal)
+void Node::findHeuristic(vector<Coordinate> goals)
 {   //std::cout<<state.getRow()<<" "<<goal.getRow()<<std::endl;
     //std::cout<<abs(state.getRow()-goal.getRow())<<" "<<abs(state.getColumn()-goal.getColumn())<<" "<<level<<std::endl;
-    heuristic= abs(state.getRow()-goal.getRow())+abs(state.getColumn()-goal.getColumn())+level;
+    if(goals.size()==0)
+        throw string("No goal to go toward");
+
+    heuristic= 9999999999;
+    for(int goals_index=0; goals_index<goals.size(); goals_index++)
+    {
+        int temp = ceil(sqrt(pow((state.getRow()-goals[goals_index].getRow()),2.0)+pow((state.getColumn()-goals[goals_index].getColumn()),2.0)))+level;
+        if(temp< heuristic && temp>0)
+            heuristic = temp;
+    }
+
+
 }

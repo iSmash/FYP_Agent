@@ -24,7 +24,7 @@ class Grid
 			void updateSize(Coordinate newSize);
 
 			enum updateSizeDirection{top, right, bottom, left};
-			void updateSize(updateSizeDirection toAdd);
+			bool updateSize(updateSizeDirection toAdd);
 
 			///Allows gird cell to be called like an array.
 			Cell& operator [] (const Coordinate coord);

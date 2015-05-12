@@ -70,7 +70,6 @@ RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename) //simul
 		problemFile>> x;
 		problemFile.ignore();
 		problemFile>>y;
-		agent.trueWorld[Coordinate(y,x)].addContent(ContentType::Goal);
 		agent.trueWorld[Coordinate(y,x)].addContent(ContentType::Client);
 		goal= Coordinate(y,x);
 		relation= RelativeCoordinate(goal.getRow()-robotCoord.getRow(), goal.getColumn()-robotCoord.getColumn());

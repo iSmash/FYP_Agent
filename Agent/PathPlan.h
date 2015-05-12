@@ -14,7 +14,7 @@ public:
     vector<Node::Direction> findPath(Coordinate& start, vector<Coordinate> goal, Grid& KnownWorld);
     inline void clear(){Leaves.clear();}
 	private:
-	     Node* explore(Grid& grid, Node* toExplores, Coordinate& goal);
+	     Node* explore(Grid& grid, Node* toExplores);
 		list<Node*> Leaves;
 
 

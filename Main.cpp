@@ -15,6 +15,8 @@ Deployment methods
 5  ""
 */
 
+#define Show_Graphics
+
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
 #define LOGFILE "LogFile.txt"
@@ -24,8 +26,12 @@ Deployment methods
 #include "Agent/ImplementAgent.h"
 #include "FileRead.h"
 #include <fstream>
-#include "GUI/GridGUI.h"
+
 #include <time.h>
+
+#ifdef Show_Graphics
+    #include "GUI/GridGUI.h"
+#endif
 
 using namespace Agentspace;
 using namespace environment;
@@ -44,21 +50,25 @@ const string currentDateTime() {
 }
 
 int main(int argc, char* argv[]) {
+
+char x;
 	//make agent
 #ifdef Simulation
-	cout<<"Simulation"<<endl;
+	//cout<<"Simulation"<<endl;
 	//SimulationAgent* Robotino = new SimulationAgent();
 	SimulationAgent Robotino;
 
 	//read file about trueWorld and relay
 	RelativeCoordinate relativeToGoal = readfileGrid(Robotino, (string)GRIDFILE+(string)argv[1]+".txt");
-
+        cout<<"rel"<<relativeToGoal<<endl;
 	Robotino.setGoal(relativeToGoal);/**using magic we find where the goal is */
 
 	readfileRelay(Robotino, (string)RELAYFILE);
 
+#ifdef Show_Graphics
 	GridGUI TrueGUI = GridGUI(&Robotino.trueWorld,5, argv[2]);
 	GridGUI KnownGUI = GridGUI(&Robotino.getKnownGrid(),900,argv[2]);
+#endif
 	Robotino.lookAround();
 
 #else
@@ -82,11 +92,12 @@ int main(int argc, char* argv[]) {
 	    //Agent run
 		while(!Robotino.done()) //loop until robot job is done.
 		{
+#ifdef Show_Graphics
 			TrueGUI.paint();
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
-
-			//char x;cin>>x;
+#endif
+			char x;cin>>x;
 			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
 
 
@@ -94,13 +105,17 @@ int main(int argc, char* argv[]) {
 	}
 	catch(string s){cout<<s<<endl;} //yall done goofed, lets stop
      double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
+
+#ifdef Show_Graphics
 	TrueGUI.paint(true);
 	KnownGUI.updateSize();
 	KnownGUI.paint(true);
+#endif
+
 #ifdef Simulation
 	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
 #endif
-char x;cin>>x;
+ //cin>>x;
     //print results to file
 
     ofstream Log(LOGFILE, fstream::app );
@@ -113,7 +128,7 @@ char x;cin>>x;
         Log<<"Implementation;";
         //put like ping quality or somehting here
         #endif
-        Log<<currentDateTime();
+        Log<<currentDateTime()<<";";
         Log<<argv[2]<<";";//method
         Log<<timer<<";";
         for(int i=0; i<Robotino.getKnownGrid().getRelays().size(); i++)
@@ -121,7 +136,7 @@ char x;cin>>x;
         Log<< Robotino.getKnownGrid().getRelays()[i]->getPos()<<" ";
         }
         Log<<";";
-
+        Log<<argv[1]<<";";//GRID
         ifstream problemFile(((string)GRIDFILE+(string)argv[1]+".txt").c_str());
         while(problemFile.good())
         {
