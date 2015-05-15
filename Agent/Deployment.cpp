@@ -20,7 +20,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
         vector<Coordinate> templist= relayPositions;
         for(int i = 1; i< relayPositions.size(); i++)
         {
-            cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+            //cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
             int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
             int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
             cout<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
@@ -30,7 +30,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
             int walls_left_top, walls_right_bot;
             subgrid.Wall_count(Coordinate(rowMidPoint,columnMidPoint), walls_left_top, walls_right_bot);
 
-            cout<<"Wall changes: -"<<walls_left_top<<"+"<<walls_right_bot<<endl;
+            //cout<<"Wall changes: -"<<walls_left_top<<"+"<<walls_right_bot<<endl;
             rowMidPoint=rowMidPoint
                         -walls_left_top/WallSignal_Relation
                         +walls_right_bot/WallSignal_Relation;
@@ -38,7 +38,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
             columnMidPoint=columnMidPoint
                            -walls_left_top/WallSignal_Relation
                            +walls_right_bot/WallSignal_Relation;
-            cout<<"gives "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+            //cout<<"gives "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
             /**  */
             //if adjustment made it not in between any more, put it on the boarder.
 
@@ -46,7 +46,8 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
             //make sure not on top of wall
             int moveRange = 1;
             while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Wall)
-                    ||  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Unknown)
+                  ||knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Jormungandr_Wall)
+                  ||  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Unknown)
                  )
 
             {
@@ -54,21 +55,27 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
                 {
                     for(int j=-(moveRange); j<=moveRange; j++)
                     {
-
+try{
                         if(  !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Wall))  &&
+                           !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Jormungandr_Wall))  &&
                                 !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Unknown))
                           )
                         {
+
+
                             rowMidPoint=rowMidPoint+i;
                             columnMidPoint=columnMidPoint+j;
-                            i=moveRange+1;//break outer for loop too
+                            i=moveRange+1;//break outer for-loop too
                             break;
+
                         }
+                        }
+                            catch (std::out_of_range){}
                     }
                 }
                 moveRange++;
             }
-            cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+            //cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
             templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
             //cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
 
@@ -81,7 +88,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
             if(columnMidPoint>subgrid.Get_right())
                 columnMidPoint=subgrid.Get_right()-1;
 
-            cout<<"out of bounds fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+            //cout<<"out of bounds fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
         }
         cout<<endl;
         relayPositions= templist;

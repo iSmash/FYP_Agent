@@ -22,6 +22,7 @@ public:
         CurrentLocation=Coordinate(0,0);
         BaseLocation= CurrentLocation;
         knownWorld.updateSize(Coordinate(1,1));
+        step_count=0;
     }
 
      void findPath();
@@ -56,6 +57,7 @@ public:
 
     virtual void evaluateRealayRange()=0;
 
+    inline int Get_stepcount(){return step_count;}
 protected:
     virtual bool lowSignal()=0;
     virtual bool move(Node::Direction toMove);
@@ -75,6 +77,7 @@ protected:
     vector<Relay*> heldRelays; //relays held on the robot, moved to grid's vector of relays when deployed.
     int DeploymentMethod;
     DeploymentSpace::Deployment relayPlace;
+    int step_count;
 
 };
 }

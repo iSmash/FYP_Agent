@@ -83,6 +83,7 @@ char x;
 
 
  clock_t start = clock();
+ 	string errorString;
 	try{
 
 	     if(Robotino.getDeploymentMethod()==1)
@@ -103,21 +104,23 @@ char x;
 
 		}
 	}
-	catch(string s){cout<<s<<endl;} //yall done goofed, lets stop
+
+	catch(string s){ errorString=s; cout<<errorString<<endl;} //yall done goofed, lets stop
      double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
 
 #ifdef Show_Graphics
 	TrueGUI.paint(true);
 	KnownGUI.updateSize();
 	KnownGUI.paint(true);
+	 cin>>x;
 #endif
 
 #ifdef Simulation
 	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
 #endif
- //cin>>x;
-    //print results to file
 
+
+    //print results to file
     ofstream Log(LOGFILE, fstream::app );
     if(Log.is_open())
     {
@@ -128,16 +131,17 @@ char x;
         Log<<"Implementation;";
         //put like ping quality or somehting here
         #endif
+        Log<<errorString<<";";
         Log<<currentDateTime()<<";";
-        Log<<argv[2]<<";";//method
+        Log<<"M"<<argv[2]<<";";//method
         Log<<timer<<";";
-
+        Log<<Robotino.Get_stepcount()<<";";
         for(int row=0; row<Robotino.getKnownGrid().getLast().getRow(); row++)
         {
              for(int col=0; col<Robotino.getKnownGrid().getLast().getColumn(); col++)
              {
                  if(Robotino.getKnownGrid()[Coordinate(row, col)].hasContent(ContentType::RelayMarker))
-                    Log<<Coordinate(row, col)<<endl;
+                    Log<<Coordinate(row, col)<<" ";
              }
         }
 

@@ -59,7 +59,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 		}
 		if(!Leaves.size())//nothing in list, all paths explored without result
 		{
-			throw string("Error, out of leaves");
+			throw string("Error, Path finder out of leaves");
 		}
 
 	}

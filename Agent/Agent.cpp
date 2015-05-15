@@ -41,8 +41,8 @@ void printDirection2(Node::Direction toprint)
 
 void Agent::findPath()
 {
-     std::cout<<"current"<<CurrentLocation<<std::endl;
-     std::cout<<"goal"<<GoalLocation.front()<<std::endl;
+     //std::cout<<"current"<<CurrentLocation<<std::endl;
+     //std::cout<<"goal"<<GoalLocation.front()<<std::endl;
     bool success=false;
 
 
@@ -56,7 +56,7 @@ void Agent::findPath()
     }
     catch(string &s)
     {
-        cout<<s;
+        //cout<<s;
         /* cout<<"Last"<<knownWorld.getLast()<<endl;
          cout<<"cur"<<CurrentLocation<<endl;
          cout<<"goal"<<GoalLocation.back()<<endl;
@@ -71,7 +71,7 @@ void Agent::findPath()
 
         knownWorld.clearGridViewed();
 
-        throw 1;
+        throw 1; //soft throw, will retry
     }
 
     tryPath();
@@ -346,6 +346,7 @@ if(DeploymentMethod<=1 && lowSignal()) //find out if need to place a new node do
     }
 
     CurrentLocation=CurrentLocationtemp;
+    step_count++;
     return true;
 }
 
