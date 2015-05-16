@@ -15,7 +15,7 @@ Deployment methods
 5  ""
 */
 
-//#define Show_Graphics
+#define Show_Graphics
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
