@@ -11,7 +11,7 @@ class Deployment
     private:
         vector<Coordinate> MidWayPlacement(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld);
         vector<Coordinate> MidWayPlacementPotentialState(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld);
-        vector<Coordinate> VirtualForce(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld, int type);
+        vector<Coordinate> VirtualForce(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld);
 
 
 

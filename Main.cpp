@@ -86,10 +86,6 @@ char x;
  	string errorString;
 	try{
 
-	     if(Robotino.getDeploymentMethod()==1)
-    {
-        Robotino.evaluateRealayRange();
-    }
 	    //Agent run
 		while(!Robotino.done()) //loop until robot job is done.
 		{
@@ -97,6 +93,7 @@ char x;
 			TrueGUI.paint();
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
+				// cin>>x;
 #endif
 			//char x;cin>>x;
 			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying

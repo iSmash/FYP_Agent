@@ -25,10 +25,11 @@ void findPath();
     void ShuffleLoctions(int row, int column);
     void evaluateRealayRange();
 
+
 private:
 
 	bool move(Node::Direction toMove);
-	bool lowSignal();
+	bool lowSignal(Coordinate CurrentLocationtemp);
 	void PlaceRelay(int ID, Coordinate whereToPlace);
 	void PickupRelay(int ID, Coordinate whereToTake);
 

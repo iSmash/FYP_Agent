@@ -23,6 +23,7 @@ public:
         BaseLocation= CurrentLocation;
         knownWorld.updateSize(Coordinate(1,1));
         step_count=0;
+        return_journy=false;
     }
 
      void findPath();
@@ -44,12 +45,10 @@ public:
 
     void setGoal(RelativeCoordinate relativeToGoal);/**using magic we find where the goal is */
 
-    void updateGoal();
+    virtual void updateGoal();
 
-    inline void defineDeploymentMethod(int meth)
-    {
-        DeploymentMethod=meth;
-    }
+    void defineDeploymentMethod(int meth);
+
     inline int getDeploymentMethod()
     {
         return DeploymentMethod;
@@ -59,7 +58,7 @@ public:
 
     inline int Get_stepcount(){return step_count;}
 protected:
-    virtual bool lowSignal()=0;
+    virtual bool lowSignal(Coordinate CurrentLocationtemp)=0;
     virtual bool move(Node::Direction toMove);
     virtual void lookAround();
    virtual void ShuffleLoctions(int row, int column);
@@ -78,6 +77,7 @@ protected:
     int DeploymentMethod;
     DeploymentSpace::Deployment relayPlace;
     int step_count;
+    bool return_journy;
 
 };
 }

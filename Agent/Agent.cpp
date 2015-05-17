@@ -41,8 +41,8 @@ void printDirection2(Node::Direction toprint)
 
 void Agent::findPath()
 {
-     //std::cout<<"current"<<CurrentLocation<<std::endl;
-     //std::cout<<"goal"<<GoalLocation.front()<<std::endl;
+    //std::cout<<"current"<<CurrentLocation<<std::endl;
+    //std::cout<<"goal"<<GoalLocation.front()<<std::endl;
     bool success=false;
 
 
@@ -51,8 +51,7 @@ void Agent::findPath()
     try
     {
 
-        actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
-
+         actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
     }
     catch(string &s)
     {
@@ -65,7 +64,7 @@ void Agent::findPath()
         knownWorld.updateSize(Grid::right);
         knownWorld.updateSize(Grid::bottom);
         if(knownWorld.updateSize(Grid::top))
-             ShuffleLoctions(1,0);
+            ShuffleLoctions(1,0);
         if(knownWorld.updateSize(Grid::left))
             ShuffleLoctions(0,1);
 
@@ -110,10 +109,26 @@ void Agent::updateGoal()
     {
         cout<<GoalLocation[i]<<endl;
     }*/
+
     GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
+
+     if(DeploymentMethod==2)
+    {
+        //cout<<"client found, now going to "<<BaseLocation<<GoalLocation.size()<<endl;
+        return_journy=true;
+        GoalLocation.push_back(BaseLocation);
+        knownWorld[BaseLocation].addContent(ContentType::Goal);
+        evaluateRealayRange();
+    }
+
     for(int i=0; i<GoalLocation.size(); i++)
     {
+        cout<<"goal locations at" ;
         cout<<GoalLocation[i]<<endl;
+        if(knownWorld[GoalLocation[i]].hasContent(ContentType::Goal))
+        {
+            throw string("Goal overlap");
+        }
         knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
     }
 
@@ -145,8 +160,8 @@ void Agent::RemoveRelay(int _ID)
 
 void Agent::PlaceRelay(int ID,Coordinate whereToPlace)
 {
-   //Relay* tobePlaced = GetRelay(ID);
-   // if(tobePlaced == NULL)
+    //Relay* tobePlaced = GetRelay(ID);
+    // if(tobePlaced == NULL)
     //    return; //out of nodes.
 
     //knownWorld.placeRelay(tobePlaced);
@@ -165,7 +180,7 @@ void Agent::PickupRelay(int ID,Coordinate PickFrom)
 void Agent::lookAround()
 {
     //look up
-    //std::cout<<"looking"<<std::endl;
+
     if(CurrentLocation.getRow()==0)
     {
         //as top as can be, so lets make more world
@@ -179,8 +194,9 @@ void Agent::lookAround()
     if(CurrentLocation.getRow()>=knownWorld.getLast().getRow()-1)
     {
         //as top as can be, so lets make more world
-        //std::cout<<"bot ";
+       // std::cout<<"bot "<<knownWorld.getLast();
         knownWorld.updateSize(Grid::bottom);
+       //  std::cout<<"bot "<<knownWorld.getLast();
     }
 
 
@@ -210,7 +226,7 @@ void Agent::lookAround()
 
 void Agent::ShuffleLoctions(int row, int column)
 {
- //cout<<"base suffle"<<endl;
+//cout<<"base suffle"<<endl;
     CurrentLocation=Coordinate(CurrentLocation.getRow()+row, CurrentLocation.getColumn()+column);
     for(int i=0; i< GoalLocation.size(); i++)
         GoalLocation[i]=Coordinate(GoalLocation[i].getRow()+row, GoalLocation[i].getColumn()+column);
@@ -235,7 +251,7 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
         for(int i =0; i< abs(relativeToGoal.getRow()); i++)
         {
             knownWorld.updateSize(Grid::top);
-             ShuffleLoctions(1,0);
+            ShuffleLoctions(1,0);
 
         }
     }
@@ -255,8 +271,9 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
 
         for(int i =0; i< abs(relativeToGoal.getColumn()); i++)
         {
+
             knownWorld.updateSize(Grid::left);
-             ShuffleLoctions(0,1);
+            ShuffleLoctions(0,1);
 
         }
     }
@@ -279,6 +296,7 @@ void Agent::setGoal(RelativeCoordinate relativeToGoal)
 }
 bool Agent::move(Node::Direction toMove)
 {
+     //std::cout<<"move"<<std::endl;
     Coordinate CurrentLocationtemp;
     switch (toMove)
     {
@@ -315,39 +333,59 @@ bool Agent::move(Node::Direction toMove)
 
     if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Client))
     {
-       updateGoal();
+        updateGoal();
     }
 
-    else if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>1)
+    if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>2)
     {
 
-            GoalLocation.pop_back();
-            try
-            {
-                PlaceRelay(heldRelays.front()->getID(),CurrentLocationtemp);
-            }
-            catch(RelayError e) //cout<<"out of relays"<<endl;
-            {
-            }
+        GoalLocation.pop_back();
+        try
+        {
+            PlaceRelay(heldRelays.front()->getID(),CurrentLocationtemp);
+        }
+        catch(RelayError e) //cout<<"out of relays"<<endl;
+        {
+        }
 
     }
 
-if(DeploymentMethod<=1 && lowSignal()) //find out if need to place a new node donw
-	{
-		try{PlaceRelay(heldRelays.front()->getID(),CurrentLocation);}
-		catch(RelayError e){//cout<<"out of relays"<<endl;
-		}
-	}
+    if( (DeploymentMethod<=1 ||( DeploymentMethod==2 && return_journy ))   && lowSignal(CurrentLocationtemp) ) //find out if need to place a new node donw
+    {
+        try
+        {
+            PlaceRelay(heldRelays.front()->getID(),CurrentLocation);
+        }
+        catch(RelayError e) //cout<<"out of relays"<<endl;
+        {
+        }
+    }
 
- if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Object) )
+    if(DeploymentMethod==2 && return_journy && CurrentLocationtemp==BaseLocation)
+    {
+        GoalLocation.pop_back();
+    }
+
+    if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Object) )
     {
         //bad move
-        return false;
+        return false; //last because most of the above will trigger
     }
 
     CurrentLocation=CurrentLocationtemp;
     step_count++;
     return true;
+}
+
+void Agent::defineDeploymentMethod(int meth)
+{
+    DeploymentMethod=meth;
+
+    if(DeploymentMethod==1)
+    {
+        evaluateRealayRange();
+    }
+
 }
 
 

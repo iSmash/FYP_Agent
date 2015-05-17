@@ -15,7 +15,7 @@ namespace Relayspace
             trueWorld=_trueWorld;
             }
 
-        inline void updatePos(Coordinate pos){ gridLocation= pos; findDomain();}
+        inline void updatePos(Coordinate pos){  gridLocation= pos; findDomain();}
 
 			inline static void addRange(int add){Ranges.push_back(add);}
 			void findDomain();

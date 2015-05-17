@@ -133,17 +133,15 @@ void readfileRelay(SimulationAgent &agent, string filename)
 		if(temp>oldtemp)
 		{
 			agent.addRange(temp);
-
-			/*vector<Relay*> RelayRange = agent.trueWorld.getRelays();
-			for(int i=0; i<RelayRange.size(); i++)
-			{
-				SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
-				rel->addRange(temp);
-				// rel->incRange();
-			}*/
 		}
 		problemFile.ignore(1);
 	}
+	vector<Relay*> RelayRange = agent.trueWorld.getRelays();
+			for(int i=0; i<RelayRange.size(); i++)
+			{
+				SimulationRelay* rel = (SimulationRelay*)RelayRange[i];
+				rel->findDomain();
+			}
 #endif
 	if(problemFile.bad())
 		cout<<"error reading file";

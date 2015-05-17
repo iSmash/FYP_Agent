@@ -107,7 +107,7 @@ bool Grid::updateSize(updateSizeDirection toAdd)
 	    //first go though that area looking for edge of world, rueturn without exansion if end of world reached.
 	case top:{
 	    //std::cout<<"top"<<std::endl;
-		for(int i=0; i<LastCell.getColumn(); i++)
+		for(int i=1; i<LastCell.getColumn()-1; i++)
 		{
 		    if(cells.front()[i].hasContent(ContentType::Jormungandr_Wall))
                 return false;
@@ -127,9 +127,8 @@ bool Grid::updateSize(updateSizeDirection toAdd)
 	}
 	case  right:{
 	    //std::cout<<"right"<<std::endl;
-		for(int i=0; i<LastCell.getRow(); i++)
+		for(int i=1; i<LastCell.getRow()-1; i++)
 		{
-		    //remove world ege
 		    if(cells[i].back().hasContent(ContentType::Jormungandr_Wall))
                   return false;
 		}
@@ -148,9 +147,8 @@ bool Grid::updateSize(updateSizeDirection toAdd)
 	}
 	case bottom:{
         //td::cout<<"bot"<<std::endl;
-		for(int i=0; i<LastCell.getColumn(); i++)
+		for(int i=1; i<LastCell.getColumn()-1; i++)
 		{
-		    //remove world ege
             if(cells.back()[i].hasContent(ContentType::Jormungandr_Wall))
                  return false;
 		}
@@ -170,9 +168,8 @@ bool Grid::updateSize(updateSizeDirection toAdd)
 	case left:{
 	    //td::cout<<"left"<<std::endl;
 
-		for(int i=0; i<LastCell.getRow(); i++)
+		for(int i=1; i<LastCell.getRow()-1; i++)
 		{
-		    //remove world ege
 		    if(cells[i].front().hasContent(ContentType::Jormungandr_Wall))
                return false;
 		}

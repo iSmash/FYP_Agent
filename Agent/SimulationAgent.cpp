@@ -15,7 +15,7 @@ void SimulationAgent::findPath()
     if(GoalLocation.size()==0)
     {
         //dont know where to go
-        //cout<<"run out";
+        cout<<"grow range";
 
         SimulationRelay::incRange();
         for(int i=0; i<trueWorld.getRelays().size(); i++)
@@ -73,7 +73,6 @@ void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
     trueWorld.placeRelay(tobePlaced);
     trueWorld[whereToPlace+trueLocationRelativity].addContent(ContentType::RelayMarker);
     tobePlaced->updatePos(whereToPlace+trueLocationRelativity);
-    tobePlaced->findDomain();
     Agent::PlaceRelay(ID, whereToPlace);
 
 }
@@ -92,9 +91,30 @@ void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
 }
 void SimulationAgent::evaluateRealayRange()
 {
-    int relayCount= heldRelays.size()+trueWorld.getRelays().size();
-    int distance= sqrt(pow((double)(ClientLocation.getRow()-BaseLocation.getRow()) ,2.0)+pow((double)(ClientLocation.getColumn()-BaseLocation.getColumn()) ,2.0));
-    while(distance> relayCount*SimulationRelay::getRange())
+     int relayCount= heldRelays.size()+trueWorld.getRelays().size();
+      int distance;
+    if(DeploymentMethod ==1)
+    {
+        distance= ceil(  sqrt(
+                              ceil(pow((double)(ClientLocation.getRow()-BaseLocation.getRow()) ,2.0))  +
+                              ceil(pow((double)(ClientLocation.getColumn()-BaseLocation.getColumn()) ,2.0))
+                              )
+                       ); //distance to goal, crows path
+    }
+    else if (DeploymentMethod ==2)
+    {
+        ((SimulationRelay*)trueWorld.getRelay(0))->updatePos(ClientLocation);
+        knownWorld.clearGridViewed();
+        planner.clear();
+        actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
+        distance= actionList.size();
+    }
+    else
+    {
+        cout<<"evalutate relay range called with bad Deployment method"<<endl;
+    }
+    //cout<<relayCount<<" D:"<<distance<<endl;
+    while(distance> relayCount*(SimulationRelay::getRange()-1))
     {
         //cout<<"too small";
         SimulationRelay::incRange();
@@ -113,6 +133,7 @@ void SimulationAgent::ShuffleLoctions(int row, int column)
 }
 void SimulationAgent::lookAround()
 {
+    //cout<<"looking around"<<endl;
     /*if(CurrentLocation.getRow()==0)
     	{
     		trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow()-1, trueLocationRelativity.getColumn());
@@ -125,7 +146,7 @@ void SimulationAgent::lookAround()
 
 
 
-    //std::cout<<"true"<<trueCurrentLocation.getRow()<<" "<< trueCurrentLocation.getColumn()<<std::endl;
+   // std::cout<<"true"<<trueCurrentLocation.getRow()<<" "<< trueCurrentLocation.getColumn()<<std::endl;
     //std::cout<<"knonwn"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
     for(int i=-1; i<=1; i++)
     {
@@ -145,11 +166,13 @@ void SimulationAgent::lookAround()
             }
             catch(std::out_of_range r)
             {
+                // cout<<"world end"<<Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)<<endl;
                 knownWorld[Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)].addContent(ContentType::Jormungandr_Wall);
-                //cout<<"world end"<<Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)<<endl;
+
             }
         }
     }
+    // cout<<"done looking"<<endl;
 
 }
 
@@ -161,14 +184,14 @@ bool SimulationAgent::move(Node::Direction toMove)
     bool AgentResult = Agent::move(toMove);
 
     //cout<<"Cur "<< CurrentLocation<<endl;
-    //cout<<"Rel "<< trueLocationRelativity<<endl;
+   // cout<<"Rel "<< trueLocationRelativity<<endl;
     //cout<<"Sum "<< CurrentLocation+trueLocationRelativity<<endl;
     if(AgentResult)
     {
         trueWorld[CurrentLocation+trueLocationRelativity].addContent(ContentType::Robot);
         lookAround();
     }
-
+ //std::cout<<"done"<<std::endl;
     return AgentResult;
 }
 
@@ -191,12 +214,17 @@ bool SimulationAgent::done()
         for(int i =0; i< currentdomain.size(); i++)
         {
             //look over every cell that this relay has homain over
-            if(currentdomain[i]==ClientLocation+trueLocationRelativity)
+            //cout<<"looking at"<<currentdomain[i]<<endl;
+            if(currentdomain[i]==ClientLocation+trueLocationRelativity && DeploymentMethod!=2)
             {
-                // cout<<"sees client"<<endl;
+               // cout<<"sees client"<<endl;
                 return true;
             }
-
+            else  if(currentdomain[i]==BaseLocation+trueLocationRelativity && DeploymentMethod==2&& return_journy)
+            {
+                //cout<<"sees base"<<endl;
+                return true;
+            }
             for( int j=0; j<deployedRelays.size(); j++)
             {
                 //look over all remaining relays to add them to the network
@@ -219,15 +247,20 @@ bool SimulationAgent::done()
 
 }
 
-bool SimulationAgent::lowSignal()
+bool SimulationAgent::lowSignal(Coordinate CurrentLocationtemp)
 {
+    //cout<<"low sign at "<<CurrentLocation<<endl;
     vector<Relay*> gridRelays = trueWorld.getRelays();
     bool poor_range =true;
     for(int i =0; i< gridRelays.size(); i++)
     {
         //cout<<"relay"<<i;
-        if(gridRelays[i]->inRange(CurrentLocation+trueLocationRelativity) )
+        if(gridRelays[i]->inRange(CurrentLocationtemp+trueLocationRelativity) )
             poor_range=false;
     }
+   // cout<<poor_range<<endl;
     return poor_range;
 }
+
+
+

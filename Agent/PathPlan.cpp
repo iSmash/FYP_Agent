@@ -15,8 +15,13 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 
 
 
-//std::cout<<start<<std::endl;
-	//	std::cout<<goal<<std::endl;
+/*
+std::cout<<"s"<<start<<std::endl;
+		for(int i=0; i<goals.size(); i++)
+        {
+           std::cout<<"g"<<goals[i]<<std::endl;
+        }
+*/
 	Node* NodePoint =NULL;
 	Node* goalPoint=NULL;
 	Leaves.push_back(new Node(start));
@@ -48,7 +53,7 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 
 
 		}
-		//std::cout<<"best"<<(*BestItor)->getState()<<" "<<(*BestItor)->getHeuristic()<<" "<<Leaves.size()<<std::endl;
+		//std::cout<<"best"<<(*BestItor)->getState()<<" H:"<<(*BestItor)->getHeuristic()<<" Lvl:"<<(*BestItor)->getLevel()<<" Leaves:"<<Leaves.size()<<std::endl;
 		NodePoint=(*BestItor);
 		Leaves.erase(BestItor); //pop cosen of the choice list
 
