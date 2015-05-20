@@ -5,8 +5,8 @@
 static const double WL = 3 ;
 static const double d0=1;
 static const double path_loss_exp =2.5; //between 1.8 and 5
-static const double mass=40;
-static const double viscous_friction=3;
+double VirtualRelay::mass=0;
+ double VirtualRelay::viscous_friction=0;
 static const double  time_step =1; //number of time step in  sec
 
 
@@ -102,22 +102,23 @@ void VirtualRelay::findForces(Grid& knownWorld)
 bool VirtualRelay::Move(Grid& knownWorld)
 {
 
-   //if(abs(viscous_friction*vel_j)< abs(Force_j))
-   // {
+   if(abs(viscous_friction*vel_j)< abs(Force_j))
+    {
         accel_j = (Force_j-viscous_friction*vel_j)/mass;
-   // }
-    //else
-    //    accel_j=0;
+    }
+    else
+        accel_j=0;
 
 
-   // if(abs(viscous_friction*vel_i)< abs(Force_i))
-   // {
+    if(abs(viscous_friction*vel_i)< abs(Force_i))
+    {
         accel_i = (Force_i-viscous_friction*vel_i)/mass;
-   // }
-   // else
-    //    accel_i=0;
+    }
+    else
+        accel_i=0;
 
-  //   cout<<"A"<<accel_i<<" "<<accel_j<<endl;
+ //cout<<"F"<<Force_i<<" "<<Force_j<<endl;
+    // cout<<"A"<<accel_i<<" "<<accel_j<<endl;
     vel_j=vel_j+accel_j*time_step;
     vel_i=vel_i+accel_i*time_step;
    // cout<<"V"<<vel_i<<" "<<vel_j<<endl;
@@ -127,115 +128,112 @@ bool VirtualRelay::Move(Grid& knownWorld)
     double pos_j = (double)Location.getRow();
     double pos_i = (double)Location.getColumn();
 
-    bool clash=true;
+    bool clash_i =true, clash_j=true;
 
     Coordinate new_pos;
-    double vel_temp=vel_i;
-       while(clash && (int)vel_temp!=0)
+    double vel_i_temp=vel_i;
+    double   vel_j_temp=vel_j;
+       while( (clash_i||clash_j ) && ((int)vel_i_temp!=0 || (int)vel_j_temp!=0)  )
     {
-        clash=false;
+
+        clash_i=false;
+        clash_j=false;
         try
         {
-            new_pos=Coordinate(pos_j,(pos_i+vel_temp*time_step));
+            new_pos=Coordinate(pos_j,(pos_i+vel_i_temp*time_step));
             //cout<<"trying"<<new_pos;
             for(int neighbour_index=0; neighbour_index<Neighbours.size(); neighbour_index++)
             {
                 if(new_pos==Neighbours[neighbour_index]->getLocation())
                 {
-                    //cout<<"neighbour clash";
-                    clash=true;
+                    //cout<<"neighbour clash i";
+                    clash_i=true;
                 }
             }
 
             if(knownWorld[new_pos].hasContent(ContentType::Object))
             {
-               //  cout<<"object clash";
-                clash=true;
+                // cout<<"object clash i";
+                clash_i=true;
             }
         }
         catch(std::out_of_range)
         {
-            clash=true;
-            // cout<<"error clash ";
+            clash_i=true;
+             //cout<<"error clash i";
 
         }
 
-        if(!clash)
+        if(!clash_i)
         {
-            pos_i= pos_i+vel_temp*time_step;
+            pos_i= pos_i+vel_i_temp*time_step;
         }
         else
         {
-            if(vel_temp>0)
-                vel_temp--;
-            else
-                vel_temp++;
+            if(vel_i_temp>0)
+                vel_i_temp--;
+            else if(vel_i_temp<0)
+                vel_i_temp++;
         }
-              // cout<<vel_temp<<endl;
-    }
 
-    clash=true;
-    //cout<<"ok";
-    vel_temp=vel_j;
-     while(clash && (int)vel_temp!=0)
-    {
-        clash=false;
+   // cout<<"vel_i_temp"<<vel_i_temp<<endl;
         try
         {
-            new_pos=Coordinate((pos_j+vel_temp*time_step),pos_i);
-           // cout<<new_pos;
+            new_pos=Coordinate((pos_j+vel_j_temp*time_step),pos_i);
+           // cout<<"now trying"<<new_pos;
 
             for(int neighbour_index=0; neighbour_index<Neighbours.size(); neighbour_index++)
             {
                 if(new_pos==Neighbours[neighbour_index]->getLocation())
                 {
-                    clash=true;
-                //    cout<<"neighbour clash";
+                    clash_j=true;
+                 //   cout<<"neighbour clash j";
                 }
             }
 
             if(knownWorld[new_pos].hasContent(ContentType::Object))
             {
-                clash=true;
-               // cout<<"object clash";
+                clash_j=true;
+             //   cout<<"object clash j";
             }
 
         }
         catch(std::out_of_range s)
         {
-            clash=true;
-           // cout<<"error clash ";
+            clash_j=true;
+           // cout<<"error clash j";
         }
 
-        if(!clash)
+        if(!clash_j)
         {
-            pos_j= pos_j+vel_temp*time_step;
+            pos_j= pos_j+vel_j_temp*time_step;
         }
         else
         {
 
-            if(vel_temp>0)
-                vel_temp--;
-            else
-                vel_temp++;
+            if(vel_j_temp>0)
+                vel_j_temp--;
+            else if(vel_j_temp<0)
+                vel_j_temp++;
 
         }
-        //cout<<endl;
-    }
 
+              //cout<<"vel_j_temp"<<vel_j_temp<<endl;
+
+    }
 
     //cout<<"ok";
 
 
 
-    if(pos_j==Location.getRow() && pos_i==Location.getColumn())
+    if((int)pos_j==Location.getRow() && (int)pos_i==Location.getColumn())
     {
        // cout<<"no move"<<endl;
         return false;
     }
     else
     {
-      //  cout<<"move by"<<pos_j-Location.getRow()<<" "<<pos_i-Location.getColumn()<<endl;
+       // cout<<"move by"<<pos_j-Location.getRow()<<" "<<pos_i-Location.getColumn()<<endl;
         Location= Coordinate(pos_j,pos_i);
         return true;
     }

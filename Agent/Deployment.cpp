@@ -9,7 +9,7 @@
 using namespace DeploymentSpace;
 using namespace std;
 
-static const int WallSignal_Relation =3;
+
 
 vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld)
 {
@@ -25,34 +25,25 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 			//cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
 			int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
 			int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
-			//cout<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+           cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			/** adujust position based on walls bettewen points */
 			SubGrid subgrid(knownWorld,relayPositions[i-1], relayPositions[i]);
 
 			int walls_left_top, walls_right_bot;
 			subgrid.Wall_count(Coordinate(rowMidPoint,columnMidPoint), walls_left_top, walls_right_bot);
 
-			//cout<<"Wall changes: -"<<walls_left_top<<"+"<<walls_right_bot<<endl;
-			//rowMidPoint=rowMidPoint
-			//            -walls_left_top/WallSignal_Relation
-			//            +walls_right_bot/WallSignal_Relation;
 
-			rowMidPoint=rowMidPoint+floor((walls_right_bot-walls_left_top)/WallSignal_Relation);
 
-			columnMidPoint=columnMidPoint+floor((walls_left_top-walls_right_bot)/WallSignal_Relation);
+			//rowMidPoint=rowMidPoint+floor((walls_right_bot-walls_left_top)/WallSignal_Relation);
 
-			//            columnMidPoint=columnMidPoint
-			//                           -walls_left_top/WallSignal_Relation
-			//                           +walls_right_bot/WallSignal_Relation;
-			//cout<<"gives "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
-			/**  */
-			//if adjustment made it not in between any more, put it on the boarder.
+			//columnMidPoint=columnMidPoint+floor((walls_left_top-walls_right_bot)/WallSignal_Relation);
+
 
 
 			//make sure not on top of wall
 			int moveRange = 1;
 			while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Object)
-					||  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Unknown)
+
 			)
 
 			{
@@ -61,9 +52,8 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 					for(int j=-(moveRange); j<=moveRange; j++)
 					{
 						try{
-							if(  !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Object))  &&
-									!(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Unknown))
-							)
+						    cout<<Coordinate(rowMidPoint+i,columnMidPoint+j)<<endl;
+							if(  !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Object)))
 							{
 
 								rowMidPoint=rowMidPoint+i;
@@ -77,8 +67,10 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 					}
 				}
 				moveRange++;
+					cout<<"moveRange"<<moveRange<<endl;
 			}
-			//cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+
+			cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
 			//cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
 
@@ -92,7 +84,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 //			if(columnMidPoint>subgrid.Get_right())
 //				columnMidPoint=subgrid.Get_right()-1;
 
-			//cout<<"out of bounds fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+
 		}
 		//cout<<endl;
 		relayPositions= templist;
@@ -108,7 +100,10 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 // Assigning quality to each cell and then selecting the bestest from this.
 vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
 {
-
+    double WallSignal_Relation =sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
+                                    pow((double)(Base.getColumn()-Client.getColumn()),2.0)
+                                    )/9; //3^2
+                                    cout<<"wall"<<WallSignal_Relation;
 	vector<Coordinate> relayPositions;
 	relayPositions.push_back(Base);
 	relayPositions.push_back(Client);
@@ -133,12 +128,12 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 					Coordinate current_examin =Coordinate(y,x);
 					int walls_left_top, walls_right_bot;
 					//look through all cells between points for best placement.
-					if(!knownWorld[current_examin].hasContent(ContentType::Object)&&!knownWorld[current_examin].hasContent(ContentType::Unknown))
+					if(!knownWorld[current_examin].hasContent(ContentType::Object))
 					{
 						// Here is where cell quality value/score is determined.
 						subgrid.Wall_count(current_examin,walls_left_top, walls_right_bot );
-						double scoreCOL=  ( (x-subgrid.Get_left())+walls_left_top*WallSignal_Relation ) - ( (subgrid.Get_right()-x)+walls_right_bot*WallSignal_Relation );
-						double scoreROW= ( (y-subgrid.Get_top())+walls_left_top*WallSignal_Relation ) - ( (subgrid.Get_bot()-y)+walls_right_bot*WallSignal_Relation );
+						double scoreCOL=  ( abs(x-subgrid.Get_left()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_right()-x*1.0)+walls_right_bot*WallSignal_Relation );
+						double scoreROW= ( abs(y-subgrid.Get_top()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_bot()-y*1.0)+walls_right_bot*WallSignal_Relation );
 						double score= sqrt( pow(scoreROW,2.0) + pow(scoreCOL,2.0));
 						//cout<<score<<" "<<Coordinate(y,x)<<endl;
 						if(score<bestScore)
@@ -152,10 +147,10 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 
 
 
-			//cout<<bestCord<<endl;
+			cout<<bestCoord<<endl;
 			templist.insert(templist.begin()+i, bestCoord);
 		}
-		cout<<endl;
+		//cout<<endl;
 		relayPositions= templist;
 	}
 
@@ -173,27 +168,18 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
 
 	VirtualRelay Base_VF(Base);
 	VirtualRelay Client_VF(Client); //these are define out of the vecoor, as they will not be movoing
+    /*VirtualRelay::set_mass(  abs((double)Base.getRow()-Client.getRow())*
+                             abs((double)Base.getColumn()-Client.getColumn())
+                           );
 
-	/*vector<Coordinate> initPlacement;
-	initPlacement.push_back(Base);
-	initPlacement.push_back(Client);
-	while(relayCount+2>initPlacement.size())
-	{
+    */
+    VirtualRelay::set_mass(pow((double)(Base.getRow()-Client.getRow()),2.0)+
+                                    pow((double)(Base.getColumn()-Client.getColumn()),2.0));
 
-		vector<Coordinate> templist= initPlacement;
-		for(int i = 1; i< initPlacement.size(); i++)
-		{
-			//cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
-			int rowMidPoint    = (initPlacement[i-1].getRow()+initPlacement[i].getRow())/2;
-			int columnMidPoint = (initPlacement[i-1].getColumn()+initPlacement[i].getColumn())/2;
+    VirtualRelay::set_friction(sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
+                                    pow((double)(Base.getColumn()-Client.getColumn()),2.0)
+                                    ));
 
-			templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
-		}
-		    initPlacement= templist;
-    }
-    initPlacement.pop_back();
-	initPlacement.erase(initPlacement.begin());
-*/
 	for(int relay_index =0; relay_index< relayCount; relay_index++) //create new relays on top of the base
 	{
 			//Relays.push_back(VirtualRelay(initPlacement[relay_index])); //NOT, base, relay on top of base at start
@@ -212,6 +198,7 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
 	}
 
 	int equalibirum_count=0;
+	int fail_count=0;
 	while(equalibirum_count<relayCount*10)
 	{
 		for(int relay_index =0; relay_index< relayCount; relay_index++)
@@ -221,12 +208,18 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
 
 		for(int relay_index =0; relay_index< relayCount; relay_index++)
 		{
-			if( Relays[relay_index].Move(knownWorld))
+			if( Relays[relay_index].Move(knownWorld) || Relays[relay_index].getLocation()==Base)
             {
                 equalibirum_count=0;
+                if(fail_count++ >10000)
+                    throw string("fail to find equalibrium");
+
             }
             else
-                 equalibirum_count++;
+                {
+                   equalibirum_count++;
+                   fail_count=0;
+                }
             cout<<relay_index<<":"<<Relays[relay_index].getLocation()<<endl;
 		}
 		cout<<equalibirum_count<<endl;

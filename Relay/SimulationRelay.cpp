@@ -1,7 +1,7 @@
 #include <math.h>
 #include "SimulationRelay.h"
 using namespace Relayspace;
-
+static const int wallEffect=2;
 int SimulationRelay::activeRange=0;
 std::vector<int> SimulationRelay::Ranges= std::vector<int>(0);
 
@@ -26,7 +26,7 @@ void SimulationRelay::findDomain()
            Coordinate temp= Coordinate(   gridLocation.getRow()+ceil(radius*sin(ang)), gridLocation.getColumn()+ceil(radius*cos(ang))  ) ;
             if((*trueWorld)[temp].hasContent(ContentType::Wall))
                 {
-                limit--;
+                limit=limit-wallEffect;
                 }
             bool newCoord=true;
             for(int i=0; i<domaintemp.size(); i++)

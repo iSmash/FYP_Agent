@@ -112,14 +112,6 @@ void Agent::updateGoal()
 
     GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
 
-     if(DeploymentMethod==2)
-    {
-        //cout<<"client found, now going to "<<BaseLocation<<GoalLocation.size()<<endl;
-        return_journy=true;
-        GoalLocation.push_back(BaseLocation);
-        knownWorld[BaseLocation].addContent(ContentType::Goal);
-        evaluateRealayRange();
-    }
 
     for(int i=0; i<GoalLocation.size(); i++)
     {
@@ -127,11 +119,23 @@ void Agent::updateGoal()
         cout<<GoalLocation[i]<<endl;
         if(knownWorld[GoalLocation[i]].hasContent(ContentType::Goal))
         {
-            throw string("Goal overlap");
+            cout<<"Goal overlap"<<endl;
+            GoalLocation.erase(GoalLocation.begin()+i);
         }
-        knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
+        else
+             knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
+
     }
 
+     if(DeploymentMethod==2)
+    {
+
+        return_journy=true;
+        GoalLocation.push_back(BaseLocation);
+        knownWorld[BaseLocation].addContent(ContentType::Goal);
+        evaluateRealayRange();
+        // cout<<"client found, now going to "<<BaseLocation<<GoalLocation.size()<<endl;
+    }
 
 
 

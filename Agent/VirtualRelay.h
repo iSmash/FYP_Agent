@@ -12,13 +12,16 @@ public:
     inline void addNeighbour(VirtualRelay* neighbour){Neighbours.push_back(neighbour);}
     inline Coordinate getLocation(){return Location;}
     inline void setLocation(Coordinate _Location){Location=_Location;}
+    inline static void set_mass(double _mass){mass= _mass;}
+    inline static void set_friction(double _frict){viscous_friction= _frict;}
 private:
     double Force_j, Force_i; //Foreces in i,j components. Down and right are posative, up and left are negative
     double accel_j, accel_i;
     double vel_j, vel_i;
     vector<VirtualRelay*> Neighbours;
     Coordinate Location;
-
+  static double mass;
+   static double viscous_friction;
 
 };
 

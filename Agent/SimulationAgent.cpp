@@ -249,16 +249,18 @@ bool SimulationAgent::done()
 
 bool SimulationAgent::lowSignal(Coordinate CurrentLocationtemp)
 {
-    //cout<<"low sign at "<<CurrentLocation<<endl;
+    //cout<<"low sign at "<<CurrentLocation<<" "<<(CurrentLocationtemp.getRow()+trueLocationRelativity.getRow())<<" "<<(CurrentLocationtemp.getColumn()+trueLocationRelativity.getColumn())<<endl;
     vector<Relay*> gridRelays = trueWorld.getRelays();
     bool poor_range =true;
     for(int i =0; i< gridRelays.size(); i++)
     {
-        //cout<<"relay"<<i;
+       // cout<<"relay"<<i;
+        try{
         if(gridRelays[i]->inRange(CurrentLocationtemp+trueLocationRelativity) )
             poor_range=false;
+        }catch(std::out_of_range){}
     }
-   // cout<<poor_range<<endl;
+    //cout<<poor_range<<endl;
     return poor_range;
 }
 

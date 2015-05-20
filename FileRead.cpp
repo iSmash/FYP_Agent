@@ -56,6 +56,7 @@ RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename) //simul
 		problemFile.ignore();
 		problemFile>>y;
 		robotCoord = Coordinate(y,x);
+		agent.trueWorld[robotCoord].addContent(ContentType::Base);
 		agent.trueWorld[robotCoord].addContent(ContentType::Robot);
 		agent.setRelativity(robotCoord);
 		agent.trueWorld[robotCoord].setViewed(true);

@@ -113,7 +113,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 		Coordinate above= Coordinate(state.getRow()-1,state.getColumn());
 		//cout<<"above";
 		//grid[above].printAllContent();
-		if (!(grid[above].hasContent(ContentType::Object)) && !grid[above].getViewed())
+		if (!(grid[above].hasContent(ContentType::Path_Object)) && !grid[above].getViewed())
 		{
           //  cout<<"top"<<endl;
 			Leaves.push_back(new Node(toExplore, above, Node::Up));
@@ -127,7 +127,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 		Coordinate right= Coordinate(state.getRow(),state.getColumn()+1);
 		//cout<<"right";
 		//grid[right].printAllContent();
-		if (!(grid[right].hasContent(ContentType::Object)) && !grid[right].getViewed())
+		if (!(grid[right].hasContent(ContentType::Path_Object)) && !grid[right].getViewed())
 		{
             //cout<<"righ"<<endl;
 			Leaves.push_back(new Node(toExplore, right, Node::Right));
@@ -141,7 +141,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 		Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
 		//cout<<"below";
 		//grid[below].printAllContent();
-		if ( !(grid[below].hasContent(ContentType::Object)) &&!grid[below].getViewed())
+		if ( !(grid[below].hasContent(ContentType::Path_Object)) &&!grid[below].getViewed())
 		{
          //cout<<"below"<<endl;
 			Leaves.push_back(new Node(toExplore, below, Node::Down));
@@ -155,7 +155,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 		Coordinate left= Coordinate(state.getRow(),state.getColumn()-1);
 		//cout<<"left";
 		//grid[left].printAllContent();
-		if ( !(grid[left].hasContent(ContentType::Object))&&!grid[left].getViewed())
+		if ( !(grid[left].hasContent(ContentType::Path_Object))&&!grid[left].getViewed())
 		{
           //  cout<<"left"<<endl;
 			Leaves.push_back(new Node(toExplore, left, Node::Left));
@@ -169,7 +169,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 	try{
 		Coordinate aboveleft= Coordinate(state.getRow()-1,state.getColumn()-1);
 
-		if ( !(grid[aboveleft].hasContent(ContentType::Object))&&!grid[aboveleft].getViewed())
+		if ( !(grid[aboveleft].hasContent(ContentType::Path_Object))&&!grid[aboveleft].getViewed())
 		{
           //  cout<<"top left"<<endl;
 			Leaves.push_back(new Node(toExplore, aboveleft, Node::UpLeft));
@@ -181,7 +181,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 
 	try{
 		Coordinate abovelright= Coordinate(state.getRow()-1,state.getColumn()+1);
-		if ( !(grid[abovelright].hasContent(ContentType::Object))&&!grid[abovelright].getViewed())
+		if ( !(grid[abovelright].hasContent(ContentType::Path_Object))&&!grid[abovelright].getViewed())
 		{
           //  cout<<"top_right"<<endl;
 			Leaves.push_back(new Node(toExplore, abovelright, Node::UpRight));
@@ -193,7 +193,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 
 	try{
 		Coordinate belowleft= Coordinate(state.getRow()+1,state.getColumn()-1);
-		if ( !(grid[belowleft].hasContent(ContentType::Object))&&!grid[belowleft].getViewed())
+		if ( !(grid[belowleft].hasContent(ContentType::Path_Object))&&!grid[belowleft].getViewed())
 		{
            // cout<<"bot_left"<<endl;
 			Leaves.push_back(new Node(toExplore, belowleft, Node::DownLeft));
@@ -205,7 +205,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 
 	try{
 		Coordinate belowright= Coordinate(state.getRow()+1,state.getColumn()+1);
-		if ( !(grid[belowright].hasContent(ContentType::Object))&&!grid[belowright].getViewed())
+		if ( !(grid[belowright].hasContent(ContentType::Path_Object))&&!grid[belowright].getViewed())
 		{
           //  cout<<"bot right"<<endl;
 			Leaves.push_back(new Node(toExplore, belowright, Node::DownRight));
