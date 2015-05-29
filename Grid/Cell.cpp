@@ -21,7 +21,7 @@ const bool Cell::hasContent(Content cont)
  if(cont == Object)
     return hasContent(Wall)||hasContent(Client)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall)||hasContent(Base);
   if(cont == Path_Object)
-    return hasContent(Wall)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall);
+    return hasContent(Wall)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall)||hasContent(Client);
 
  for(int i =0; i< content.size(); i++)
  {

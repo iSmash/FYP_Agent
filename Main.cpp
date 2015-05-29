@@ -91,11 +91,11 @@ char x;
 		{
 #ifdef Show_Graphics
 			TrueGUI.paint();
+
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
-				// cin>>x;
+				cin>>x;
 #endif
-			//char x;cin>>x;
 			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
 
 
@@ -123,16 +123,16 @@ char x;
     {
         #ifdef Simulation
         Log<<"Simulation;";
-        Log<<SimulationRelay::getRange()<<";";
+        Log<<SimulationRelay::getRange()<<"&";
         #else
         Log<<"Implementation;";
         //put like ping quality or somehting here
         #endif
-        Log<<errorString<<";";
-        Log<<currentDateTime()<<";";
-        Log<<"M"<<argv[2]<<";";//method
-        Log<<timer<<";";
-        Log<<Robotino.Get_stepcount()<<";";
+        Log<<errorString<<"&";
+        Log<<currentDateTime()<<"&";
+        Log<<"M"<<argv[2]<<"&";//method
+        Log<<timer<<"&";
+        Log<<Robotino.Get_stepcount()<<"&";
         for(int row=0; row<Robotino.getKnownGrid().getLast().getRow(); row++)
         {
              for(int col=0; col<Robotino.getKnownGrid().getLast().getColumn(); col++)
@@ -142,8 +142,8 @@ char x;
              }
         }
 
-        Log<<";";
-        Log<<argv[1]<<";";//GRID
+        Log<<"&";
+        Log<<argv[1]<<"&";//GRID
         ifstream problemFile(((string)GRIDFILE+(string)argv[1]+".txt").c_str());
         while(problemFile.good())
         {
@@ -153,7 +153,7 @@ char x;
                 Log<<temp;
         }
         problemFile.close();
-        Log<<";";
+        Log<<"&";
 
         problemFile.open(RELAYFILE);
         while(problemFile.good())
@@ -164,10 +164,10 @@ char x;
                 Log<<temp;
         }
         problemFile.close();
-        Log<<";";
+        Log<<"&";
 
 
-        Log<<endl;
+        Log<<"||"<<endl;
         Log.close();
     }
 }

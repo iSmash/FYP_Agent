@@ -19,7 +19,6 @@ public:
 
     Agent()
     {
-        CurrentLocation=Coordinate(0,0);
         BaseLocation= CurrentLocation;
         knownWorld.updateSize(Coordinate(1,1));
         step_count=0;
@@ -60,13 +59,13 @@ public:
 protected:
     virtual bool lowSignal(Coordinate CurrentLocationtemp)=0;
     virtual bool move(Node::Direction toMove);
-    virtual void lookAround();
+    virtual void lookAround(Coordinate lookFrom=CurrentLocation);
    virtual void ShuffleLoctions(int row, int column);
 
   virtual  void PlaceRelay(int ID,Coordinate whereToPlace);
   virtual  void PickupRelay(int ID,Coordinate PickFrom);
 
-    Coordinate CurrentLocation;
+static   Coordinate CurrentLocation;
     vector<Coordinate> GoalLocation;
     Coordinate ClientLocation;
     Coordinate BaseLocation;

@@ -4,7 +4,7 @@
 using namespace Agentspace;
 using namespace Relayspace;
 using namespace std;
-
+Coordinate Agent::CurrentLocation =Coordinate(0,0);
 void printDirection2(Node::Direction toprint)
 {
     switch(toprint)
@@ -181,11 +181,11 @@ void Agent::PickupRelay(int ID,Coordinate PickFrom)
 }
 
 // TODO 20150505 does this need to be expanded for new diagonal movement? I think not..
-void Agent::lookAround()
+void Agent::lookAround(Coordinate lookFrom)
 {
     //look up
 
-    if(CurrentLocation.getRow()==0)
+    if(lookFrom.getRow()==0)
     {
         //as top as can be, so lets make more world
         //std::cout<<"top ";
@@ -195,7 +195,7 @@ void Agent::lookAround()
     }
 
     //look down
-    if(CurrentLocation.getRow()>=knownWorld.getLast().getRow()-1)
+    if(lookFrom.getRow()>=knownWorld.getLast().getRow()-1)
     {
         //as top as can be, so lets make more world
        // std::cout<<"bot "<<knownWorld.getLast();
@@ -206,7 +206,7 @@ void Agent::lookAround()
 
 
     //look right
-    if(CurrentLocation.getColumn()>=knownWorld.getLast().getColumn()-1)
+    if(lookFrom.getColumn()>=knownWorld.getLast().getColumn()-1)
     {
         //as top as can be, so lets make more world
         //std::cout<<"right ";
@@ -214,7 +214,7 @@ void Agent::lookAround()
     }
 
     //look left
-    if(CurrentLocation.getColumn()==0)
+    if(lookFrom.getColumn()==0)
     {
         //as top as can be, so lets make more world
         // std::cout<<"left ";

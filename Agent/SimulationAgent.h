@@ -20,7 +20,7 @@ void findPath();
 
 	Grid trueWorld; //the simulator is a slut, and it dont give no shits if everyone sees it grids
 
-	void lookAround(); //make private later
+	void lookAround(Coordinate lookFrom=CurrentLocation); //make private later
     inline void setRelativity(Coordinate _trueLocationRelativity){trueLocationRelativity=RelativeCoordinate(_trueLocationRelativity.getRow(), _trueLocationRelativity.getColumn());}
     void ShuffleLoctions(int row, int column);
     void evaluateRealayRange();

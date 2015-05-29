@@ -100,10 +100,12 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 // Assigning quality to each cell and then selecting the bestest from this.
 vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
 {
-    double WallSignal_Relation =sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
+    double WallSignal_Relation =2;
+    /*sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
                                     pow((double)(Base.getColumn()-Client.getColumn()),2.0)
                                     )/9; //3^2
-                                    cout<<"wall"<<WallSignal_Relation;
+                                    cout<<"wall"<<WallSignal_Relation;*/
+
 	vector<Coordinate> relayPositions;
 	relayPositions.push_back(Base);
 	relayPositions.push_back(Client);
@@ -173,12 +175,11 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
                            );
 
     */
-    VirtualRelay::set_mass(pow((double)(Base.getRow()-Client.getRow()),2.0)+
-                                    pow((double)(Base.getColumn()-Client.getColumn()),2.0));
+    double mass=sqrt(pow((double)(Base.getRow()-Client.getRow()),2.0)+ pow((double)(Base.getColumn()-Client.getColumn()),2.0))*4.5;
+    //double mass=abs((double)Base.getRow()-Client.getRow())*abs((double)Base.getColumn()-Client.getColumn());
+    VirtualRelay::set_mass(100);
 
-    VirtualRelay::set_friction(sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
-                                    pow((double)(Base.getColumn()-Client.getColumn()),2.0)
-                                    ));
+    VirtualRelay::set_friction(15);
 
 	for(int relay_index =0; relay_index< relayCount; relay_index++) //create new relays on top of the base
 	{
@@ -205,24 +206,28 @@ vector<Coordinate> Deployment::VirtualForce(int relayCount,Coordinate Base, Coor
 		{
 			Relays[relay_index].findForces(knownWorld);
 		}
-
+bool failed=false;
 		for(int relay_index =0; relay_index< relayCount; relay_index++)
 		{
 			if( Relays[relay_index].Move(knownWorld) || Relays[relay_index].getLocation()==Base)
             {
-                equalibirum_count=0;
-                if(fail_count++ >10000)
-                    throw string("fail to find equalibrium");
-
+               equalibirum_count=0;
+               failed=true;
             }
             else
-                {
-                   equalibirum_count++;
-                   fail_count=0;
-                }
+            {
+                equalibirum_count++;
+
+            }
             cout<<relay_index<<":"<<Relays[relay_index].getLocation()<<endl;
 		}
-		cout<<equalibirum_count<<endl;
+		if(failed) fail_count++;
+		else    fail_count--;
+
+		if(fail_count >5000)
+                    throw string("fail to find equalibrium");
+
+		cout<<equalibirum_count<<" "<<fail_count<<endl;
     //char x; cin>>x;
 	}
 

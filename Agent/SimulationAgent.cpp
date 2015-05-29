@@ -131,7 +131,7 @@ void SimulationAgent::ShuffleLoctions(int row, int column)
     trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow()-row, trueLocationRelativity.getColumn()-column);
     Agent::ShuffleLoctions(row, column);
 }
-void SimulationAgent::lookAround()
+void SimulationAgent::lookAround(Coordinate lookFrom)
 {
     //cout<<"looking around"<<endl;
     /*if(CurrentLocation.getRow()==0)
@@ -142,37 +142,48 @@ void SimulationAgent::lookAround()
     	{
     		trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow(), trueLocationRelativity.getColumn()-1);
     	}*/
-    Agent::lookAround();
+    Agent::lookAround(lookFrom);
 
 
 
    // std::cout<<"true"<<trueCurrentLocation.getRow()<<" "<< trueCurrentLocation.getColumn()<<std::endl;
     //std::cout<<"knonwn"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
+
     for(int i=-1; i<=1; i++)
     {
         for(int j=-1; j<=1; j++)
         {
+            Coordinate tempLocation=Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j);
             try         //std::cout<<i<<" "<<j<<std::endl;
             {
                 Coordinate trueLocation = CurrentLocation+trueLocationRelativity;
+                           trueLocation = Coordinate(trueLocation.getRow()+i, trueLocation.getColumn()+j);
+
                 //cout<<"relative location"<<CurrentLocation<<endl;
                 //cout<<"true"<<trueLocation;
-                std::vector<Content> temp= trueWorld[Coordinate(trueLocation.getRow()+i, trueLocation.getColumn()+j)].getContent();
+                std::vector<Content> temp_contnet= trueWorld[trueLocation].getContent();
                 //std::cout<<temp.size()<<std::endl;
-                for(int x=0; x< temp.size(); x++)
+                for(int x=0; x< temp_contnet.size(); x++)
                 {
-                    knownWorld[Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)].addContent(temp[x]);
+                    knownWorld[tempLocation].addContent(temp_contnet[x]);
+                }
+
+                if(!knownWorld[tempLocation].hasContent(ContentType::Object))
+                {
+                    //cout<<"explore further"<<tempLocation<<endl;
+                    Agent::lookAround(tempLocation); //By having the this lookAround run again, we dont see more of the world. We just expand the grid more. This lets the robot know there is more "just beyound the river bend"
                 }
             }
             catch(std::out_of_range r)
             {
-                // cout<<"world end"<<Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)<<endl;
-                knownWorld[Coordinate(CurrentLocation.getRow()+i, CurrentLocation.getColumn()+j)].addContent(ContentType::Jormungandr_Wall);
+                // cout<<"world end"<<tempLocation<<endl;
+                knownWorld[tempLocation].addContent(ContentType::Jormungandr_Wall);
 
             }
+
         }
     }
-    // cout<<"done looking"<<endl;
+
 
 }
 
@@ -238,6 +249,7 @@ bool SimulationAgent::done()
                 }
             }
         }
+
         tocheck.pop_back();
     }
 //cout<<"not done yet"<<endl;
