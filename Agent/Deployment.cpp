@@ -25,7 +25,7 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 			//cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
 			int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
 			int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
-           cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+           //cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			/** adujust position based on walls bettewen points */
 			SubGrid subgrid(knownWorld,relayPositions[i-1], relayPositions[i]);
 
@@ -67,10 +67,10 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 					}
 				}
 				moveRange++;
-					cout<<"moveRange"<<moveRange<<endl;
+					//cout<<"moveRange"<<moveRange<<endl;
 			}
 
-			cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+			//cout<<"on wall fix "<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			templist.insert(templist.begin()+i, Coordinate(rowMidPoint, columnMidPoint));
 			//cout<<Coordinate(rowMidPoint, columnMidPoint)<<" just added";
 
@@ -114,6 +114,7 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 	{
 
 		vector<Coordinate> templist= relayPositions;
+		int pos_adjust=0;
 		for(int i = 1; i< relayPositions.size(); i++)
 		{
 			// Make subgrid between client and base.
@@ -150,14 +151,19 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 
 
 			cout<<bestCoord<<endl;
-			templist.insert(templist.begin()+i, bestCoord);
+			templist.insert(templist.begin()+i+pos_adjust, bestCoord);
+			pos_adjust++;
 		}
 		//cout<<endl;
 		relayPositions= templist;
 	}
 
-	relayPositions.pop_back();
-	relayPositions.erase(relayPositions.begin()); //remove the base and client from the list
+	relayPositions.erase(relayPositions.begin()); //remove the base from the list
+
+	while(relayPositions.size()>relayCount)
+    {
+        	relayPositions.pop_back(); //remove client from list, and if any relyas already deplyed,in odd number remove to make the nodes till to deply is correct
+    }
 	return relayPositions;
 }
 

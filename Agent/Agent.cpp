@@ -101,15 +101,15 @@ void Agent::tryPath()
 void Agent::updateGoal()
 {
     //cout<<"update goals";
-
+return_journy=true;
     //at clinet, now set where relays should place.
-    knownWorld[GoalLocation.back()].removeContent(ContentType::Goal);
+
 
     /*for(int i =0; i< GoalLocation.size(); i++)
     {
         cout<<GoalLocation[i]<<endl;
     }*/
-
+   cout<<"relays to deply "<<heldRelays.size()<<endl;
     GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
 
 
@@ -130,7 +130,7 @@ void Agent::updateGoal()
      if(DeploymentMethod==2)
     {
 
-        return_journy=true;
+
         GoalLocation.push_back(BaseLocation);
         knownWorld[BaseLocation].addContent(ContentType::Goal);
         evaluateRealayRange();
@@ -223,7 +223,6 @@ void Agent::lookAround(Coordinate lookFrom)
 
         ShuffleLoctions(0,1);
     }
-
 
 
 }
@@ -335,14 +334,22 @@ bool Agent::move(Node::Direction toMove)
     }
 
 
+
     if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Client))
     {
+        if(!knownWorld[CurrentLocationtemp].removeContent(ContentType::Goal))
+       {
+           cout<<"Failied to remove goal state"<<endl;
+       }
         updateGoal();
     }
 
     if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>2)
     {
-
+       if(!knownWorld[CurrentLocationtemp].removeContent(ContentType::Goal))
+       {
+           cout<<"Failied to remove goal state"<<endl;
+       }
         GoalLocation.pop_back();
         try
         {
@@ -352,6 +359,15 @@ bool Agent::move(Node::Direction toMove)
         {
         }
 
+    }
+     if(DeploymentMethod==2 && return_journy && CurrentLocationtemp==BaseLocation)
+    {
+        GoalLocation.pop_back();
+    }
+    if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Object) )
+    {
+        //bad move
+        return false; //last because most of the above will trigger
     }
 
     if( (DeploymentMethod<=1 ||( DeploymentMethod==2 && return_journy ))   && lowSignal(CurrentLocationtemp) ) //find out if need to place a new node donw
@@ -365,16 +381,9 @@ bool Agent::move(Node::Direction toMove)
         }
     }
 
-    if(DeploymentMethod==2 && return_journy && CurrentLocationtemp==BaseLocation)
-    {
-        GoalLocation.pop_back();
-    }
 
-    if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Object) )
-    {
-        //bad move
-        return false; //last because most of the above will trigger
-    }
+
+
 
     CurrentLocation=CurrentLocationtemp;
     step_count++;
@@ -389,6 +398,37 @@ void Agent::defineDeploymentMethod(int meth)
     {
         evaluateRealayRange();
     }
+
+}
+
+
+void Agent::Replan_further()
+{
+    cout<<"Replan future relays"<<CurrentLocation<<endl;
+    Coordinate LastRelay=ClientLocation;
+    for(int i =0; i< GoalLocation.size(); i++)
+    {
+        if(!knownWorld[GoalLocation[i]].removeContent(ContentType::Goal))
+       {
+           LastRelay=GoalLocation[i];
+           cout<<"Failied to remove goal state"<<endl;
+       }
+
+    }
+
+    GoalLocation.clear();
+
+
+  updateGoal();
+  int a;
+  //cin>>a;
+
+
+
+}
+
+void Agent::Replan_All()
+{
 
 }
 

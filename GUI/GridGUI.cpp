@@ -141,15 +141,15 @@ void GridGUI::paint(bool Last)
                         Background=Wall_fill+THEVOID_THAT_IS_MY_SOUL;
                     }
 
-                    if((*grid)[Coordinate(i,j)].hasContent(ContentType::Goal))
-                    {
-                        Background=Goal;
-
-                    }
                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Unknown))
                     {
                         //std::cout<<"unkonw";
                         Background=THEVOID_THAT_IS_MY_SOUL;
+
+                    }
+                     if((*grid)[Coordinate(i,j)].hasContent(ContentType::Goal))
+                    {
+                        Background=Goal;
 
                     }
 

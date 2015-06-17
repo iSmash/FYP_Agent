@@ -48,8 +48,8 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
 
 
 void Node::findHeuristic(vector<Coordinate> goals)
-{   //std::cout<<state.getRow()<<" "<<goal.getRow()<<std::endl;
-    //std::cout<<abs(state.getRow()-goal.getRow())<<" "<<abs(state.getColumn()-goal.getColumn())<<" "<<level<<std::endl;
+{   //std::cout<<state<<"  ";
+    //std::cout<<ceil(sqrt(pow((state.getRow()-goals[0].getRow()),2.0)+pow((state.getColumn()-goals[0].getColumn()),2.0)))<<" "<<level<<std::endl;
     if(goals.size()==0)
         throw string("No goal to go toward");
 

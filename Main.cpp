@@ -167,7 +167,7 @@ char x;
         Log<<"&";
 
 
-        Log<<"||"<<endl;
+        Log<<"//"<<endl;
         Log.close();
     }
 }

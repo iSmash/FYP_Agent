@@ -71,8 +71,11 @@ void Cell::addContent(const Content cont)
       return; //dont do this
   }
 
+    if(cont!= Goal)
+    {
      removeContent(Unknown); //if adding stuff, its no longer unknown
      removeContent(Empty);   //if adding stuff it wont be empty;
+    }
 
     if(cont==ContentType::Unknown)
     {

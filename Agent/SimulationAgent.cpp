@@ -148,7 +148,7 @@ void SimulationAgent::lookAround(Coordinate lookFrom)
 
    // std::cout<<"true"<<trueCurrentLocation.getRow()<<" "<< trueCurrentLocation.getColumn()<<std::endl;
     //std::cout<<"knonwn"<<CurrentLocation.getRow()<<" "<< CurrentLocation.getColumn()<<std::endl;
-
+    bool newMapData= false;
     for(int i=-1; i<=1; i++)
     {
         for(int j=-1; j<=1; j++)
@@ -161,6 +161,13 @@ void SimulationAgent::lookAround(Coordinate lookFrom)
 
                 //cout<<"relative location"<<CurrentLocation<<endl;
                 //cout<<"true"<<trueLocation;
+
+
+                if(knownWorld[tempLocation].hasContent(ContentType::Unknown)&& return_journy )
+                {
+                    newMapData=true;
+                }
+
                 std::vector<Content> temp_contnet= trueWorld[trueLocation].getContent();
                 //std::cout<<temp.size()<<std::endl;
                 for(int x=0; x< temp_contnet.size(); x++)
@@ -168,11 +175,15 @@ void SimulationAgent::lookAround(Coordinate lookFrom)
                     knownWorld[tempLocation].addContent(temp_contnet[x]);
                 }
 
+
+
                 if(!knownWorld[tempLocation].hasContent(ContentType::Object))
                 {
                     //cout<<"explore further"<<tempLocation<<endl;
                     Agent::lookAround(tempLocation); //By having the this lookAround run again, we dont see more of the world. We just expand the grid more. This lets the robot know there is more "just beyound the river bend"
                 }
+
+
             }
             catch(std::out_of_range r)
             {
@@ -181,8 +192,20 @@ void SimulationAgent::lookAround(Coordinate lookFrom)
 
             }
 
+
         }
     }
+  if (newMapData)
+  {
+      if(DeploymentMethod==4||DeploymentMethod==7)
+            {
+                Replan_further();
+            }
+            else if(DeploymentMethod==5||DeploymentMethod==8)
+            {
+                Replan_All();
+            }
+  }
 
 
 }

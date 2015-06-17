@@ -56,7 +56,10 @@ public:
     virtual void evaluateRealayRange()=0;
 
     inline int Get_stepcount(){return step_count;}
+
 protected:
+void Replan_further();
+    void Replan_All();
     virtual bool lowSignal(Coordinate CurrentLocationtemp)=0;
     virtual bool move(Node::Direction toMove);
     virtual void lookAround(Coordinate lookFrom=CurrentLocation);

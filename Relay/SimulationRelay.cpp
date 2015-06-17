@@ -1,7 +1,7 @@
 #include <math.h>
 #include "SimulationRelay.h"
 using namespace Relayspace;
-static const int wallEffect=2;
+static const int wallEffect=1;
 int SimulationRelay::activeRange=0;
 std::vector<int> SimulationRelay::Ranges= std::vector<int>(0);
 

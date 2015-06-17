@@ -139,11 +139,11 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore)
 	catch(std::out_of_range){}
 	try{
 		Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
-		//cout<<"below";
+		//cout<<"below"<<below<<grid[below].getViewed()<<endl;
 		//grid[below].printAllContent();
 		if ( !(grid[below].hasContent(ContentType::Path_Object)) &&!grid[below].getViewed())
 		{
-         //cout<<"below"<<endl;
+        // cout<<"below added"<<endl;
 			Leaves.push_back(new Node(toExplore, below, Node::Down));
 			grid[below].setViewed(true);
 			toExplore->Inc_children();
