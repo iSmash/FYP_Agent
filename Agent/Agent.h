@@ -44,7 +44,7 @@ public:
 
     void setGoal(RelativeCoordinate relativeToGoal);/**using magic we find where the goal is */
 
-    virtual void updateGoal();
+    virtual void updateGoal(bool all=false);
 
     void defineDeploymentMethod(int meth);
 
@@ -58,15 +58,15 @@ public:
     inline int Get_stepcount(){return step_count;}
 
 protected:
-void Replan_further();
-    void Replan_All();
+void Replan(bool all);
+
     virtual bool lowSignal(Coordinate CurrentLocationtemp)=0;
     virtual bool move(Node::Direction toMove);
     virtual void lookAround(Coordinate lookFrom=CurrentLocation);
    virtual void ShuffleLoctions(int row, int column);
 
   virtual  void PlaceRelay(int ID,Coordinate whereToPlace);
-  virtual  void PickupRelay(int ID,Coordinate PickFrom);
+  virtual  void PickupRelay(Coordinate PickFrom);
 
 static   Coordinate CurrentLocation;
     vector<Coordinate> GoalLocation;
@@ -79,6 +79,7 @@ static   Coordinate CurrentLocation;
     int DeploymentMethod;
     DeploymentSpace::Deployment relayPlace;
     int step_count;
+    int fullRelayCount;
     bool return_journy;
 
 };

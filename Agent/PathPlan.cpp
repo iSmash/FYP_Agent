@@ -22,6 +22,8 @@ std::cout<<"s"<<start<<std::endl;
            std::cout<<"g"<<goals[i]<<std::endl;
         }
 */
+KnownWorld.clearGridViewed();
+
 	Node* NodePoint =NULL;
 	Node* goalPoint=NULL;
 	Leaves.push_back(new Node(start));
@@ -77,10 +79,20 @@ std::cout<<"s"<<start<<std::endl;
 	{
 		actionList.push_back(goalPoint->getAction());
 
+		//Node::printDirection(goalPoint->getAction());
+		//cout<<goalPoint->getState()<<endl;;
 		Node*temp = goalPoint;
 		goalPoint=goalPoint->getParent();
         delete temp;
 	}
+
+	list<Node*>::iterator delIter = Leaves.begin();
+	while(delIter!= Leaves.end())
+    {
+        delete *delIter;
+        delIter++;
+    }
+	Leaves.clear();
 	return actionList;
 
 
@@ -89,139 +101,100 @@ std::cout<<"s"<<start<<std::endl;
 
 }
 
+Node* PathPlan::AddNode(Coordinate toAdd, Grid& grid, Node* toExplore, Node::Direction dir, bool standard_explore)
+{
+
+    if(standard_explore && grid[toAdd].hasContent(ContentType::Goal))
+    {
+//        cout<<"Goal found"<<endl;
+        if(toExplore->getParent()!=NULL)
+        {
+            return new Node(toExplore, toAdd, dir);
+        }
+        //else{                cout<<"only root"<<endl;}
+    }
+
+   if (!(grid[toAdd].hasContent(ContentType::Path_Object)) && !grid[toAdd].getViewed())
+    {
+        Leaves.push_back(new Node(toExplore, toAdd, dir));
+        grid[toAdd].setViewed(true);
+        toExplore->Inc_children();
+       // cout<<" -"<<toAdd<<endl;
+    }
+
+   return NULL;
+}
 
 
-
-Node* PathPlan::explore(Grid& grid, Node* toExplore)
+Node* PathPlan::explore(Grid& grid, Node* toExplore, bool standard_explore)
 {
     //cout<<"exploring"<<endl;
 	Coordinate state = toExplore->getState();
-	//   cout<<state<<endl;
-	if(grid[state].hasContent(ContentType::Goal)&& toExplore->getParent()!=NULL)
-	{
-		//goal=state;
-		return toExplore;
-	}
+	  // cout<<state<<endl;
+
+	if(!standard_explore && !grid[state].hasContent(ContentType::Unknown) && !(grid[state].hasContent(ContentType::Wall)) )
+    {
+        return toExplore;
+    }
+   // else cout<<state;
 
 
-	/*bool aboveOK=false;
-    bool rightOK=false;
-    bool belowOK =false;
-    bool leftOK=false;*/
+    Node* temp;
 
-	try{
-		Coordinate above= Coordinate(state.getRow()-1,state.getColumn());
-		//cout<<"above";
-		//grid[above].printAllContent();
-		if (!(grid[above].hasContent(ContentType::Path_Object)) && !grid[above].getViewed())
-		{
-          //  cout<<"top"<<endl;
-			Leaves.push_back(new Node(toExplore, above, Node::Up));
-			grid[above].setViewed(true);
-			toExplore->Inc_children();
-		}
+    int DirectionCount=0;
+    Node::Direction  directionToAdd[] ={Node::UpLeft, Node::Up, Node::UpRight, Node::Left, Node::Right,  Node::DownLeft, Node::Down,  Node::DownRight};
 
-	}
-	catch(std::out_of_range){}
-	try{
-		Coordinate right= Coordinate(state.getRow(),state.getColumn()+1);
-		//cout<<"right";
-		//grid[right].printAllContent();
-		if (!(grid[right].hasContent(ContentType::Path_Object)) && !grid[right].getViewed())
-		{
-            //cout<<"righ"<<endl;
-			Leaves.push_back(new Node(toExplore, right, Node::Right));
-			grid[right].setViewed(true);
-			toExplore->Inc_children();
-		}
+    Coordinate coordToTest;
+    for(int i=-1; i<2; i++)
+    {
+         for(int j=-1; j<2; j++)
+        {
+            try
+            {
+                if(!(i==0 && j==0))
+                {
+                    coordToTest= Coordinate(state.getRow()+i, state.getColumn()+j);
+                    temp=AddNode(coordToTest, grid,toExplore, directionToAdd[DirectionCount], standard_explore);
+                    if(temp != NULL)
+                    {
+                        return temp;
+                    }
+                }
+                else{DirectionCount--;}
+            }
+            catch(std::out_of_range){}
+            DirectionCount++;
 
-	}
-	catch(std::out_of_range){}
-	try{
-		Coordinate below= Coordinate(state.getRow()+1,state.getColumn());
-		//cout<<"below"<<below<<grid[below].getViewed()<<endl;
-		//grid[below].printAllContent();
-		if ( !(grid[below].hasContent(ContentType::Path_Object)) &&!grid[below].getViewed())
-		{
-        // cout<<"below added"<<endl;
-			Leaves.push_back(new Node(toExplore, below, Node::Down));
-			grid[below].setViewed(true);
-			toExplore->Inc_children();
-		}
-
-	}
-	catch(std::out_of_range){}
-	try{
-		Coordinate left= Coordinate(state.getRow(),state.getColumn()-1);
-		//cout<<"left";
-		//grid[left].printAllContent();
-		if ( !(grid[left].hasContent(ContentType::Path_Object))&&!grid[left].getViewed())
-		{
-          //  cout<<"left"<<endl;
-			Leaves.push_back(new Node(toExplore, left, Node::Left));
-			grid[left].setViewed(true);
-			toExplore->Inc_children();
-		}
-
-	}
-	catch(std::out_of_range){}
-
-	try{
-		Coordinate aboveleft= Coordinate(state.getRow()-1,state.getColumn()-1);
-
-		if ( !(grid[aboveleft].hasContent(ContentType::Path_Object))&&!grid[aboveleft].getViewed())
-		{
-          //  cout<<"top left"<<endl;
-			Leaves.push_back(new Node(toExplore, aboveleft, Node::UpLeft));
-			grid[aboveleft].setViewed(true);
-			toExplore->Inc_children();
-		}
-	}
-	catch(std::out_of_range){}
-
-	try{
-		Coordinate abovelright= Coordinate(state.getRow()-1,state.getColumn()+1);
-		if ( !(grid[abovelright].hasContent(ContentType::Path_Object))&&!grid[abovelright].getViewed())
-		{
-          //  cout<<"top_right"<<endl;
-			Leaves.push_back(new Node(toExplore, abovelright, Node::UpRight));
-			grid[abovelright].setViewed(true);
-			toExplore->Inc_children();
-		}
-	}
-	catch(std::out_of_range){}
-
-	try{
-		Coordinate belowleft= Coordinate(state.getRow()+1,state.getColumn()-1);
-		if ( !(grid[belowleft].hasContent(ContentType::Path_Object))&&!grid[belowleft].getViewed())
-		{
-           // cout<<"bot_left"<<endl;
-			Leaves.push_back(new Node(toExplore, belowleft, Node::DownLeft));
-			grid[belowleft].setViewed(true);
-			toExplore->Inc_children();
-		}
-	}
-	catch(std::out_of_range){}
-
-	try{
-		Coordinate belowright= Coordinate(state.getRow()+1,state.getColumn()+1);
-		if ( !(grid[belowright].hasContent(ContentType::Path_Object))&&!grid[belowright].getViewed())
-		{
-          //  cout<<"bot right"<<endl;
-			Leaves.push_back(new Node(toExplore, belowright, Node::DownRight));
-			grid[belowright].setViewed(true);
-			toExplore->Inc_children();
-		}
-	}
-	catch(std::out_of_range){}
+        }
+    }
 
 
-	if(toExplore->getChildren()==0) // end
-			{
-			toExplore->deadEnd(grid,Leaves); }
+	if(toExplore->getChildren()==0)
+    {
+        toExplore->deadEnd(grid,Leaves);
+    }
 
 	return NULL;
 }
 
-
+bool PathPlan::Explore_Unkown(Coordinate& start, Grid& KnownWorld)
+{
+ KnownWorld.clearGridViewed();
+Leaves.clear();
+	Leaves.push_back(new Node(start));
+	Node* toExplore;
+	while(1)//loop till broken
+	{
+        toExplore= Leaves.back();
+        Leaves.pop_back();
+	    if( explore(KnownWorld, toExplore, false) != NULL)
+         {
+             return true;
+         }
+        if(Leaves.size()==0)
+        {
+            return false;
+        }
+	}
+}
 

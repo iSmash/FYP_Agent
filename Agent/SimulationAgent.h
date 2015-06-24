@@ -31,7 +31,7 @@ private:
 	bool move(Node::Direction toMove);
 	bool lowSignal(Coordinate CurrentLocationtemp);
 	void PlaceRelay(int ID, Coordinate whereToPlace);
-	void PickupRelay(int ID, Coordinate whereToTake);
+	void PickupRelay(Coordinate whereToTake);
 
 	RelativeCoordinate trueLocationRelativity;
 

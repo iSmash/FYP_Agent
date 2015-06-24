@@ -15,7 +15,7 @@ void SimulationAgent::findPath()
     if(GoalLocation.size()==0)
     {
         //dont know where to go
-        cout<<"grow range";
+//        cout<<"grow range";
 
         SimulationRelay::incRange();
         for(int i=0; i<trueWorld.getRelays().size(); i++)
@@ -34,10 +34,11 @@ void SimulationAgent::findPath()
 void SimulationAgent::setRelayCount(int numberofRelays)
 {
     //will do nothing if already has more then number told. but this should only be called on startups once.
-
+    fullRelayCount=numberofRelays;
     //has too few?
     while(heldRelays.size()<numberofRelays)
     {
+
         SimulationRelay* temp= new SimulationRelay(&trueWorld);
         heldRelays.push_back( temp);
     }
@@ -77,17 +78,15 @@ void SimulationAgent::PlaceRelay(int ID, Coordinate whereToPlace)
 
 }
 
-void SimulationAgent::PickupRelay(int ID, Coordinate whereToTake)
+void SimulationAgent::PickupRelay(Coordinate whereToTake)
 {
     //cout<<"pickup2"<<endl; // DEBUG
 
-    Relay* tobePicked = trueWorld.getRelay(ID);
-    trueWorld.removeRelay(ID);
+    Relay* tobePicked = trueWorld.removeRelay(whereToTake+trueLocationRelativity);
     heldRelays.push_back(tobePicked);
 
-    tobePicked->updatePos(Coordinate(0,0));
     trueWorld[whereToTake+trueLocationRelativity].removeContent(ContentType::RelayMarker);
-    Agent::PickupRelay(ID,whereToTake);
+    Agent::PickupRelay(whereToTake);
 }
 void SimulationAgent::evaluateRealayRange()
 {
@@ -104,8 +103,7 @@ void SimulationAgent::evaluateRealayRange()
     else if (DeploymentMethod ==2)
     {
         ((SimulationRelay*)trueWorld.getRelay(0))->updatePos(ClientLocation);
-        knownWorld.clearGridViewed();
-        planner.clear();
+
         actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
         distance= actionList.size();
     }
@@ -198,13 +196,13 @@ void SimulationAgent::lookAround(Coordinate lookFrom)
   if (newMapData)
   {
       if(DeploymentMethod==4||DeploymentMethod==7)
-            {
-                Replan_further();
-            }
-            else if(DeploymentMethod==5||DeploymentMethod==8)
-            {
-                Replan_All();
-            }
+        {
+            Replan(false);
+        }
+    else if(DeploymentMethod==5||DeploymentMethod==8)
+        {
+            Replan(true);
+        }
   }
 
 

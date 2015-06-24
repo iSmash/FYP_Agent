@@ -94,7 +94,7 @@ char x;
 
 			KnownGUI.updateSize();
 			KnownGUI.paint(true);
-				cin>>x;
+			//	cin>>x;
 #endif
 			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
 
@@ -105,17 +105,18 @@ char x;
 	catch(string s){ errorString=s; cout<<errorString<<endl;} //yall done goofed, lets stop
      double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
 
+
+
+#ifdef Simulation
+	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
+#endif
+
 #ifdef Show_Graphics
 	TrueGUI.paint(true);
 	KnownGUI.updateSize();
 	KnownGUI.paint(true);
 	 cin>>x;
 #endif
-
-#ifdef Simulation
-	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
-#endif
-
 
     //print results to file
     ofstream Log(LOGFILE, fstream::app );

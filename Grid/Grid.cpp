@@ -23,13 +23,20 @@ Relay* Grid::getRelay(int _ID)
 
 }
 
-void Grid::removeRelay(int _ID)
+Relay* Grid::removeRelay(Coordinate location)
 {
+    Relay* toReturn;
 	for(int i=0; i< deployedRelays.size(); i++)
 	{
-		if(deployedRelays[i]->getID()== _ID)
-			deployedRelays.erase(deployedRelays.begin()+i);
+		if(deployedRelays[i]->getPos() == location)
+		{
+		    toReturn=deployedRelays[i];
+		    toReturn->updatePos(Coordinate(0,0));
+		    deployedRelays.erase(deployedRelays.begin()+i);
+		    break;
+		}
 	}
+	return toReturn;
 }
 
 void Grid::placeRelay(Relay* toPlace)

@@ -22,10 +22,10 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 		vector<Coordinate> templist= relayPositions;
 		for(int i = 1; i< relayPositions.size(); i++)
 		{
-			//cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+			cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
 			int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
 			int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
-           //cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+           cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			/** adujust position based on walls bettewen points */
 			SubGrid subgrid(knownWorld,relayPositions[i-1], relayPositions[i]);
 
@@ -42,18 +42,25 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 
 			//make sure not on top of wall
 			int moveRange = 1;
-			while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Object)
-
-			)
-
+			while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Deployment_Object))
 			{
 				for(int i=-(moveRange); i<=moveRange; i++)
 				{
 					for(int j=-(moveRange); j<=moveRange; j++)
 					{
 						try{
-						    cout<<Coordinate(rowMidPoint+i,columnMidPoint+j)<<endl;
-							if(  !(knownWorld[Coordinate(rowMidPoint+i,columnMidPoint+j)].hasContent(ContentType::Object)))
+						    //cout<<Coordinate(rowMidPoint+i,columnMidPoint+j)<<endl;
+						    bool ValidLocation= true;
+						    Coordinate current_examin= Coordinate(rowMidPoint+i,columnMidPoint+j);
+						    for(int i=0; i< bandedGoalLocations.size(); i++)
+                            {
+                                if(current_examin == bandedGoalLocations[i])
+                                {
+                                    ValidLocation=false;
+                                    break;
+                                }
+                            }
+							if( ValidLocation && !(knownWorld[current_examin].hasContent(ContentType::Deployment_Object)))
 							{
 
 								rowMidPoint=rowMidPoint+i;
@@ -131,7 +138,16 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 					Coordinate current_examin =Coordinate(y,x);
 					int walls_left_top, walls_right_bot;
 					//look through all cells between points for best placement.
-					if(!knownWorld[current_examin].hasContent(ContentType::Object))
+					bool ValidLocation =true;
+					for(int i=0; i< bandedGoalLocations.size(); i++)
+                    {
+                        if(current_examin == bandedGoalLocations[i])
+                        {
+                            ValidLocation=false;
+                            break;
+                        }
+                    }
+					if(ValidLocation&& !knownWorld[current_examin].hasContent(ContentType::Object))
 					{
 						// Here is where cell quality value/score is determined.
 						subgrid.Wall_count(current_examin,walls_left_top, walls_right_bot );
@@ -150,7 +166,7 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 
 
 
-			cout<<bestCoord<<endl;
+			//cout<<bestCoord<<endl;
 			templist.insert(templist.begin()+i+pos_adjust, bestCoord);
 			pos_adjust++;
 		}
@@ -225,7 +241,7 @@ bool failed=false;
                 equalibirum_count++;
 
             }
-            cout<<relay_index<<":"<<Relays[relay_index].getLocation()<<endl;
+//            cout<<relay_index<<":"<<Relays[relay_index].getLocation()<<endl;
 		}
 		if(failed) fail_count++;
 		else    fail_count--;
@@ -233,7 +249,7 @@ bool failed=false;
 		if(fail_count >5000)
                     throw string("fail to find equalibrium");
 
-		cout<<equalibirum_count<<" "<<fail_count<<endl;
+//		cout<<equalibirum_count<<" "<<fail_count<<endl;
     //char x; cin>>x;
 	}
 

@@ -33,6 +33,8 @@ public:
     inline const unsigned getHeuristic() const {return heuristic;}
     inline const unsigned getChildren() const {return children;}
 
+    static void printDirection(Node::Direction toprint);
+
     void findHeuristic(vector<Coordinate> goals);
     inline void setHeuristic(int _heuristic){heuristic=_heuristic;}
     inline void Inc_children(){children++;}

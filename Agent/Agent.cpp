@@ -5,39 +5,7 @@ using namespace Agentspace;
 using namespace Relayspace;
 using namespace std;
 Coordinate Agent::CurrentLocation =Coordinate(0,0);
-void printDirection2(Node::Direction toprint)
-{
-    switch(toprint)
-    {
-    case Node::Right:
-        cout<<"Right; ";
-        break;
-    case Node::Left:
-        cout<<"Left; ";
-        break;
-    case Node::Up:
-        cout<<"Up; ";
-        break;
-    case Node::Down:
-        cout<<"Down; ";
-        break;
-    case Node::UpRight:
-        cout<<"Up-Right; ";
-        break;
-    case Node::UpLeft:
-        cout<<"Up-Left; ";
-        break;
-    case Node::DownLeft:
-        cout<<"Down-Left; ";
-        break;
-    case Node::DownRight:
-        cout<<"Down-Right; ";
-        break;
-    case Node::Root:
-        cout<<"Start;";
-        break;
-    }
-}
+
 
 void Agent::findPath()
 {
@@ -52,23 +20,28 @@ void Agent::findPath()
     {
 
          actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
+
     }
     catch(string &s)
     {
         //cout<<s;
-        /* cout<<"Last"<<knownWorld.getLast()<<endl;
+        // cout<<"Last"<<knownWorld.getLast()<<endl;
          cout<<"cur"<<CurrentLocation<<endl;
-         cout<<"goal"<<GoalLocation.back()<<endl;
-         cout<<"cli"<<ClientLocation<<endl;
-         cout<<"base"<<BaseLocation<<endl;*/
+         //cout<<"goal"<<GoalLocation.back()<<endl;
+         //cout<<"cli"<<ClientLocation<<endl;
+        // cout<<"base"<<BaseLocation<<endl;*/
+         for(int testloop=0; testloop<GoalLocation.size(); testloop++)
+         {
+             cout<<GoalLocation[testloop]<<endl;
+         }
         knownWorld.updateSize(Grid::right);
         knownWorld.updateSize(Grid::bottom);
         if(knownWorld.updateSize(Grid::top))
             ShuffleLoctions(1,0);
         if(knownWorld.updateSize(Grid::left))
             ShuffleLoctions(0,1);
+    int a; cin>>a;
 
-        knownWorld.clearGridViewed();
 
         throw 1; //soft throw, will retry
     }
@@ -82,10 +55,14 @@ void Agent::tryPath()
 
     while(actionList.size()!=0)
     {
-        //printDirection2(actionList.back());
+
 
         if(!move(actionList.back()))
-            break;
+        {//cout<<"but not"; Node::printDirection(actionList.back());
+        break;
+
+        }
+        //else{ Node::printDirection(actionList.back());}
 
         actionList.pop_back();
         knownWorld[CurrentLocation].addContent(ContentType::Robot);
@@ -93,12 +70,12 @@ void Agent::tryPath()
 
 
     //clean up old search
-    knownWorld.clearGridViewed();
-    planner.clear();
+
+
     //cout<<endl;
 }
 
-void Agent::updateGoal()
+void Agent::updateGoal(bool all)
 {
     //cout<<"update goals";
 return_journy=true;
@@ -109,23 +86,61 @@ return_journy=true;
     {
         cout<<GoalLocation[i]<<endl;
     }*/
-   cout<<"relays to deply "<<heldRelays.size()<<endl;
-    GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
+   //cout<<"relays to deply "<<heldRelays.size()<<endl;
+   bool valid;
+  do
+   {
+       valid=true;
+       if(all)
+       {
+           GoalLocation = relayPlace.positionRelays(DeploymentMethod, fullRelayCount, BaseLocation, ClientLocation, knownWorld);
+       }
+       else
+        {
+            GoalLocation = relayPlace.positionRelays(DeploymentMethod, heldRelays.size(), BaseLocation, ClientLocation, knownWorld);
+        }
 
 
-    for(int i=0; i<GoalLocation.size(); i++)
+    vector<Coordinate>::iterator tempGoalLocation = GoalLocation.begin();
+    while(tempGoalLocation!= GoalLocation.end())
     {
         cout<<"goal locations at" ;
-        cout<<GoalLocation[i]<<endl;
-        if(knownWorld[GoalLocation[i]].hasContent(ContentType::Goal))
+        cout<<*tempGoalLocation<<endl;
+
+         if(knownWorld[*tempGoalLocation].hasContent(ContentType::Unknown))
         {
-            cout<<"Goal overlap"<<endl;
-            GoalLocation.erase(GoalLocation.begin()+i);
+            //cout<<"Reverse Explore"<<endl;
+            if(!planner.Explore_Unkown(*tempGoalLocation, knownWorld))
+            {
+                cout<<"bad Goal Location"<<endl;
+                relayPlace.addBadGoal(*tempGoalLocation);
+                valid=false;
+                break;
+            }
+           //else{cout<<"OK goal loaction"<<endl;}
         }
-        else
-             knownWorld[GoalLocation[i]].addContent(ContentType::Goal);
+           tempGoalLocation++;
 
     }
+   } while(!valid);
+
+    vector<Coordinate>::iterator tempGoalLocation = GoalLocation.begin();
+    while(tempGoalLocation!= GoalLocation.end())
+    {
+         if(knownWorld[*tempGoalLocation].hasContent(ContentType::Goal))
+        {
+            cout<<"Goal overlap"<<*tempGoalLocation<<endl;
+            int a; cin>>a;
+            GoalLocation.erase(tempGoalLocation);
+        }
+        else
+        {
+            knownWorld[*tempGoalLocation].addContent(ContentType::Goal);
+            tempGoalLocation++;
+        }
+    }
+
+
 
      if(DeploymentMethod==2)
     {
@@ -174,7 +189,7 @@ void Agent::PlaceRelay(int ID,Coordinate whereToPlace)
     knownWorld[whereToPlace].addContent(ContentType::RelayMarker);
 }
 
-void Agent::PickupRelay(int ID,Coordinate PickFrom)
+void Agent::PickupRelay(Coordinate PickFrom)
 {
     knownWorld[PickFrom].removeContent(ContentType::RelayMarker);
 
@@ -340,23 +355,48 @@ bool Agent::move(Node::Direction toMove)
         if(!knownWorld[CurrentLocationtemp].removeContent(ContentType::Goal))
        {
            cout<<"Failied to remove goal state"<<endl;
+           int a; cin>>a;
        }
         updateGoal();
     }
 
     if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Goal) && DeploymentMethod>2)
     {
+
+
        if(!knownWorld[CurrentLocationtemp].removeContent(ContentType::Goal))
        {
            cout<<"Failied to remove goal state"<<endl;
+
        }
-        GoalLocation.pop_back();
-        try
+
+        for(int i =0; i< GoalLocation.size(); i++)
         {
-            PlaceRelay(heldRelays.front()->getID(),CurrentLocationtemp);
+            if(GoalLocation[i]==CurrentLocationtemp)
+                GoalLocation.erase(GoalLocation.begin()+i);
         }
-        catch(RelayError e) //cout<<"out of relays"<<endl;
+
+
+        if(knownWorld[CurrentLocationtemp].hasContent(ContentType::RelayMarker))
         {
+            try
+            {
+                //cout<<"pickup"<<endl;
+                PickupRelay(CurrentLocationtemp);
+            }
+            catch(RelayError e) //cout<<"out of relays"<<endl;
+            {
+            }
+        }
+        else
+        {
+            try
+            {
+                PlaceRelay(heldRelays.front()->getID(),CurrentLocationtemp);
+            }
+            catch(RelayError e) //cout<<"out of relays"<<endl;
+            {
+            }
         }
 
     }
@@ -402,34 +442,75 @@ void Agent::defineDeploymentMethod(int meth)
 }
 
 
-void Agent::Replan_further()
+void Agent::Replan(bool all)
 {
     cout<<"Replan future relays"<<CurrentLocation<<endl;
-    Coordinate LastRelay=ClientLocation;
     for(int i =0; i< GoalLocation.size(); i++)
     {
+        cout<<"Goal location"<<GoalLocation[i]<<endl;
         if(!knownWorld[GoalLocation[i]].removeContent(ContentType::Goal))
        {
-           LastRelay=GoalLocation[i];
-           cout<<"Failied to remove goal state"<<endl;
+           NULL;
+           cout<<"Failied to remove goal state"<<GoalLocation[i]<<endl;
+
        }
 
     }
 
+
+
     GoalLocation.clear();
 
 
-  updateGoal();
-  int a;
-  //cin>>a;
+  updateGoal(all);
+  if(all)
+  {
+     vector<Coordinate> tempGoalLocation;
+     // cout<<"Find relays to pick back up"<<endl;
+      for(int row=0; row<knownWorld.getLast().getRow(); row++)
+      {
+        for(int col=0; col<knownWorld.getLast().getColumn(); col++)
+        {
+              Coordinate current =Coordinate(row,col);
+              if(knownWorld[current].hasContent(ContentType::RelayMarker) && !knownWorld[current].hasContent(ContentType::Goal))
+              {
+                 // cout<<current<<" Nolonger valid position for realy"<<endl;
+                  tempGoalLocation.push_back(current);
 
 
+              }
+        }
+      }
+
+      //remomve any goals that are requsting placemtn of relay where relay is.
+     // cout<<"Remove unneeded goals"<<endl;
+      std::vector<Coordinate>::iterator goalIter= GoalLocation.begin();
+
+      while(goalIter!= GoalLocation.end())
+    {
+        //cout<<"Goal location"<<*goalIter<<endl;
+        if(knownWorld[*goalIter].hasContent(ContentType::RelayMarker))
+       {
+           // cout<<"unNeeded"<<endl;
+            knownWorld[*goalIter].removeContent(ContentType::Goal);
+           GoalLocation.erase(goalIter);
+
+       }
+       else
+        {
+            goalIter++;
+        }
+    }
+    for(int i=0; i<tempGoalLocation.size(); i++)
+    {
+        GoalLocation.push_back(tempGoalLocation[i]);
+        knownWorld[tempGoalLocation[i]].addContent(ContentType::Goal);
+    }
+
+  }
 
 }
 
-void Agent::Replan_All()
-{
 
-}
 
 

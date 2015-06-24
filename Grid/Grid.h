@@ -17,7 +17,7 @@ class Grid
             inline vector<Relay*> getRelays(){return deployedRelays;}
 			Relay* getRelay(int _ID);
 
-			void removeRelay(int _ID);
+			Relay* removeRelay(Coordinate location);
 			void placeRelay(Relay* toPlace);
 
 			inline Coordinate getLast(){return LastCell;}

@@ -26,6 +26,39 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
 
 }
 
+void Node::printDirection(Node::Direction toprint)
+{
+    switch(toprint)
+    {
+    case Node::Right:
+        cout<<"Right; ";
+        break;
+    case Node::Left:
+        cout<<"Left; ";
+        break;
+    case Node::Up:
+        cout<<"Up; ";
+        break;
+    case Node::Down:
+        cout<<"Down; ";
+        break;
+    case Node::UpRight:
+        cout<<"Up-Right; ";
+        break;
+    case Node::UpLeft:
+        cout<<"Up-Left; ";
+        break;
+    case Node::DownLeft:
+        cout<<"Down-Left; ";
+        break;
+    case Node::DownRight:
+        cout<<"Down-Right; ";
+        break;
+    case Node::Root:
+        cout<<"Start;";
+        break;
+    }
+}
 
  void Node::deadEnd(Grid& grid, list<Node*> &Leaves) //needed param, thus not using ~
  {
@@ -48,7 +81,7 @@ Node::Node(Node* _Parent, Coordinate _state, Direction _actionToReach)
 
 
 void Node::findHeuristic(vector<Coordinate> goals)
-{   //std::cout<<state<<"  ";
+{   //std::cout<<endl<<state<<" ";
     //std::cout<<ceil(sqrt(pow((state.getRow()-goals[0].getRow()),2.0)+pow((state.getColumn()-goals[0].getColumn()),2.0)))<<" "<<level<<std::endl;
     if(goals.size()==0)
         throw string("No goal to go toward");
@@ -56,7 +89,10 @@ void Node::findHeuristic(vector<Coordinate> goals)
     heuristic= 9999999999;
     for(int goals_index=0; goals_index<goals.size(); goals_index++)
     {
-        int temp = ceil(sqrt(pow((state.getRow()-goals[goals_index].getRow()),2.0)+pow((state.getColumn()-goals[goals_index].getColumn()),2.0)))+level;
+        //int temp = ceil(sqrt(pow((state.getRow()-goals[goals_index].getRow()),2.0)+pow((state.getColumn()-goals[goals_index].getColumn()),2.0)))+level;
+        int temp = abs(state.getRow()-goals[goals_index].getRow())+abs(state.getColumn()-goals[goals_index].getColumn())+level;
+
+        //cout<<"heur "<<temp<<"\t";
         if(temp< heuristic && temp>0)
             heuristic = temp;
     }
