@@ -7,7 +7,7 @@ class SubGrid: public Grid
 {
     public:
         SubGrid(Grid& master_grid, Coordinate alpha, Coordinate beta);
-        void Wall_count(Coordinate center, int& top_left_count, int& bot_righ_count);
+        bool Wall_count(Coordinate center, int& top_left_count, int& bot_righ_count, int& bot_left_count, int& top_right_count);
 
         inline int Get_left(){top_left.getColumn();}
         inline int Get_right(){bot_right.getColumn();}
@@ -16,6 +16,7 @@ class SubGrid: public Grid
     private:
         Coordinate top_left;
         Coordinate bot_right;
+        bool Top_left_item;
 };
 
 #endif // SUBGRID_H

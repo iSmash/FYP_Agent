@@ -19,9 +19,7 @@ void printContent(ContentType::Content toprint)
 const bool Cell::hasContent(Content cont)
 {
  if(cont == Object)
-    return hasContent(Wall)||hasContent(Client)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall)||hasContent(Base);
-  if(cont == Path_Object)
-    return hasContent(Wall)||hasContent(RelayMarker)||hasContent(Jormungandr_Wall)||hasContent(Client);
+    return hasContent(Wall)||hasContent(Jormungandr_Wall)||hasContent(RelayMarker)||hasContent(Client)||hasContent(Base);
 if(cont == Deployment_Object)
     return hasContent(Wall)||hasContent(Jormungandr_Wall)||hasContent(Client);
  for(int i =0; i< content.size(); i++)
@@ -40,7 +38,7 @@ bool Cell::removeContent(const Content cont)
 {
  bool ContentFound=false;
 
-  if(cont == Object||cont == Path_Object||cont ==Deployment_Object)
+  if(cont == Object||cont ==Deployment_Object)
   {
       cout<<"Illegal remove type."<<endl;
       return false; //dont do this
@@ -66,7 +64,7 @@ bool Cell::removeContent(const Content cont)
 
 void Cell::addContent(const Content cont)
 {
-    if(cont == Object||cont == Path_Object||cont ==Deployment_Object)
+    if(cont == Object||cont ==Deployment_Object)
   {
       cout<<"Illegal add type"<<endl;
       return; //dont do this

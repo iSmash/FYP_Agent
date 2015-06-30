@@ -30,8 +30,8 @@ void VirtualRelay::findForces(Grid& knownWorld)
         d.set_magnetude();
         SubGrid subgrid(knownWorld, Location, interactor->getLocation());
 
-        int walls_left_top, walls_right_bot;
-        subgrid.Wall_count(Location,walls_left_top, walls_right_bot );
+        int walls_left_top, walls_right_bot, walls_left_bot, walls_right_top;
+        subgrid.Wall_count(Location,walls_left_top, walls_right_bot , walls_left_bot, walls_right_top);
 
         //cout<<"Walls"<<walls_left_top+walls_right_bot<<endl;
         double PL_do=10*path_loss_exp*log(d0);

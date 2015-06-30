@@ -15,7 +15,7 @@ Deployment methods
 5  ""
 */
 
-#define Show_Graphics
+//#define Show_Graphics
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
@@ -60,7 +60,7 @@ char x;
 
 	//read file about trueWorld and relay
 	RelativeCoordinate relativeToGoal = readfileGrid(Robotino, (string)GRIDFILE+(string)argv[1]+".txt");
-        cout<<"rel"<<relativeToGoal<<endl;
+        //cout<<"rel"<<relativeToGoal<<endl;
 	Robotino.setGoal(relativeToGoal);/**using magic we find where the goal is */
 
 	readfileRelay(Robotino, (string)RELAYFILE);
@@ -123,7 +123,7 @@ char x;
     if(Log.is_open())
     {
         #ifdef Simulation
-        Log<<"Simulation;";
+        Log<<"Simulation &";
         Log<<SimulationRelay::getRange()<<"&";
         #else
         Log<<"Implementation;";

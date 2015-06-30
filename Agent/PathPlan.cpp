@@ -14,6 +14,13 @@ vector<Node::Direction> PathPlan::findPath(Coordinate& start, vector<Coordinate>
 	//std::cout<<"RUNNING"<<std::endl;
 
 
+list<Node*>::iterator delIter = Leaves.begin();
+	while(delIter!= Leaves.end())
+    {
+        delete *delIter;
+        delIter++;
+    }
+Leaves.clear();
 
 /*
 std::cout<<"s"<<start<<std::endl;
@@ -86,13 +93,8 @@ KnownWorld.clearGridViewed();
         delete temp;
 	}
 
-	list<Node*>::iterator delIter = Leaves.begin();
-	while(delIter!= Leaves.end())
-    {
-        delete *delIter;
-        delIter++;
-    }
-	Leaves.clear();
+
+
 	return actionList;
 
 
@@ -114,7 +116,7 @@ Node* PathPlan::AddNode(Coordinate toAdd, Grid& grid, Node* toExplore, Node::Dir
         //else{                cout<<"only root"<<endl;}
     }
 
-   if (!(grid[toAdd].hasContent(ContentType::Path_Object)) && !grid[toAdd].getViewed())
+   if (!(grid[toAdd].hasContent(ContentType::Object)) && !grid[toAdd].getViewed())
     {
         Leaves.push_back(new Node(toExplore, toAdd, dir));
         grid[toAdd].setViewed(true);

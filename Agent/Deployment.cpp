@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld)
+vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, Coordinate Client, Grid& knownWorld, ContentType::Content contentTest) //content Test as 4 needs relay to not be ther, 5 can have relay there
 {
 	vector<Coordinate> relayPositions;
 	relayPositions.push_back(Base);
@@ -22,15 +22,15 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 		vector<Coordinate> templist= relayPositions;
 		for(int i = 1; i< relayPositions.size(); i++)
 		{
-			cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
+			//cout<<"from "<<relayPositions[i-1] <<" and "<< relayPositions[i]<<endl;
 			int rowMidPoint    = (relayPositions[i-1].getRow()+relayPositions[i].getRow())/2;
 			int columnMidPoint = (relayPositions[i-1].getColumn()+relayPositions[i].getColumn())/2;
-           cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
+           //cout<<"start"<<Coordinate(rowMidPoint,columnMidPoint)<<endl;
 			/** adujust position based on walls bettewen points */
-			SubGrid subgrid(knownWorld,relayPositions[i-1], relayPositions[i]);
+			//SubGrid subgrid(knownWorld,relayPositions[i-1], relayPositions[i]);
 
-			int walls_left_top, walls_right_bot;
-			subgrid.Wall_count(Coordinate(rowMidPoint,columnMidPoint), walls_left_top, walls_right_bot);
+			//int walls_left_top, walls_right_bot;
+			//subgrid.Wall_count(Coordinate(rowMidPoint,columnMidPoint), walls_left_top, walls_right_bot);
 
 
 
@@ -39,38 +39,62 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 			//columnMidPoint=columnMidPoint+floor((walls_left_top-walls_right_bot)/WallSignal_Relation);
 
 
+        /**is valid location**/
+        bool ValidLocation= true;
+        bool GoodPlace =false;
+        Coordinate current_examin= Coordinate(rowMidPoint,columnMidPoint);
+        for(int i=0; i< bandedGoalLocations.size(); i++)
+        {
+            if(current_examin == bandedGoalLocations[i])
+            {
+                ValidLocation=false;
+                break;
+            }
+        }
+        if(ValidLocation && knownWorld[current_examin].hasContent(contentTest)) //this valid location is only tested so we can skip this contnet test if already false
+        {
+            ValidLocation=false;
+        }
+
+
+
 
 			//make sure not on top of wall
 			int moveRange = 1;
-			while(  knownWorld[Coordinate(rowMidPoint,columnMidPoint)].hasContent(ContentType::Deployment_Object))
-			{
+
+
+			while(!ValidLocation)
+            {
 				for(int i=-(moveRange); i<=moveRange; i++)
 				{
 					for(int j=-(moveRange); j<=moveRange; j++)
 					{
 						try{
-						    //cout<<Coordinate(rowMidPoint+i,columnMidPoint+j)<<endl;
-						    bool ValidLocation= true;
-						    Coordinate current_examin= Coordinate(rowMidPoint+i,columnMidPoint+j);
-						    for(int i=0; i< bandedGoalLocations.size(); i++)
+						    ValidLocation= true;
+						    //out<<Coordinate(rowMidPoint+i,columnMidPoint+j)<<endl;
+                            Coordinate current_examin= Coordinate(rowMidPoint+i,columnMidPoint+j);
+						    for(int bandindex=0; bandindex< bandedGoalLocations.size(); bandindex++)
                             {
-                                if(current_examin == bandedGoalLocations[i])
+                                if(current_examin == bandedGoalLocations[bandindex])
                                 {
                                     ValidLocation=false;
                                     break;
                                 }
                             }
-							if( ValidLocation && !(knownWorld[current_examin].hasContent(ContentType::Deployment_Object)))
+							if(ValidLocation && knownWorld[current_examin].hasContent(contentTest))//this valid location is only tested so we can skip this contnet test if already false
 							{
+                                 ValidLocation=false;
+							}
 
+							if(ValidLocation)
+                            {
 								rowMidPoint=rowMidPoint+i;
 								columnMidPoint=columnMidPoint+j;
 								i=moveRange+1;//break outer for-loop too
 								break;
-
 							}
-						}
-						catch (std::out_of_range){}
+                            }
+                            catch (std::out_of_range){ValidLocation=false;}
 					}
 				}
 				moveRange++;
@@ -105,9 +129,9 @@ vector<Coordinate> Deployment::MidWayPlacement(int relayCount,Coordinate Base, C
 }
 
 // Assigning quality to each cell and then selecting the bestest from this.
-vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld)
+vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coordinate Base, Coordinate Client, Grid& knownWorld, ContentType::Content contentTest)
 {
-    double WallSignal_Relation =2;
+    double WallSignal_Relation =3;
     /*sqrt( pow((double)(Base.getRow()-Client.getRow()),2.0)+
                                     pow((double)(Base.getColumn()-Client.getColumn()),2.0)
                                     )/9; //3^2
@@ -136,7 +160,7 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 				for (int y=subgrid.Get_top(); y<=subgrid.Get_bot(); y++)
 				{
 					Coordinate current_examin =Coordinate(y,x);
-					int walls_left_top, walls_right_bot;
+					int walls_left_top, walls_right_bot, walls_left_bot, walls_right_top;
 					//look through all cells between points for best placement.
 					bool ValidLocation =true;
 					for(int i=0; i< bandedGoalLocations.size(); i++)
@@ -147,14 +171,24 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
                             break;
                         }
                     }
-					if(ValidLocation&& !knownWorld[current_examin].hasContent(ContentType::Object))
+					if(ValidLocation&& !knownWorld[current_examin].hasContent(contentTest))
 					{
 						// Here is where cell quality value/score is determined.
-						subgrid.Wall_count(current_examin,walls_left_top, walls_right_bot );
-						double scoreCOL=  ( abs(x-subgrid.Get_left()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_right()-x*1.0)+walls_right_bot*WallSignal_Relation );
-						double scoreROW= ( abs(y-subgrid.Get_top()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_bot()-y*1.0)+walls_right_bot*WallSignal_Relation );
-						double score= sqrt( pow(scoreROW,2.0) + pow(scoreCOL,2.0));
-						//cout<<score<<" "<<Coordinate(y,x)<<endl;
+						bool Top_left_item= subgrid.Wall_count(current_examin, walls_left_top, walls_right_bot, walls_left_bot, walls_right_top );
+						double scoreCOL;
+						double scoreROW;
+                        if(Top_left_item)
+                        {
+                             scoreCOL=  ( abs(x-subgrid.Get_left()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_right()-x*1.0)+walls_right_bot*WallSignal_Relation );
+                             scoreROW= ( abs(y-subgrid.Get_top()*1.0)+walls_left_top*WallSignal_Relation ) - ( abs(subgrid.Get_bot()-y*1.0)+walls_right_bot*WallSignal_Relation );
+                        }
+                        else
+                        {
+                            scoreCOL=  ( abs(x-subgrid.Get_left()*1.0)+walls_left_bot*WallSignal_Relation ) - ( abs(subgrid.Get_right()-x*1.0)+walls_right_top*WallSignal_Relation );
+                            scoreROW= ( abs(y-subgrid.Get_top()*1.0)+walls_right_top*WallSignal_Relation ) - ( abs(subgrid.Get_bot()-y*1.0)+walls_left_bot*WallSignal_Relation );
+                        }
+                        double score= sqrt( pow(scoreROW,2.0) + pow(scoreCOL,2.0));
+						//cout<<walls_left_top<<" "<<walls_right_bot<<" "<<scoreCOL<<" "<<scoreROW<<" "<<score<<" "<<Coordinate(y,x)<<endl;
 						if(score<bestScore)
 						{
 							bestScore=score;
@@ -170,7 +204,7 @@ vector<Coordinate> Deployment::MidWayPlacementPotentialState(int relayCount, Coo
 			templist.insert(templist.begin()+i+pos_adjust, bestCoord);
 			pos_adjust++;
 		}
-		//cout<<endl;
+		//int d; cin>>d;
 		relayPositions= templist;
 	}
 
@@ -267,13 +301,21 @@ vector<Coordinate> Deployment::positionRelays(int method, int relayCount, Coordi
 {
 	//cout<<"start finding positons"<<endl;
 
-	if (method>=3 && method<=5)
+	if (method>=3 && method<=4)
 	{
-		return MidWayPlacement(relayCount, Base,  Client, knownWorld);
+		return MidWayPlacement(relayCount, Base,  Client, knownWorld, ContentType::Object);
 	}
-	else if (method>=6 && method<=8)
+	else if (method==5)
 	{
-		return MidWayPlacementPotentialState(relayCount, Base,  Client, knownWorld);
+		return MidWayPlacement(relayCount, Base,  Client, knownWorld, ContentType::Deployment_Object);
+	}
+	else if (method>=6 && method<=7)
+	{
+		return MidWayPlacementPotentialState(relayCount, Base,  Client, knownWorld, ContentType::Object);
+	}
+	else if (method==8)
+	{
+		return MidWayPlacementPotentialState(relayCount, Base,  Client, knownWorld, ContentType::Deployment_Object);
 	}
 	else if (method>=9 && method<=11)
 	{

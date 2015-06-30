@@ -7,10 +7,6 @@ using namespace std;
 
 void SimulationAgent::findPath()
 {
-    if(knownWorld.getLast().getRow()>trueWorld.getLast().getRow()+2 && knownWorld.getLast().getColumn()>trueWorld.getLast().getColumn()+2)
-    {
-            throw string("unreachable location presented");
-    }
 
     if(GoalLocation.size()==0)
     {
@@ -102,7 +98,7 @@ void SimulationAgent::evaluateRealayRange()
     }
     else if (DeploymentMethod ==2)
     {
-        ((SimulationRelay*)trueWorld.getRelay(0))->updatePos(ClientLocation);
+        ((SimulationRelay*)trueWorld.getRelay(0))->updatePos(ClientLocation+trueLocationRelativity);
 
         actionList = planner.findPath(CurrentLocation, GoalLocation,knownWorld);
         distance= actionList.size();
@@ -129,6 +125,7 @@ void SimulationAgent::ShuffleLoctions(int row, int column)
     trueLocationRelativity=RelativeCoordinate(trueLocationRelativity.getRow()-row, trueLocationRelativity.getColumn()-column);
     Agent::ShuffleLoctions(row, column);
 }
+
 void SimulationAgent::lookAround(Coordinate lookFrom)
 {
     //cout<<"looking around"<<endl;
