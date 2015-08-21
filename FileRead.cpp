@@ -103,7 +103,7 @@ RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename) //simul
 }
 
 
-void readfileRelay(SimulationAgent &agent, string filename)
+void readfileRelay(Agent* agent, string filename)
 {
 	/*
 		looks like>
@@ -118,7 +118,7 @@ void readfileRelay(SimulationAgent &agent, string filename)
 	if(problemFile.good())
 	{
 		problemFile>> robotRelayNumber;
-		agent.setRelayCount(robotRelayNumber);
+		agent->setRelayCount(robotRelayNumber);
 	}
 
 
@@ -126,6 +126,7 @@ void readfileRelay(SimulationAgent &agent, string filename)
 
 	//relay ranges, simulation only.
 #ifdef Simulation
+cout<<"doing this";
 	while(problemFile.good())
 	{
 
@@ -133,11 +134,11 @@ void readfileRelay(SimulationAgent &agent, string filename)
 		problemFile>>temp;
 		if(temp>oldtemp)
 		{
-			agent.addRange(temp);
+			((SimulationAgent*)agent)->addRange(temp);
 		}
 		problemFile.ignore(1);
 	}
-	vector<Relay*> RelayRange = agent.trueWorld.getRelays();
+	vector<Relay*> RelayRange = ((SimulationAgent*)agent)->trueWorld.getRelays();
 			for(int i=0; i<RelayRange.size(); i++)
 			{
 				SimulationRelay* rel = (SimulationRelay*)RelayRange[i];

@@ -20,7 +20,7 @@ using namespace Agentspace;
         @param grid, the grid to be resized and added to.
         */
        RelativeCoordinate readfileGrid(SimulationAgent &agent, string filename); //read file for grid creation, simultion only
-       void readfileRelay(SimulationAgent &agent, string filename); //read file for number of relays and relay sizes.
+       void readfileRelay(Agent* agent, string filename); //read file for number of relays and relay sizes.
 
 	   //randomly generate a grid to explore (still buggy, but not core)
 	   void makefile();

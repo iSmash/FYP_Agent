@@ -25,7 +25,8 @@ private:
 
 	bool move(Node::Direction toMove);
 	void lookAround();
-    bool lowSignal();
+    bool lowSignal(Coordinate CurrentLocationtemp);
+    void evaluateRealayRange();
 };
 }
 #endif

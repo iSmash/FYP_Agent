@@ -11,7 +11,7 @@ void SimulationAgent::findPath()
     if(GoalLocation.size()==0)
     {
         //dont know where to go
-//        cout<<"grow range";
+        //cout<<"grow range";
 
         SimulationRelay::incRange();
         for(int i=0; i<trueWorld.getRelays().size(); i++)

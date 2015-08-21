@@ -20,6 +20,7 @@ Deployment methods
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
 #define LOGFILE "LogFile.txt"
+#define GRIDOUT "KnownWorld.txt"
 
 #include "Simulation.h"
 
@@ -49,75 +50,62 @@ const string currentDateTime() {
     return buf;
 }
 
-int main(int argc, char* argv[]) {
 
-char x;
-	//make agent
-#ifdef Simulation
-	//cout<<"Simulation"<<endl;
-	//SimulationAgent* Robotino = new SimulationAgent();
-	SimulationAgent Robotino;
+void SaveGrid(Grid toPrint)
+{
+     ofstream GridSave(GRIDOUT, fstream::out);
+     if(GridSave.is_open())
+    {
+        GridSave<<toPrint.getLast().getRow()<<" "<<toPrint.getLast().getColumn()<<endl;
+        for(int x=0; x< toPrint.getLast().getColumn(); x++)
+        {
+            for(int y=0; y<toPrint.getLast().getRow(); y++)
+            {
+                std::vector<Content> cellContnet = toPrint[Coordinate(y,x)].getContent();
+                for(int c=0; c<cellContnet.size(); c++)
+                {
+                     switch (cellContnet[c])
+                     {
+                        case Wall:
+                            GridSave<<"W";
+                            break;
+                        case Robot:
+                            GridSave<<"R";
+                            break;
+                        case Goal:
+                            GridSave<<"G";
+                            break;
+                        case Unknown:
+                            GridSave<<"U";
+                            break;
+                        case Empty:
+                            GridSave<<"E";
+                            break;
+                        case RelayMarker:
+                            GridSave<<"M";
+                            break;
+                        case Client:
+                            GridSave<<"C";
+                            break;
+                        case Base:
+                            GridSave<<"B";
+                            break;
+                        case Jormungandr_Wall:
+                            GridSave<<"J";
+                            break;
+                     }
 
-	//read file about trueWorld and relay
-	RelativeCoordinate relativeToGoal = readfileGrid(Robotino, (string)GRIDFILE+(string)argv[1]+".txt");
-        //cout<<"rel"<<relativeToGoal<<endl;
-	Robotino.setGoal(relativeToGoal);/**using magic we find where the goal is */
+                }
+                GridSave<<" ";
+            }
+            GridSave<<endl;
+        }
 
-	readfileRelay(Robotino, (string)RELAYFILE);
+    }
+}
 
-#ifdef Show_Graphics
-	GridGUI TrueGUI = GridGUI(&Robotino.trueWorld,5, argv[2]);
-	GridGUI KnownGUI = GridGUI(&Robotino.getKnownGrid(),900,argv[2]);
-#endif
-	Robotino.lookAround();
-
-#else
-	//Agent* Robotino= new ImpementAgent();
-	ImplementationAgent Robotino;
-	//read file of just relay for agent
-	readfileRelay(Robotino, RELAYFILE);
-
-#endif
-	Robotino.defineDeploymentMethod(atoi(argv[2]));
-
-
-
- clock_t start = clock();
- 	string errorString;
-	try{
-
-	    //Agent run
-		while(!Robotino.done()) //loop until robot job is done.
-		{
-#ifdef Show_Graphics
-			TrueGUI.paint();
-
-			KnownGUI.updateSize();
-			KnownGUI.paint(true);
-			//	cin>>x;
-#endif
-			try{Robotino.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
-
-
-		}
-	}
-
-	catch(string s){ errorString=s; cout<<errorString<<endl;} //yall done goofed, lets stop
-     double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
-
-
-
-#ifdef Simulation
-	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
-#endif
-
-#ifdef Show_Graphics
-	TrueGUI.paint(true);
-	KnownGUI.updateSize();
-	KnownGUI.paint(true);
-	 cin>>x;
-#endif
-
+void Log(string errorString, string Method, double timer, Agent* iRobot, string GridString)
+{
     //print results to file
     ofstream Log(LOGFILE, fstream::app );
     if(Log.is_open())
@@ -131,21 +119,21 @@ char x;
         #endif
         Log<<errorString<<"&";
         Log<<currentDateTime()<<"&";
-        Log<<"M"<<argv[2]<<"&";//method
+        Log<<"M"<<Method<<"&";//method
         Log<<timer<<"&";
-        Log<<Robotino.Get_stepcount()<<"&";
-        for(int row=0; row<Robotino.getKnownGrid().getLast().getRow(); row++)
+        Log<<iRobot->Get_stepcount()<<"&";
+        for(int row=0; row<iRobot->getKnownGrid().getLast().getRow(); row++)
         {
-             for(int col=0; col<Robotino.getKnownGrid().getLast().getColumn(); col++)
+             for(int col=0; col<iRobot->getKnownGrid().getLast().getColumn(); col++)
              {
-                 if(Robotino.getKnownGrid()[Coordinate(row, col)].hasContent(ContentType::RelayMarker))
+                 if(iRobot->getKnownGrid()[Coordinate(row, col)].hasContent(ContentType::RelayMarker))
                     Log<<Coordinate(row, col)<<" ";
              }
         }
 
         Log<<"&";
-        Log<<argv[1]<<"&";//GRID
-        ifstream problemFile(((string)GRIDFILE+(string)argv[1]+".txt").c_str());
+        Log<<GridString<<"&";//GRID
+        ifstream problemFile(((string)GRIDFILE+GridString+".txt").c_str());
         while(problemFile.good())
         {
             char temp;
@@ -172,3 +160,88 @@ char x;
         Log.close();
     }
 }
+
+
+
+int main(int argc, char* argv[]) {
+
+char x;
+	//make agent
+#ifdef Simulation
+	//cout<<"Simulation"<<endl;
+	//SimulationAgent* iRobot = new SimulationAgent();
+	SimulationAgent iRobot;
+
+	//read file about trueWorld and relay
+	RelativeCoordinate relativeToGoal = readfileGrid(iRobot, (string)GRIDFILE+(string)argv[1]+".txt");
+        //cout<<"rel"<<relativeToGoal<<endl;
+	iRobot.setGoal(relativeToGoal);/**using magic we find where the goal is */
+
+
+
+#ifdef Show_Graphics
+	GridGUI TrueGUI = GridGUI(&iRobot.trueWorld,5, argv[2]);
+	GridGUI KnownGUI = GridGUI(&iRobot.getKnownGrid(),900,argv[2]);
+#endif
+
+
+	iRobot.lookAround();
+
+#else
+	//Agent* iRobot= new ImpementAgent();
+	ImplementAgent iRobot;
+
+	//read file of just relay for agent
+
+
+#endif
+    Agent* AgentPnt = &iRobot;
+    readfileRelay(AgentPnt, RELAYFILE);
+	iRobot.defineDeploymentMethod(atoi(argv[2]));
+
+
+    cout<<"setup done"<<endl;
+ clock_t start = clock();
+ 	string errorString;
+	try{
+
+	    //Agent run
+		while(!iRobot.done()) //loop until robot job is done.
+		{
+#ifdef Show_Graphics
+			TrueGUI.paint();
+
+			KnownGUI.updateSize();
+			KnownGUI.paint(true);
+			//	cin>>x;
+#endif
+			try{iRobot.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
+
+
+		}
+	}
+
+	catch(string s){ errorString=s; cout<<errorString<<endl;} //yall done goofed, lets stop
+     double timer = (clock()-start) / (double) CLOCKS_PER_SEC;
+
+
+
+#ifdef Simulation
+	cout<<"relay range used: "<<SimulationRelay::getRange()<<endl<<"Time Taken: "<<timer<<endl;;
+#endif
+
+#ifdef Show_Graphics
+	TrueGUI.paint(true);
+	KnownGUI.updateSize();
+	KnownGUI.paint(true);
+	 cin>>x;
+#endif
+    SaveGrid(iRobot.getKnownGrid());
+
+    Log(errorString, argv[2], timer, &iRobot, argv[1]);
+
+}
+
+
+
+

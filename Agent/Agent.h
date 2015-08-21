@@ -57,6 +57,8 @@ public:
 
     inline int Get_stepcount(){return step_count;}
 
+    void SaveGrid();
+
 protected:
 void Replan(bool all);
 
