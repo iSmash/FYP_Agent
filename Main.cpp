@@ -15,7 +15,7 @@ Deployment methods
 5  ""
 */
 
-//#define Show_Graphics
+#define Show_Graphics
 
 #define GRIDFILE "RelayTestGrid"
 #define RELAYFILE "RelayTestRelay.txt"
@@ -179,10 +179,9 @@ char x;
 
 
 
-#ifdef Show_Graphics
-	GridGUI TrueGUI = GridGUI(&iRobot.trueWorld,5, argv[2]);
-	GridGUI KnownGUI = GridGUI(&iRobot.getKnownGrid(),900,argv[2]);
-#endif
+    #ifdef Show_Graphics
+        GridGUI TrueGUI = GridGUI(&iRobot.trueWorld,5, argv[2]);
+    #endif
 
 
 	iRobot.lookAround();
@@ -190,11 +189,16 @@ char x;
 #else
 	//Agent* iRobot= new ImpementAgent();
 	ImplementAgent iRobot;
-
+    iRobot.setGoal(  RelativeCoordinate((int)argv[3], (int)argv[4]) );/**using magic we find where the goal is */
 	//read file of just relay for agent
-
+cout<<"set";
 
 #endif
+
+#ifdef Show_Graphics
+	GridGUI KnownGUI = GridGUI(&iRobot.getKnownGrid(),900,argv[2]);
+#endif
+
     Agent* AgentPnt = &iRobot;
     readfileRelay(AgentPnt, RELAYFILE);
 	iRobot.defineDeploymentMethod(atoi(argv[2]));
@@ -209,10 +213,13 @@ char x;
 		while(!iRobot.done()) //loop until robot job is done.
 		{
 #ifdef Show_Graphics
-			TrueGUI.paint();
 
-			KnownGUI.updateSize();
-			KnownGUI.paint(true);
+	#ifdef Simulation
+         TrueGUI.paint();
+    #endif
+
+	KnownGUI.updateSize();
+	KnownGUI.paint(true);
 			//	cin>>x;
 #endif
 			try{iRobot.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
@@ -231,7 +238,9 @@ char x;
 #endif
 
 #ifdef Show_Graphics
-	TrueGUI.paint(true);
+	#ifdef Simulation
+        TrueGUI.paint(true);
+    #endif
 	KnownGUI.updateSize();
 	KnownGUI.paint(true);
 	 cin>>x;

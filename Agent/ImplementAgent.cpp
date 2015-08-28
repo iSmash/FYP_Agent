@@ -22,6 +22,6 @@ bool ImplementAgent::move(Node::Direction toMove)
 //    omniDrive.setVelocity( x, y, 0 );
 }
 bool ImplementAgent::lowSignal(Coordinate CurrentLocationtemp){std::cout<<"no low signal"; return false;}
-bool ImplementAgent::done(){std::cout<<"no done"; return false;}
+bool ImplementAgent::done(){std::cout<<"no done"<<endl; return false;}
 void ImplementAgent::lookAround(){std::cout<<"no look around";}
 void ImplementAgent::evaluateRealayRange(){std::cout<<"no evaluation relay range";}

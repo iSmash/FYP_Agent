@@ -86,6 +86,8 @@
 		<Unit filename="Relay\Relay.h" />
 		<Unit filename="Relay\SimulationRelay.cpp" />
 		<Unit filename="Relay\SimulationRelay.h" />
+		<Unit filename="SerialPort.cpp" />
+		<Unit filename="SerialPort.h" />
 		<Unit filename="Simulation.h" />
 		<Extensions>
 			<code_completion />

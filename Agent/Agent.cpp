@@ -9,8 +9,8 @@ Coordinate Agent::CurrentLocation =Coordinate(0,0);
 int findFailCount=0;
 void Agent::findPath()
 {
-    //std::cout<<"current"<<CurrentLocation<<std::endl;
-    //std::cout<<"goal"<<GoalLocation.front()<<std::endl;
+    std::cout<<"current"<<CurrentLocation<<std::endl;
+    std::cout<<"goal"<<GoalLocation.front()<<std::endl;
     bool success=false;
 
 
