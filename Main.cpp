@@ -188,8 +188,12 @@ char x;
 
 #else
 	//Agent* iRobot= new ImpementAgent();
-	ImplementAgent iRobot;
-    iRobot.setGoal(  RelativeCoordinate((int)argv[3], (int)argv[4]) );/**using magic we find where the goal is */
+	char ControlPort[5];
+	readfileControl(ControlPort);
+
+	ImplementAgent iRobot(ControlPort);
+	cout<<"robot made";
+    iRobot.setGoal(  RelativeCoordinate(atoi(argv[3]), atoi(argv[4])) );/**using magic we find where the goal is */
 	//read file of just relay for agent
 cout<<"set";
 
@@ -212,18 +216,17 @@ cout<<"set";
 	    //Agent run
 		while(!iRobot.done()) //loop until robot job is done.
 		{
-#ifdef Show_Graphics
+            #ifdef Show_Graphics
 
-	#ifdef Simulation
-         TrueGUI.paint();
-    #endif
+                #ifdef Simulation
+                    TrueGUI.paint();
+                #endif
 
-	KnownGUI.updateSize();
-	KnownGUI.paint(true);
-			//	cin>>x;
-#endif
+                KnownGUI.updateSize();
+                KnownGUI.paint(true);
+                cin>>x;
+            #endif
 			try{iRobot.findPath();} catch(int easyThrow){} //nothing serius, just keep trying
-
 
 		}
 	}

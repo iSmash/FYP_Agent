@@ -145,6 +145,7 @@ Node* PathPlan::explore(Grid& grid, Node* toExplore, bool standard_explore)
 
     int DirectionCount=0;
     Node::Direction  directionToAdd[] ={Node::UpLeft, Node::Up, Node::UpRight, Node::Left, Node::Right,  Node::DownLeft, Node::Down,  Node::DownRight};
+    //Node::Direction  directionToAdd[] ={ Node::Up,  Node::Left, Node::Right,  Node::Down};
 
     Coordinate coordToTest;
     for(int i=-1; i<2; i++)

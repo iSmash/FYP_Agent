@@ -53,12 +53,12 @@ void Agent::findPath()
 
 void Agent::tryPath()
 {
-   // std::cout<<"Path is"<<std::endl;
+    //std::cout<<"Path is"<<std::endl;
 
     while(actionList.size()!=0)
     {
 
-
+        Node::printDirection(actionList.back());
         if(!move(actionList.back()))
         {
         //cout<<"but not"; Node::printDirection(actionList.back());
@@ -264,7 +264,7 @@ void Agent::ShuffleLoctions(int row, int column)
 void Agent::setGoal(RelativeCoordinate relativeToGoal)
 {
     /**using magic we find where the goal is */
-
+    cout<<relativeToGoal<<endl;
     Grid::updateSizeDirection direcion;
     if(relativeToGoal.getRow()<0)
     {

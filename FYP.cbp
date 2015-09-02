@@ -11,7 +11,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="a 7" />
+				<Option parameters="a 7 0 -10" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -89,6 +89,8 @@
 		<Unit filename="SerialPort.cpp" />
 		<Unit filename="SerialPort.h" />
 		<Unit filename="Simulation.h" />
+		<Unit filename="iRobotControl .cpp" />
+		<Unit filename="iRobotControl.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

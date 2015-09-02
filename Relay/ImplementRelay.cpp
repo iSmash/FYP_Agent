@@ -1,6 +1,6 @@
 #include "ImplementRelay.h"
 #include <iostream>
-#include <fstream>
+#include "../FileRead.h"
 #define CommFile  "ComSetting.txt"
 using namespace Relayspace;
 
@@ -12,18 +12,8 @@ using namespace std;
 
 		        if(ID==0) // all share the com port, as all go trhough arduino
                 {
-                    ifstream ComFile("ComSetting.txt");
-                    string comName;
-
-                    if(ComFile.good())
-                    {
-                        ComFile>>comName;
-                    }
-                    comName=comName.substr(0,comName.find(";"));
-                    cout<<comName;
-                    ComFile.close();
-                    char* comNameChar= new char[comName.length()+1];
-                    strcpy(comNameChar,comName.c_str());
+                    char comNameChar[5];
+                    readfileLifter(comNameChar);
                     communication= new SerialPort(comNameChar);
                     char start='0';
                     communication->Write(&start,1);

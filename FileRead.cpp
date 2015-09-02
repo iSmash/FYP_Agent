@@ -241,6 +241,39 @@ void makefile()
 }
 
 
+void readfileControl(char* ControlPort)
+{
+    ifstream ComFile("ComSetting.txt");
+    string comName;
+
+    if(ComFile.good())
+    {
+        ComFile>>comName;
+    }
+    comName=comName.substr(comName.find(";")+1,comName.size()-comName.find(";")-1);
+    //cout<<comName;
+    ComFile.close();
+    //ControlPort= new char[comName.length()+1];
+    strcpy(ControlPort,comName.c_str());
+}
+
+void readfileLifter(char* LiftPort)
+{
+    ifstream ComFile("ComSetting.txt");
+    string comName;
+
+    if(ComFile.good())
+    {
+        ComFile>>comName;
+    }
+    comName=comName.substr(0,comName.find(";"));
+    cout<<comName;
+    ComFile.close();
+
+    strcpy(LiftPort,comName.c_str());
+
+}
+
 
 
 

@@ -24,5 +24,6 @@ using namespace Agentspace;
 
 	   //randomly generate a grid to explore (still buggy, but not core)
 	   void makefile();
-
+       void readfileControl(char* ControlPort);
+       void readfileLifter(char* LiftPort);
 #endif // READIN_H
