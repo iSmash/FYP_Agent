@@ -7,6 +7,7 @@ using namespace Relayspace;
 
 ImplementAgent::ImplementAgent(char* ControlPort):Agent(),iRobot_Control(ControlPort)
 {
+    cout<<"_"<<ControlPort<<"_"<<endl;
       currentAngle=90; //must set up robot so is facing up on board
 }
 
@@ -56,11 +57,13 @@ bool ImplementAgent::move(Node::Direction toMove)
     }
     lookAround();
 
+    cout<<"Grid 'Move'"<<endl;
     bool moveOK = Agent::move(toMove); //lets see if the grid thinks its ok
 
     if(!moveOK)
         return false;
 
+    cout<<"actually move"<<endl;
     int driveReturn= iRobot_Control.driveForward();
     if(driveReturn==1)
     {
@@ -123,55 +126,77 @@ bool ImplementAgent::done(){std::cout<<"no done"<<endl; return false;}
 
 void ImplementAgent::lookAround()
 {
+    cout<<"looking around"<<endl;
     bool IRs[5];
+    cout<<CurrentLocation<<endl;
+    Agent::lookAround(CurrentLocation);
+    cout<<CurrentLocation<<endl;
     iRobot_Control.lightWall(IRs);
     if(IRs[0])
     {
         ///wall on right
+        cout<<"wall on right"<<endl;
         switch(currentAngle)
         {
             case 0:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn() )].addContent(ContentType::Wall);
+                break;
             case 180:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 90:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
             case 270:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
 
             case 45:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn() )].addContent(ContentType::Wall); ///?
+                   break;
             case 135:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);  ///?
+                   break;
             case 225:
                  knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);  ///?
+                    break;
             case 315:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);  ///?
+                   break;
         }
     }
 
-    if(IRS[1])
+    if(IRs[1])
     {
         /// right front
+       cout<<"wall in right/front"<<endl;
         switch(currentAngle)
         {
             case 0:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
             case 180:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 90:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 270:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
 
             case 45:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
             case 135:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 225:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 315:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
         }
     }
 
@@ -179,72 +204,96 @@ void ImplementAgent::lookAround()
     if(IRs[2])
     {
         ///Wall ahead
+          cout<<"wall in dead front"<<endl;
           switch(currentAngle)
         {
             case 0:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
             case 180:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 90:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 270:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
 
                 ///maybe no diagnals for this one, as it could be picking up some corners of walls or somehting?
         }
     }
 
-     if(IRS[3])
+     if(IRs[3])
     {
         /// left front
+        cout<<"wall on left/front"<<endl;
         switch(currentAngle)
         {
             case 0:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
             case 180:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 90:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 270:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
 
 
             case 45:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 135:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 225:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 315:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
         }
     }
 
     if(IRs[4])
     {
         ///Wall on left
+        cout<<"wall on left"<<endl;
           switch(currentAngle)
         {
             case 0:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 180:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 90:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 270:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
 
             case 45:
                 knownWorld[Coordinate(CurrentLocation.getRow()-1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 135:
                 knownWorld[Coordinate(CurrentLocation.getRow()+1, CurrentLocation.getColumn())].addContent(ContentType::Wall);
+                   break;
             case 225:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()-1)].addContent(ContentType::Wall);
+                   break;
             case 315:
                 knownWorld[Coordinate(CurrentLocation.getRow(), CurrentLocation.getColumn()+1)].addContent(ContentType::Wall);
+                   break;
         }
     }
     ///else no walls.
+    cout<<"looking around p done"<<endl;
 }
 
 void ImplementAgent::evaluateRealayRange(){std::cout<<"no evaluation relay range";}
