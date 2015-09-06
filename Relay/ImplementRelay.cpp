@@ -28,10 +28,8 @@ temp<<ID;
 up[0]=*temp.str().c_str();
 down[0]=*temp.str().c_str();
 
-  //  Sleep(500);
-  //  communication->Write(down,2);
-  //  Sleep(500);
-   // communication->Write(up,2);
+    Sleep(500);
+    communication->Write(up,2);
 }
 
 bool ImplementRelay::inRange(Coordinate test)

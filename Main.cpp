@@ -201,6 +201,9 @@ cout<<"set";
 
 #ifdef Show_Graphics
 	GridGUI KnownGUI = GridGUI(&iRobot.getKnownGrid(),900,argv[2]);
+	#ifndef Simulation
+        iRobot.giveGUI(&KnownGUI);
+	#endif
 #endif
 
     Agent* AgentPnt = &iRobot;

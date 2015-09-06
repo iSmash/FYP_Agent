@@ -208,7 +208,7 @@ void Agent::lookAround(Coordinate lookFrom)
         knownWorld.updateSize(Grid::top);
         //as we are push above the grid, we need to move down our knonw position
         ShuffleLoctions(1,0);
-        cout<<"up add"<<endl;
+        //cout<<"up add"<<endl;
     }
 
     //look down
@@ -218,7 +218,7 @@ void Agent::lookAround(Coordinate lookFrom)
        // std::cout<<"bot "<<knownWorld.getLast();
         knownWorld.updateSize(Grid::bottom);
        //  std::cout<<"bot "<<knownWorld.getLast();
-       cout<<"down add"<<endl;
+       //cout<<"down add"<<endl;
     }
 
 
@@ -229,7 +229,7 @@ void Agent::lookAround(Coordinate lookFrom)
         //as top as can be, so lets make more world
         //std::cout<<"right ";
         knownWorld.updateSize(Grid::right);
-        cout<<"right add"<<endl;
+        //cout<<"right add"<<endl;
     }
 
     //look left
@@ -241,7 +241,7 @@ void Agent::lookAround(Coordinate lookFrom)
         //as we are push above the grid, we need to move down our knonw position
 
         ShuffleLoctions(0,1);
-        cout<<"left add"<<endl;
+        //cout<<"left add"<<endl;
     }
 
 
@@ -415,6 +415,7 @@ bool Agent::move(Node::Direction toMove)
     if(knownWorld[CurrentLocationtemp].hasContent(ContentType::Object) )
     {
         //bad move
+        cout<<"Object in agent move"<<endl;
         return false; //last because most of the above will trigger
     }
 

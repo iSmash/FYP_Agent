@@ -27,7 +27,7 @@ public:
 
      void findPath();
 
-    void tryPath();
+   void tryPath();
 
     virtual void setRelayCount(int numberofRelays)=0; //same, but makes either implemnet, or simulation relays.
     Relay* GetRelay(int _ID);

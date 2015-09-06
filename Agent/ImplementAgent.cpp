@@ -7,8 +7,9 @@ using namespace Relayspace;
 
 ImplementAgent::ImplementAgent(char* ControlPort):Agent(),iRobot_Control(ControlPort)
 {
-    cout<<"_"<<ControlPort<<"_"<<endl;
+    //cout<<"_"<<ControlPort<<"_"<<endl;
       currentAngle=90; //must set up robot so is facing up on board
+
 }
 
 
@@ -26,6 +27,7 @@ void ImplementAgent::setRelayCount(int numberofRelays)
 
 bool ImplementAgent::move(Node::Direction toMove)
 {
+
   Coordinate oldLocation=CurrentLocation;
 
     switch(toMove)
@@ -54,46 +56,58 @@ bool ImplementAgent::move(Node::Direction toMove)
         case(Node::DownLeft):
             AdjustAngle(225);
             break;
+        case(Node::Root):
+            return true;
     }
     lookAround();
 
-    cout<<"Grid 'Move'"<<endl;
+    //cout<<"Grid 'Move'"<<endl;
     bool moveOK = Agent::move(toMove); //lets see if the grid thinks its ok
 
     if(!moveOK)
         return false;
 
-    cout<<"actually move"<<endl;
+   // cout<<"actually move"<<endl;
     int driveReturn= iRobot_Control.driveForward();
     if(driveReturn==1)
     {
          cout<<"bump right"<<endl;
          knownWorld[CurrentLocation].addContent(ContentType::Wall);
         CurrentLocation=oldLocation;
+        moveOK=false;
     }
     else if(driveReturn==2)
     {
         cout<<"bump left"<<endl; /// should we treat these different bumpers differently?
         knownWorld[CurrentLocation].addContent(ContentType::Wall);
         CurrentLocation=oldLocation;
+        moveOK=false;
     }
     else if(driveReturn==3)
     {
         cout<<"bump front"<<endl;
         knownWorld[CurrentLocation].addContent(ContentType::Wall);
         CurrentLocation=oldLocation;
+        moveOK=false;
     }
      else if(driveReturn==4)
     {
         cout<<"IR found wall"<<endl;
         knownWorld[CurrentLocation].addContent(ContentType::Wall);
         CurrentLocation=oldLocation;
+        moveOK=false;
     }
     else
     {
         lookAround();
     }
+
+    knownWorld[CurrentLocation].addContent(ContentType::Robot);
+    GUI->updateSize();
+    GUI->paint(false);
+
     return moveOK;
+
 }
 
 void ImplementAgent::AdjustAngle(int newAngle)
@@ -108,12 +122,12 @@ void ImplementAgent::AdjustAngle(int newAngle)
 
     if(AngleDif>0)
     {
-        cout<<"turn anticlock "<<AngleDif<<endl;
+        //cout<<"turn anticlock "<<AngleDif<<endl;
         iRobot_Control.spinAntiClock(AngleDif);
     }
     else
     {
-        cout<<"turn clock" <<abs(AngleDif)<<endl;
+        //cout<<"turn clock" <<abs(AngleDif)<<endl;
         iRobot_Control.spinClock(abs(AngleDif));
     }
 
@@ -126,16 +140,14 @@ bool ImplementAgent::done(){std::cout<<"no done"<<endl; return false;}
 
 void ImplementAgent::lookAround()
 {
-    cout<<"looking around"<<endl;
+    //cout<<"looking around"<<endl;
     bool IRs[5];
-    cout<<CurrentLocation<<endl;
     Agent::lookAround(CurrentLocation);
-    cout<<CurrentLocation<<endl;
     iRobot_Control.lightWall(IRs);
     if(IRs[0])
     {
         ///wall on right
-        cout<<"wall on right"<<endl;
+       // cout<<"wall on right"<<endl;
         switch(currentAngle)
         {
             case 0:
@@ -166,10 +178,12 @@ void ImplementAgent::lookAround()
         }
     }
 
+
+/*
     if(IRs[1])
     {
         /// right front
-       cout<<"wall in right/front"<<endl;
+       //cout<<"wall in right/front"<<endl;
         switch(currentAngle)
         {
             case 0:
@@ -199,12 +213,14 @@ void ImplementAgent::lookAround()
                    break;
         }
     }
+*/
 
 
-    if(IRs[2])
+
+    if(IRs[2] || IRs[1] || IRs[3] )
     {
         ///Wall ahead
-          cout<<"wall in dead front"<<endl;
+          //cout<<"wall in dead front"<<endl;
           switch(currentAngle)
         {
             case 0:
@@ -224,10 +240,11 @@ void ImplementAgent::lookAround()
         }
     }
 
+/*
      if(IRs[3])
     {
         /// left front
-        cout<<"wall on left/front"<<endl;
+        //cout<<"wall on left/front"<<endl;
         switch(currentAngle)
         {
             case 0:
@@ -258,11 +275,13 @@ void ImplementAgent::lookAround()
                    break;
         }
     }
+    */
+
 
     if(IRs[4])
     {
         ///Wall on left
-        cout<<"wall on left"<<endl;
+        //cout<<"wall on left"<<endl;
           switch(currentAngle)
         {
             case 0:
@@ -292,8 +311,7 @@ void ImplementAgent::lookAround()
                    break;
         }
     }
-    ///else no walls.
-    cout<<"looking around p done"<<endl;
+
 }
 
 void ImplementAgent::evaluateRealayRange(){std::cout<<"no evaluation relay range";}

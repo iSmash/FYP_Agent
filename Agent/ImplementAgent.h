@@ -2,6 +2,7 @@
 #define IMPLAMENTAGENT_H
 #include "Agent.h"
 #include "../iRobotControl.h"
+#include "../GUI/GridGUI.h"
 
 namespace Agentspace{
 
@@ -13,10 +14,13 @@ public:
 	inline bool done();
 
 	void setRelayCount(int numberofRelays);
+    void tryPath();
 
 	bool inRange(Coordinate test);
+    inline void giveGUI(GridGUI* _GUI){GUI=_GUI;}
 
 private:
+
 	inline void PlaceRelay(int _ID, Coordinate whereToPlace){
 		//physical shit;
 		Agent::PlaceRelay(_ID,whereToPlace);
@@ -32,6 +36,7 @@ private:
     void evaluateRealayRange();
     iRobotControl iRobot_Control;
     int currentAngle;
+    GridGUI* GUI;
 };
 }
 #endif
